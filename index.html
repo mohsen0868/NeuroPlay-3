@@ -1,13 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroCognitive | نسخه ۰٫۳</title>
-<div class="developer-credit">Developed by M. Khoshroo</div>
- 
+<title>NeuroCognitive | نسخه ۰٫۴</title>
+
 <style>
-:root {
+:root{
   --blue:#245b83;
   --light:#eef5f8;
   --green:#26866e;
@@ -17,54 +17,37 @@
 }
 *{box-sizing:border-box}
 body{
-  margin:0;
-  background:#f3f6f8;
-  color:var(--text);
-  font-family:Tahoma,Arial,sans-serif;
-  line-height:1.8;
+  margin:0;background:#f3f6f8;color:var(--text);
+  font-family:Tahoma,Arial,sans-serif;line-height:1.8;
 }
 header{
   background:linear-gradient(120deg,#194b70,#27816f);
-  color:white;
-  padding:22px 16px;
-  text-align:center;
+  color:white;padding:22px 16px;text-align:center;
 }
 header h1{margin:0;font-size:25px}
-header p{margin:5px 0 0;font-size:13px;opacity:.9}
-main{max-width:1000px;margin:20px auto;padding:0 12px}
+header p{margin:5px 0;font-size:13px}
+header small{opacity:.85}
+.developer-credit{font-size:11px;opacity:.85;margin-top:8px}
+main{max-width:1050px;margin:20px auto;padding:0 12px}
 .card{
-  background:white;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 3px 14px #18364b12;
+  background:white;border-radius:14px;padding:18px;
+  margin-bottom:16px;box-shadow:0 3px 14px #18364b12;
 }
 h2{font-size:18px;color:var(--blue);margin-top:0}
 h3{font-size:15px}
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
   gap:12px;
 }
 label{display:block;font-size:13px;margin-bottom:5px}
 input,select,textarea{
-  width:100%;
-  padding:11px;
-  border:1px solid #ccd7de;
-  border-radius:8px;
-  font-family:inherit;
-  background:white;
-  font-size:14px;
+  width:100%;padding:11px;border:1px solid #ccd7de;
+  border-radius:8px;font-family:inherit;background:white;font-size:14px;
 }
 button{
-  border:0;
-  border-radius:8px;
-  padding:10px 15px;
-  background:var(--blue);
-  color:white;
-  font-family:inherit;
-  cursor:pointer;
-  margin:4px 2px;
+  border:0;border-radius:8px;padding:10px 15px;
+  background:var(--blue);color:white;font-family:inherit;
+  cursor:pointer;margin:4px 2px;
 }
 button.green{background:var(--green)}
 button.orange{background:var(--orange);color:#263238}
@@ -73,11 +56,8 @@ button.gray{background:#667783}
 button:disabled{opacity:.45;cursor:not-allowed}
 .small{font-size:12px;color:#667783}
 .notice{
-  background:#fff7e9;
-  border-right:4px solid var(--orange);
-  padding:10px;
-  border-radius:7px;
-  font-size:13px;
+  background:#fff7e9;border-right:4px solid var(--orange);
+  padding:10px;border-radius:7px;font-size:13px;margin:12px 0;
 }
 .tabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:15px}
 .tabs button{background:#dfe9ef;color:#24465d}
@@ -89,46 +69,40 @@ th,td{padding:9px;border-bottom:1px solid #e6ecef;text-align:right}
 th{background:#eef4f7}
 .tablewrap{overflow-x:auto}
 .statgrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));
   gap:10px;
 }
 .stat{
-  background:var(--light);
-  border-radius:10px;
-  padding:13px;
-  text-align:center;
+  background:var(--light);border-radius:10px;
+  padding:13px;text-align:center;
 }
 .stat strong{display:block;font-size:22px;color:var(--blue)}
-#stimulus{
-  min-height:170px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:76px;
-  font-weight:bold;
-  background:#f1f5f7;
-  border-radius:12px;
-  margin:15px 0;
-}
-#taskArea{display:none}
 .progress{
   height:9px;background:#e5ebef;border-radius:10px;overflow:hidden;
 }
-#progressBar{height:100%;width:0;background:var(--green)}
-footer{text-align:center;padding:20px;color:#71808a;font-size:11px}
+.progress div{height:100%;width:0;background:var(--green)}
+#stimulus{
+  min-height:150px;display:flex;align-items:center;justify-content:center;
+  font-size:76px;font-weight:bold;background:#f1f5f7;
+  border-radius:12px;margin:15px 0;
+}
+#digitStimulus{
+  min-height:130px;display:flex;align-items:center;justify-content:center;
+  font-size:30px;font-weight:bold;background:#f1f5f7;
+  border-radius:12px;margin:15px 0;text-align:center;padding:15px;
+}
+.task-actions{text-align:center}
 .hidden{display:none!important}
-
+footer{text-align:center;padding:20px;color:#71808a;font-size:11px}
+hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 #reportContent p{margin:5px 0}
 #reportContent h4{margin-bottom:5px;color:var(--blue)}
 #reportContent ul{padding-right:22px}
-#reportContent li{margin-bottom:5px}
-
 @media(max-width:600px){
   header h1{font-size:22px}
   .card{padding:13px}
   button{font-size:12px}
-  #stimulus{min-height:140px;font-size:65px}
+  #stimulus{min-height:120px;font-size:60px}
 }
 </style>
 </head>
@@ -138,25 +112,17 @@ footer{text-align:center;padding:20px;color:#71808a;font-size:11px}
 <header>
   <h1>NeuroCognitive</h1>
   <p>سامانه مدیریت آزمودنی‌ها، جلسات و ارزیابی شناختی</p>
-  <small>نسخه ۰٫۳ | Research Edition</small>
+  <small>نسخه ۰٫۴ | Research Edition</small>
+  <div class="developer-credit">Developed by M. Khoshroo</div>
 </header>
 
 <main>
 
 <div class="card">
   <div class="statgrid">
-    <div class="stat">
-      <strong id="countParticipants">۰</strong>
-      آزمودنی
-    </div>
-    <div class="stat">
-      <strong id="countSessions">۰</strong>
-      جلسه
-    </div>
-    <div class="stat">
-      <strong id="countTests">۰</strong>
-      آزمون ثبت‌شده
-    </div>
+    <div class="stat"><strong id="countParticipants">۰</strong>آزمودنی</div>
+    <div class="stat"><strong id="countSessions">۰</strong>جلسه</div>
+    <div class="stat"><strong id="countTests">۰</strong>آزمون ثبت‌شده</div>
   </div>
 </div>
 
@@ -164,2072 +130,1381 @@ footer{text-align:center;padding:20px;color:#71808a;font-size:11px}
   <button class="active" data-tab="participants">آزمودنی‌ها</button>
   <button data-tab="sessions">جلسات</button>
   <button data-tab="attention">آزمون توجه</button>
+  <button data-tab="digitspan">Digit Span</button>
   <button data-tab="records">سوابق</button>
   <button data-tab="backup">پشتیبان‌گیری</button>
 </div>
 
-
 <!-- آزمودنی‌ها -->
 <section id="participants" class="panel active">
-
   <div class="card">
     <h2>ثبت آزمودنی جدید</h2>
-
     <div class="grid">
       <div>
         <label>کد آزمودنی</label>
         <input id="pCode" placeholder="مثلاً P001">
       </div>
-
       <div>
         <label>سن (سال)</label>
         <input id="pAge" type="number" min="1" max="100">
       </div>
-
       <div>
         <label>جنسیت</label>
         <select id="pGender">
           <option value="">انتخاب کنید</option>
-          <option value="دختر">دختر</option>
-          <option value="پسر">پسر</option>
-          <option value="زن">زن</option>
-          <option value="مرد">مرد</option>
-          <option value="ثبت نشده">ثبت نشده</option>
+          <option>دختر</option>
+          <option>پسر</option>
+          <option>زن</option>
+          <option>مرد</option>
+          <option>ثبت نشده</option>
         </select>
       </div>
-
       <div>
-        <label>توضیحات (اختیاری)</label>
-        <input id="pNote" placeholder="توضیح غیرهویتی">
+        <label>توضیحات غیرهویتی</label>
+        <input id="pNote" placeholder="توضیح اختیاری">
       </div>
     </div>
-
     <button class="green" onclick="addParticipant()">ثبت آزمودنی</button>
     <div id="participantMessage" class="small"></div>
   </div>
 
   <div class="card">
     <h2>فهرست آزمودنی‌ها</h2>
-
     <div class="tablewrap">
       <table>
-        <thead>
-          <tr>
-            <th>کد</th>
-            <th>سن</th>
-            <th>جنسیت</th>
-            <th>عملیات</th>
-          </tr>
-        </thead>
+        <thead><tr><th>کد</th><th>سن</th><th>جنسیت</th><th>عملیات</th></tr></thead>
         <tbody id="participantsTable"></tbody>
       </table>
     </div>
   </div>
-
 </section>
-
 
 <!-- جلسات -->
 <section id="sessions" class="panel">
-
   <div class="card">
     <h2>ایجاد جلسه جدید</h2>
-
     <div class="grid">
       <div>
         <label>آزمودنی</label>
         <select id="sessionParticipant"></select>
       </div>
-
       <div>
         <label>شماره جلسه</label>
         <input id="sessionNumber" type="number" min="1" value="1">
       </div>
-
       <div>
         <label>تاریخ</label>
         <input id="sessionDate" type="date">
       </div>
-
       <div>
         <label>توضیحات</label>
         <input id="sessionNote" placeholder="توضیح جلسه">
       </div>
     </div>
-
     <button class="green" onclick="addSession()">ثبت جلسه</button>
     <p id="sessionMessage" class="small"></p>
   </div>
 
   <div class="card">
     <h2>فهرست جلسات</h2>
-
     <div class="tablewrap">
       <table>
-        <thead>
-          <tr>
-            <th>آزمودنی</th>
-            <th>جلسه</th>
-            <th>تاریخ</th>
-            <th>عملیات</th>
-          </tr>
-        </thead>
+        <thead><tr><th>آزمودنی</th><th>جلسه</th><th>تاریخ</th><th>عملیات</th></tr></thead>
         <tbody id="sessionsTable"></tbody>
       </table>
     </div>
   </div>
-
 </section>
-
 
 <!-- آزمون توجه -->
 <section id="attention" class="panel">
-
   <div class="card">
     <h2>آزمون نمونه توجه انتخابی</h2>
-
     <div class="notice">
       دستورالعمل: هرگاه عدد ۳ را دیدید، دکمه «پاسخ» را فشار دهید.
       در سایر موارد پاسخی ندهید.
     </div>
-
     <div class="grid">
       <div>
         <label>آزمودنی</label>
         <select id="testParticipant" onchange="updateTestSessions()"></select>
       </div>
-
       <div>
         <label>جلسه</label>
         <select id="testSession"></select>
       </div>
     </div>
+    <button class="green" id="startButton" onclick="startAttentionTest()">شروع آزمون</button>
 
-    <button class="green" id="startButton" onclick="startTest()">شروع آزمون</button>
-
-    <div id="taskArea">
-
-      <div class="progress">
-        <div id="progressBar"></div>
-      </div>
-
+    <div id="taskArea" class="hidden">
+      <div class="progress"><div id="progressBar"></div></div>
       <p id="trialInfo" class="small"></p>
-
       <div id="stimulus">آماده؟</div>
-
-      <div style="text-align:center">
-        <button
-          class="orange"
-          style="font-size:20px;padding:15px 35px"
-          id="responseButton"
-          onclick="respond()"
-          disabled>
-          پاسخ
-        </button>
+      <div class="task-actions">
+        <button class="orange" style="font-size:20px;padding:15px 35px"
+          id="responseButton" onclick="respondAttention()" disabled>پاسخ</button>
       </div>
-
       <p id="taskMessage" class="small"></p>
-
     </div>
-
     <div id="testResult" class="hidden"></div>
   </div>
-
 </section>
 
+<!-- Digit Span -->
+<section id="digitspan" class="panel">
+  <div class="card">
+    <h2>آزمون فراخنای ارقام (Digit Span)</h2>
+
+    <div class="notice">
+      در بخش مستقیم، آزمودنی باید ارقام را به همان ترتیب ارائه‌شده تکرار کند.
+      در بخش معکوس، باید ترتیب ارقام را برعکس کند.
+      پاسخ‌ها توسط ارزیاب ثبت می‌شوند.
+    </div>
+
+    <div class="notice">
+      این پیاده‌سازی از صدای گفتاری مرورگر استفاده می‌کند. نوع صدا و کیفیت
+      تلفظ ممکن است با دستگاه و مرورگر تغییر کند؛ بنابراین فعلاً برای
+      اجرای آزمایشی و پایلوت مناسب است، نه اجرای استاندارد نهایی پژوهش.
+    </div>
+
+    <div class="grid">
+      <div>
+        <label>آزمودنی</label>
+        <select id="digitParticipant" onchange="updateDigitSessions()"></select>
+      </div>
+      <div>
+        <label>جلسه</label>
+        <select id="digitSession"></select>
+      </div>
+      <div>
+        <label>نوع اجرا</label>
+        <select id="digitMode">
+          <option value="forward">مستقیم (Forward)</option>
+          <option value="backward">معکوس (Backward)</option>
+          <option value="both">هر دو بخش</option>
+        </select>
+      </div>
+      <div>
+        <label>فاصله بین ارقام (میلی‌ثانیه)</label>
+        <input id="digitInterval" type="number" min="300" max="3000" value="1000">
+      </div>
+      <div>
+        <label>سرعت گفتار</label>
+        <input id="digitRate" type="number" min="0.5" max="1.5" step="0.1" value="0.85">
+      </div>
+      <div>
+        <label>حداکثر طول توالی</label>
+        <input id="digitMaxLength" type="number" min="3" max="12" value="9">
+      </div>
+    </div>
+
+    <button class="green" id="digitStartButton" onclick="startDigitSpan()">شروع Digit Span</button>
+
+    <div id="digitTaskArea" class="hidden">
+      <hr>
+      <div class="progress"><div id="digitProgressBar"></div></div>
+      <p id="digitInstruction" class="small"></p>
+      <div class="statgrid">
+        <div class="stat"><strong id="digitModeLabel">-</strong>بخش آزمون</div>
+        <div class="stat"><strong id="digitLengthLabel">-</strong>طول توالی</div>
+        <div class="stat"><strong id="digitTrialLabel">-</strong>کوشش</div>
+      </div>
+
+      <div id="digitStimulus">برای شروع آماده باشید</div>
+
+      <div id="digitResponseArea" class="hidden">
+        <label for="digitResponse">پاسخ آزمودنی را وارد کنید</label>
+        <input id="digitResponse" inputmode="numeric"
+          placeholder="مثلاً ۲ ۵ ۸">
+        <div class="task-actions">
+          <button class="green" onclick="submitDigitResponse()">ثبت پاسخ</button>
+          <button class="orange" onclick="omitDigitResponse()">بدون پاسخ</button>
+        </div>
+      </div>
+
+      <p id="digitFeedback" class="small"></p>
+      <div class="task-actions">
+        <button class="gray" id="digitCancelButton" onclick="cancelDigitSpan()">لغو آزمون</button>
+      </div>
+    </div>
+
+    <div id="digitResult" class="hidden"></div>
+  </div>
+</section>
 
 <!-- سوابق -->
 <section id="records" class="panel">
-
   <div class="card">
     <h2>سوابق آزمون‌ها</h2>
-
     <div class="tablewrap">
       <table>
         <thead>
           <tr>
-            <th>آزمودنی</th>
-            <th>جلسه</th>
-            <th>تاریخ</th>
-            <th>درست</th>
-            <th>خطا</th>
-            <th>از دست‌رفته</th>
-            <th>دقت</th>
+            <th>آزمودنی</th><th>جلسه</th><th>تاریخ</th>
+            <th>آزمون</th><th>درست</th><th>خطا</th>
+            <th>حذف</th><th>دقت</th>
           </tr>
         </thead>
-
         <tbody id="recordsTable"></tbody>
       </table>
     </div>
   </div>
-
 </section>
-
 
 <!-- پشتیبان‌گیری -->
 <section id="backup" class="panel">
-
   <div class="card">
-
     <h2>پشتیبان‌گیری و بازیابی اطلاعات</h2>
-
     <p class="small">
       برای نگهداری اطلاعات، فایل پشتیبان JSON را در محل امن ذخیره کنید.
     </p>
-
-    <button class="green" onclick="exportJSON()">
-      دریافت پشتیبان JSON
-    </button>
-
-    <button onclick="exportCSV()">
-      خروجی نتایج CSV
-    </button>
+    <button class="green" onclick="exportJSON()">دریافت پشتیبان JSON</button>
+    <button onclick="exportSummaryCSV()">خروجی خلاصه نتایج CSV</button>
+    <button onclick="exportTrialCSV()">خروجی داده‌های کوشش‌ها CSV</button>
 
     <hr>
-
     <h3>بازیابی اطلاعات از فایل پشتیبان</h3>
-
     <label>انتخاب فایل JSON</label>
-    <input
-      type="file"
-      id="importFile"
-      accept=".json,application/json"
-    >
+    <input type="file" id="importFile" accept=".json,application/json">
 
     <div class="notice">
-      پیش از هر عملیات بازیابی، از اطلاعات فعلی نسخه پشتیبان تهیه می‌شود.
-      نسخه پشتیبان در حافظه مرورگر ذخیره شده و دانلود آن نیز آغاز می‌شود.
+      پیش از بازیابی، برنامه تلاش می‌کند از اطلاعات فعلی نسخه پشتیبان تهیه کند.
+      با این حال، بهتر است قبل از بازیابی، خودتان نیز فایل JSON دریافت کنید.
     </div>
 
     <button class="orange" onclick="importJSON('replace')">
-      بازیابی کامل (جایگزینی اطلاعات فعلی)
+      بازیابی کامل (جایگزینی)
     </button>
-
     <button class="green" onclick="importJSON('merge')">
       ادغام با اطلاعات فعلی
     </button>
 
-    <div
-      id="importReport"
-      class="hidden"
+    <div id="importReport" class="hidden"
       style="margin-top:18px;padding:14px;background:#eef5f8;border-radius:10px">
-
       <div id="reportContent"></div>
-
     </div>
 
     <hr>
-
     <p class="notice">
-      اطلاعات این نسخه در مرورگر فعلی ذخیره می‌شود.
-      برای انتقال اطلاعات به دستگاه دیگر باید فایل پشتیبان را
-      دریافت و در دستگاه مقصد بازیابی کنید.
+      اطلاعات در حافظه مرورگر همین دستگاه ذخیره می‌شوند.
+      برای انتقال به دستگاه دیگر باید فایل JSON را دریافت و در دستگاه مقصد بازیابی کنید.
     </p>
-
   </div>
-
 </section>
 
 </main>
 
 <footer>
-  NeuroCognitive Research Edition — ابزار نمونه پژوهشی، نه آزمون تشخیصی استاندارد
+  © 2026 M. Khoshroo | NeuroCognitive Research Edition
+  <br>
+  ابزار نمونه پژوهشی؛ نتایج آن به‌تنهایی مبنای تشخیص بالینی یا تفسیر هنجاری نیست.
 </footer>
 
-
 <script>
-
 // ========================================
-// 1. تنظیمات و پایگاه داده
+// 1. پایگاه داده و تنظیمات
 // ========================================
 
 const DBKEY = "neurocognitive_v02";
 const OLDKEY = "neurocognitive_results_v1";
 const PREBACKUP_KEY = "neurocognitive_preimport_backup";
 
-let db = {
-  participants: [],
-  sessions: [],
-  tests: []
-};
+let db = {participants:[],sessions:[],tests:[]};
 
-let trialList = [];
-let trialIndex = 0;
-let trialStart = 0;
-let trialActive = false;
-let testData = null;
-let timer = null;
-
-
-// ========================================
-// 2. توابع عمومی
-// ========================================
+let attentionState = null;
+let digitState = null;
+let attentionTimer = null;
 
 function uid(){
-  return "id_" + Date.now() + "_" +
-    Math.random().toString(36).slice(2,8);
+  return "id_" + Date.now() + "_" + Math.random().toString(36).slice(2,8);
 }
-
 function today(){
-  return new Date().toISOString().slice(0,10);
+  const d = new Date();
+  const offset = d.getTimezoneOffset();
+  return new Date(d.getTime()-offset*60000).toISOString().slice(0,10);
 }
-
 function faNumber(n){
   return Number(n || 0).toLocaleString("fa-IR");
 }
-
 function escapeHTML(value){
   return String(value ?? "").replace(/[&<>"']/g,c=>({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[c]);
 }
-
 function save(){
-  localStorage.setItem(DBKEY, JSON.stringify(db));
+  localStorage.setItem(DBKEY,JSON.stringify(db));
   renderAll();
 }
-
+function downloadFile(name,content,type){
+  const blob = new Blob([content],{type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href=url;
+  a.download=name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
 
 // ========================================
-// 3. بارگذاری اطلاعات
+// 2. بارگذاری و مهاجرت اطلاعات قبلی
 // ========================================
 
 function load(){
-
   try{
-
-    const saved = localStorage.getItem(DBKEY);
-
+    const saved=localStorage.getItem(DBKEY);
     if(saved){
-
-      const parsed = JSON.parse(saved);
-
-      db = {
-        participants: Array.isArray(parsed.participants)
-          ? parsed.participants : [],
-
-        sessions: Array.isArray(parsed.sessions)
-          ? parsed.sessions : [],
-
-        tests: Array.isArray(parsed.tests)
-          ? parsed.tests : []
+      const parsed=JSON.parse(saved);
+      db={
+        participants:Array.isArray(parsed.participants)?parsed.participants:[],
+        sessions:Array.isArray(parsed.sessions)?parsed.sessions:[],
+        tests:Array.isArray(parsed.tests)?parsed.tests:[]
       };
     }
-
   }catch(e){
-
     alert("خطا در خواندن اطلاعات ذخیره‌شده.");
-
   }
-
-
-  // انتقال نتایج نسخه قبلی
 
   if(!db.tests.length && localStorage.getItem(OLDKEY)){
-
     try{
-
-      const old = JSON.parse(localStorage.getItem(OLDKEY));
-
+      const old=JSON.parse(localStorage.getItem(OLDKEY));
       if(Array.isArray(old)){
-
         old.forEach(item=>{
-
-          const code = String(
-            item.code || item.participantCode || "LEGACY"
-          );
-
-          let p = db.participants.find(x=>x.code===code);
-
+          const code=String(item.code||item.participantCode||"LEGACY");
+          let p=db.participants.find(x=>x.code===code);
           if(!p){
-
-            p = {
-              id:uid(),
-              code,
-              age:"",
-              gender:"ثبت نشده",
-              note:"انتقال از نسخه قبلی"
-            };
-
+            p={id:uid(),code,age:"",gender:"ثبت نشده",note:"انتقال از نسخه قبلی"};
             db.participants.push(p);
           }
-
-          let s = db.sessions.find(x=>x.participantId===p.id);
-
+          let s=db.sessions.find(x=>x.participantId===p.id);
           if(!s){
-
-            s = {
-              id:uid(),
-              participantId:p.id,
-              number:1,
-              date:today(),
-              note:"جلسه منتقل‌شده"
-            };
-
+            s={id:uid(),participantId:p.id,number:1,date:today(),note:"جلسه منتقل‌شده"};
             db.sessions.push(s);
           }
-
           db.tests.push({
-            id:uid(),
-            participantId:p.id,
-            sessionId:s.id,
-            date:item.date || item.timestamp || new Date().toISOString(),
+            id:uid(),participantId:p.id,sessionId:s.id,
+            date:item.date||item.timestamp||new Date().toISOString(),
             task:"آزمون توجه نسخه قبلی",
-            correct:Number(item.hits ?? item.correct ?? 0),
-            falseAlarms:Number(item.falseAlarms ?? 0),
-            misses:Number(item.misses ?? 0),
-            accuracy:Number(item.accuracy ?? 0),
-            meanRT:Number(item.meanRT ?? item.averageRT ?? 0),
+            correct:Number(item.hits??item.correct??0),
+            falseAlarms:Number(item.falseAlarms??0),
+            misses:Number(item.misses??0),
+            accuracy:Number(item.accuracy??0),
+            meanRT:Number(item.meanRT??item.averageRT??0),
             migrated:true
           });
-
         });
-
         localStorage.setItem(DBKEY,JSON.stringify(db));
       }
-
     }catch(e){}
-
   }
-
   renderAll();
 }
 
-
 // ========================================
-// 4. مدیریت تب‌ها
+// 3. تب‌ها
 // ========================================
 
 function showTab(id){
-
-  document.querySelectorAll(".panel")
-    .forEach(x=>x.classList.remove("active"));
-
-  document.querySelectorAll(".tabs button")
-    .forEach(x=>x.classList.remove("active"));
-
+  document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-
-  document.querySelector(
-    '[data-tab="'+id+'"]'
-  ).classList.add("active");
+  const btn=document.querySelector('[data-tab="'+id+'"]');
+  if(btn)btn.classList.add("active");
 }
-
 document.querySelectorAll(".tabs button").forEach(btn=>{
-
-  btn.addEventListener("click",()=>{
-    showTab(btn.dataset.tab);
-  });
-
+  btn.addEventListener("click",()=>showTab(btn.dataset.tab));
 });
 
-
 // ========================================
-// 5. مدیریت آزمودنی‌ها
+// 4. آزمودنی‌ها
 // ========================================
 
 function addParticipant(){
+  const code=document.getElementById("pCode").value.trim();
+  const age=document.getElementById("pAge").value;
+  const gender=document.getElementById("pGender").value||"ثبت نشده";
+  const note=document.getElementById("pNote").value.trim();
 
-  const code = document.getElementById("pCode").value.trim();
-  const age = document.getElementById("pAge").value;
+  if(!code)return alert("کد آزمودنی را وارد کنید.");
+  if(db.participants.some(p=>String(p.code).toLowerCase()===code.toLowerCase()))
+    return alert("این کد قبلاً ثبت شده است.");
 
-  const gender =
-    document.getElementById("pGender").value || "ثبت نشده";
-
-  const note = document.getElementById("pNote").value.trim();
-
-  if(!code){
-    alert("کد آزمودنی را وارد کنید.");
-    return;
-  }
-
-  if(db.participants.some(p=>
-    String(p.code).toLowerCase()===code.toLowerCase()
-  )){
-    alert("این کد قبلاً ثبت شده است.");
-    return;
-  }
-
-  db.participants.push({
-    id:uid(),
-    code,
-    age,
-    gender,
-    note
-  });
-
-  document.getElementById("pCode").value="";
-  document.getElementById("pAge").value="";
-  document.getElementById("pGender").value="";
-  document.getElementById("pNote").value="";
-
-  document.getElementById("participantMessage").textContent =
-    "آزمودنی ثبت شد.";
-
+  db.participants.push({id:uid(),code,age,gender,note});
+  ["pCode","pAge","pGender","pNote"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("participantMessage").textContent="آزمودنی ثبت شد.";
   save();
 }
-
 
 function editParticipant(id){
-
-  const p = db.participants.find(x=>x.id===id);
-
+  const p=db.participants.find(x=>x.id===id);
   if(!p)return;
-
-  const code = prompt("کد آزمودنی:",p.code);
-
+  const code=prompt("کد آزمودنی:",p.code);
   if(code===null)return;
-
-  if(!code.trim()){
-    return alert("کد نمی‌تواند خالی باشد.");
-  }
-
-  const duplicate = db.participants.find(x=>
-    x.id!==id &&
-    String(x.code).toLowerCase()===code.trim().toLowerCase()
-  );
-
-  if(duplicate){
+  if(!code.trim())return alert("کد نمی‌تواند خالی باشد.");
+  if(db.participants.some(x=>x.id!==id&&String(x.code).toLowerCase()===code.trim().toLowerCase()))
     return alert("این کد برای آزمودنی دیگری ثبت شده است.");
-  }
-
-  const age = prompt("سن:",p.age);
-
+  const age=prompt("سن:",p.age);
   if(age===null)return;
-
-  p.code=code.trim();
-  p.age=age;
-
+  p.code=code.trim();p.age=age;
   save();
 }
-
 
 function deleteParticipant(id){
-
-  const p=db.participants.find(x=>x.id===id);
-
-  if(!p)return;
-
-  if(!confirm(
-    "آزمودنی و جلسات او حذف شوند؟ نتایج آزمون‌های مرتبط نیز حذف می‌شوند."
-  ))return;
-
+  if(!confirm("آزمودنی و تمام جلسات و نتایج مرتبط حذف شوند؟"))return;
   db.tests=db.tests.filter(t=>t.participantId!==id);
-
   db.sessions=db.sessions.filter(s=>s.participantId!==id);
-
-  db.participants=db.participants.filter(x=>x.id!==id);
-
+  db.participants=db.participants.filter(p=>p.id!==id);
   save();
 }
 
-
 // ========================================
-// 6. مدیریت جلسات
+// 5. جلسات
 // ========================================
 
 function addSession(){
+  const participantId=document.getElementById("sessionParticipant").value;
+  const number=document.getElementById("sessionNumber").value;
+  const date=document.getElementById("sessionDate").value||today();
+  const note=document.getElementById("sessionNote").value.trim();
 
-  const participantId =
-    document.getElementById("sessionParticipant").value;
+  if(!participantId)return alert("ابتدا یک آزمودنی انتخاب کنید.");
+  if(!number||Number(number)<1)return alert("شماره جلسه معتبر نیست.");
 
-  const number =
-    document.getElementById("sessionNumber").value;
-
-  const date =
-    document.getElementById("sessionDate").value || today();
-
-  const note =
-    document.getElementById("sessionNote").value.trim();
-
-  if(!participantId){
-    return alert("ابتدا یک آزمودنی ثبت کنید.");
-  }
-
-  db.sessions.push({
-    id:uid(),
-    participantId,
-    number,
-    date,
-    note
-  });
-
-  document.getElementById("sessionMessage").textContent =
-    "جلسه ثبت شد.";
-
+  db.sessions.push({id:uid(),participantId,number,date,note});
+  document.getElementById("sessionMessage").textContent="جلسه ثبت شد.";
   save();
 }
-
 
 function deleteSession(id){
-
-  if(db.tests.some(t=>t.sessionId===id)){
-    return alert(
-      "این جلسه دارای نتیجه آزمون است و برای حفظ سوابق حذف نمی‌شود."
-    );
-  }
-
+  if(db.tests.some(t=>t.sessionId===id))
+    return alert("این جلسه دارای نتیجه آزمون است و حذف نمی‌شود.");
   if(!confirm("جلسه حذف شود؟"))return;
-
   db.sessions=db.sessions.filter(s=>s.id!==id);
-
   save();
 }
 
+// ========================================
+// 6. نمایش داده‌ها
+// ========================================
 
-// ========================================
-// 7. نمایش اطلاعات
-// ========================================
+function participantOptions(){
+  return '<option value="">انتخاب آزمودنی</option>'+
+    db.participants.map(p=>
+      `<option value="${escapeHTML(p.id)}">${escapeHTML(p.code)}</option>`
+    ).join("");
+}
 
 function renderAll(){
+  document.getElementById("countParticipants").textContent=faNumber(db.participants.length);
+  document.getElementById("countSessions").textContent=faNumber(db.sessions.length);
+  document.getElementById("countTests").textContent=faNumber(db.tests.length);
 
-  document.getElementById("countParticipants").textContent =
-    faNumber(db.participants.length);
-
-  document.getElementById("countSessions").textContent =
-    faNumber(db.sessions.length);
-
-  document.getElementById("countTests").textContent =
-    faNumber(db.tests.length);
-
-
-  document.getElementById("participantsTable").innerHTML =
+  document.getElementById("participantsTable").innerHTML=
     db.participants.map(p=>`
-
       <tr>
         <td>${escapeHTML(p.code)}</td>
-
-        <td>${escapeHTML(p.age || "-")}</td>
-
-        <td>${escapeHTML(p.gender || "-")}</td>
-
+        <td>${escapeHTML(p.age||"-")}</td>
+        <td>${escapeHTML(p.gender||"-")}</td>
         <td>
-          <button class="orange"
-            onclick="editParticipant('${escapeHTML(p.id)}')">
-            ویرایش
-          </button>
-
-          <button class="red"
-            onclick="deleteParticipant('${escapeHTML(p.id)}')">
-            حذف
-          </button>
+          <button class="orange" onclick="editParticipant('${escapeHTML(p.id)}')">ویرایش</button>
+          <button class="red" onclick="deleteParticipant('${escapeHTML(p.id)}')">حذف</button>
         </td>
-      </tr>
-
-    `).join("") ||
+      </tr>`).join("")||
     '<tr><td colspan="4">هنوز آزمودنی ثبت نشده است.</td></tr>';
 
+  const oldSession=document.getElementById("sessionParticipant").value;
+  const oldAttention=document.getElementById("testParticipant").value;
+  const oldDigit=document.getElementById("digitParticipant").value;
 
-  const options =
-    '<option value="">انتخاب آزمودنی</option>' +
+  document.getElementById("sessionParticipant").innerHTML=participantOptions();
+  document.getElementById("testParticipant").innerHTML=participantOptions();
+  document.getElementById("digitParticipant").innerHTML=participantOptions();
 
-    db.participants.map(p=>`
-      <option value="${escapeHTML(p.id)}">
-        ${escapeHTML(p.code)}
-      </option>
-    `).join("");
-
-
-  document.getElementById("sessionParticipant").innerHTML = options;
-
-  document.getElementById("testParticipant").innerHTML = options;
+  if(db.participants.some(p=>p.id===oldSession))
+    document.getElementById("sessionParticipant").value=oldSession;
+  if(db.participants.some(p=>p.id===oldAttention))
+    document.getElementById("testParticipant").value=oldAttention;
+  if(db.participants.some(p=>p.id===oldDigit))
+    document.getElementById("digitParticipant").value=oldDigit;
 
   updateTestSessions();
+  updateDigitSessions();
 
-
-  document.getElementById("sessionsTable").innerHTML =
-
+  document.getElementById("sessionsTable").innerHTML=
     db.sessions.map(s=>{
+      const p=db.participants.find(x=>x.id===s.participantId);
+      return `<tr>
+        <td>${escapeHTML(p?.code||"نامشخص")}</td>
+        <td>${escapeHTML(s.number)}</td>
+        <td>${escapeHTML(s.date)}</td>
+        <td><button class="red" onclick="deleteSession('${escapeHTML(s.id)}')">حذف</button></td>
+      </tr>`;
+    }).join("")||'<tr><td colspan="4">هنوز جلسه‌ای ثبت نشده است.</td></tr>';
 
-      const p=db.participants.find(
-        x=>x.id===s.participantId
-      );
-
-      return `
-        <tr>
-          <td>${escapeHTML(p?.code || "نامشخص")}</td>
-
-          <td>${escapeHTML(s.number)}</td>
-
-          <td>${escapeHTML(s.date)}</td>
-
-          <td>
-            <button class="red"
-              onclick="deleteSession('${escapeHTML(s.id)}')">
-              حذف
-            </button>
-          </td>
-        </tr>
-      `;
-
-    }).join("") ||
-    '<tr><td colspan="4">هنوز جلسه‌ای ثبت نشده است.</td></tr>';
-
-
-  document.getElementById("recordsTable").innerHTML =
-
+  document.getElementById("recordsTable").innerHTML=
     db.tests.slice().reverse().map(t=>{
-
-      const p=db.participants.find(
-        x=>x.id===t.participantId
-      );
-
-      const s=db.sessions.find(
-        x=>x.id===t.sessionId
-      );
-
-      return `
-        <tr>
-          <td>${escapeHTML(p?.code || "-")}</td>
-
-          <td>${escapeHTML(s?.number || "-")}</td>
-
-          <td>${escapeHTML(String(t.date || "").slice(0,10))}</td>
-
-          <td>${faNumber(t.correct)}</td>
-
-          <td>${faNumber(t.falseAlarms)}</td>
-
-          <td>${faNumber(t.misses)}</td>
-
-          <td>${faNumber(t.accuracy)}٪</td>
-        </tr>
-      `;
-
-    }).join("") ||
-    '<tr><td colspan="7">هنوز نتیجه‌ای ثبت نشده است.</td></tr>';
-
+      const p=db.participants.find(x=>x.id===t.participantId);
+      const s=db.sessions.find(x=>x.id===t.sessionId);
+      return `<tr>
+        <td>${escapeHTML(p?.code||"-")}</td>
+        <td>${escapeHTML(s?.number||"-")}</td>
+        <td>${escapeHTML(String(t.date||"").slice(0,10))}</td>
+        <td>${escapeHTML(t.task||"-")}</td>
+        <td>${faNumber(t.correct)}</td>
+        <td>${faNumber(t.falseAlarms)}</td>
+        <td>${faNumber(t.misses)}</td>
+        <td>${faNumber(t.accuracy)}٪</td>
+      </tr>`;
+    }).join("")||'<tr><td colspan="8">هنوز نتیجه‌ای ثبت نشده است.</td></tr>';
 }
-
 
 function updateTestSessions(){
-
   const pid=document.getElementById("testParticipant").value;
-
-  const sessions=db.sessions.filter(
-    s=>s.participantId===pid
-  );
-
-  document.getElementById("testSession").innerHTML =
-
-    '<option value="">انتخاب جلسه</option>' +
-
-    sessions.map(s=>`
-      <option value="${escapeHTML(s.id)}">
-        جلسه ${escapeHTML(s.number)} - ${escapeHTML(s.date)}
-      </option>
-    `).join("");
-
+  const select=document.getElementById("testSession");
+  const previous=select.value;
+  const sessions=db.sessions.filter(s=>s.participantId===pid);
+  select.innerHTML='<option value="">انتخاب جلسه</option>'+
+    sessions.map(s=>`<option value="${escapeHTML(s.id)}">جلسه ${escapeHTML(s.number)} - ${escapeHTML(s.date)}</option>`).join("");
+  if(sessions.some(s=>s.id===previous))select.value=previous;
 }
 
+function updateDigitSessions(){
+  const pid=document.getElementById("digitParticipant").value;
+  const select=document.getElementById("digitSession");
+  const previous=select.value;
+  const sessions=db.sessions.filter(s=>s.participantId===pid);
+  select.innerHTML='<option value="">انتخاب جلسه</option>'+
+    sessions.map(s=>`<option value="${escapeHTML(s.id)}">جلسه ${escapeHTML(s.number)} - ${escapeHTML(s.date)}</option>`).join("");
+  if(sessions.some(s=>s.id===previous))select.value=previous;
+}
 
 // ========================================
-// 8. آزمون توجه
+// 7. آزمون توجه انتخابی
 // ========================================
 
 function shuffle(arr){
-
   for(let i=arr.length-1;i>0;i--){
-
     const j=Math.floor(Math.random()*(i+1));
-
     [arr[i],arr[j]]=[arr[j],arr[i]];
   }
-
   return arr;
 }
 
+function startAttentionTest(){
+  const participantId=document.getElementById("testParticipant").value;
+  const sessionId=document.getElementById("testSession").value;
+  if(!participantId||!sessionId)return alert("آزمودنی و جلسه را انتخاب کنید.");
 
-function startTest(){
-
-  const participantId =
-    document.getElementById("testParticipant").value;
-
-  const sessionId =
-    document.getElementById("testSession").value;
-
-  if(!participantId || !sessionId){
-    return alert("آزمودنی و جلسه را انتخاب کنید.");
-  }
-
-  // ۱۰ هدف و ۳۰ محرک غیرهدف
-
-  trialList=shuffle([
-
+  const nonTargets=["1","2","4","5","6","7","8","9"];
+  const trials=[
     ...Array(10).fill("3"),
+    ...Array.from({length:30},()=>nonTargets[Math.floor(Math.random()*nonTargets.length)])
+  ];
 
-    ...Array.from(
-      {length:30},
-      ()=>String(Math.floor(Math.random()*9)+1).replace("3","7")
-    )
-
-  ]);
-
-  trialIndex=0;
-
-  testData={
-    participantId,
-    sessionId,
-    hits:0,
-    falseAlarms:0,
-    misses:0,
-    reactionTimes:[]
+  attentionState={
+    participantId,sessionId,
+    trials:shuffle(trials),
+    index:0,hits:0,falseAlarms:0,misses:0,
+    correctRejections:0,reactionTimes:[],
+    trialStart:0,active:false
   };
 
   document.getElementById("testResult").classList.add("hidden");
-
-  document.getElementById("taskArea").style.display="block";
-
+  document.getElementById("taskArea").classList.remove("hidden");
   document.getElementById("startButton").disabled=true;
-
-  nextTrial();
+  nextAttentionTrial();
 }
 
+function nextAttentionTrial(){
+  const s=attentionState;
+  if(!s)return;
+  if(s.index>=s.trials.length)return finishAttentionTest();
 
-function nextTrial(){
+  const stimulus=s.trials[s.index];
+  s.active=true;
+  document.getElementById("stimulus").textContent=stimulus;
+  document.getElementById("trialInfo").textContent=
+    "محرک "+faNumber(s.index+1)+" از "+faNumber(s.trials.length);
+  document.getElementById("progressBar").style.width=
+    (s.index/s.trials.length*100)+"%";
+  document.getElementById("responseButton").disabled=false;
+  s.trialStart=performance.now();
 
-  if(trialIndex>=trialList.length){
-    finishTest();
+  attentionTimer=setTimeout(()=>{
+    if(!s.active)return;
+    if(stimulus==="3")s.misses++;
+    else s.correctRejections++;
+    s.active=false;
+    document.getElementById("responseButton").disabled=true;
+    s.index++;
+    setTimeout(nextAttentionTrial,350);
+  },1000);
+}
+
+function respondAttention(){
+  const s=attentionState;
+  if(!s||!s.active)return;
+  const rt=performance.now()-s.trialStart;
+  const stimulus=s.trials[s.index];
+
+  if(stimulus==="3"){
+    s.hits++;
+    s.reactionTimes.push(rt);
+  }else{
+    s.falseAlarms++;
+  }
+
+  clearTimeout(attentionTimer);
+  s.active=false;
+  document.getElementById("responseButton").disabled=true;
+  s.index++;
+  setTimeout(nextAttentionTrial,350);
+}
+
+function finishAttentionTest(){
+  const s=attentionState;
+  if(!s)return;
+
+  const total=s.trials.length;
+  const accuracy=Math.round((s.hits+s.correctRejections)/total*100);
+  const meanRT=s.reactionTimes.length
+    ?Math.round(s.reactionTimes.reduce((a,b)=>a+b,0)/s.reactionTimes.length):0;
+
+  const result={
+    id:uid(),participantId:s.participantId,sessionId:s.sessionId,
+    date:new Date().toISOString(),task:"توجه انتخابی نمونه",
+    total,correct:s.hits,falseAlarms:s.falseAlarms,misses:s.misses,
+    correctRejections:s.correctRejections,accuracy,meanRT,
+    reactionTimes:s.reactionTimes
+  };
+
+  db.tests.push(result);
+  save();
+
+  document.getElementById("stimulus").textContent="پایان آزمون";
+  document.getElementById("progressBar").style.width="100%";
+  document.getElementById("taskArea").classList.add("hidden");
+  document.getElementById("startButton").disabled=false;
+
+  const box=document.getElementById("testResult");
+  box.classList.remove("hidden");
+  box.innerHTML=`
+    <h3>نتیجه آزمون توجه</h3>
+    <div class="statgrid">
+      <div class="stat"><strong>${faNumber(result.correct)}</strong>پاسخ صحیح</div>
+      <div class="stat"><strong>${faNumber(result.falseAlarms)}</strong>خطای ارتکاب</div>
+      <div class="stat"><strong>${faNumber(result.misses)}</strong>خطای حذف</div>
+      <div class="stat"><strong>${faNumber(result.accuracy)}٪</strong>دقت کلی</div>
+      <div class="stat"><strong>${faNumber(result.meanRT)}</strong>میانگین زمان واکنش (ms)</div>
+    </div>
+    <p class="notice">این آزمون نمونه و آزمایشی است و تفسیر تشخیصی یا هنجاری ندارد.</p>`;
+  attentionState=null;
+}
+
+// ========================================
+// 8. Digit Span
+// ========================================
+
+const digitWords=["صفر","یک","دو","سه","چهار","پنج","شش","هفت","هشت","نه"];
+
+function normalizeDigits(value){
+  const map={
+    "۰":"0","۱":"1","۲":"2","۳":"3","۴":"4",
+    "۵":"5","۶":"6","۷":"7","۸":"8","۹":"9",
+    "٠":"0","١":"1","٢":"2","٣":"3","٤":"4",
+    "٥":"5","٦":"6","٧":"7","٨":"8","٩":"9"
+  };
+  return String(value||"")
+    .replace(/[۰-۹٠-٩]/g,c=>map[c])
+    .replace(/[\s،,؛;ـ-]/g,"")
+    .replace(/[^0-9]/g,"");
+}
+
+function digitVoiceInfo(){
+  if(!("speechSynthesis" in window))return {available:false,voice:"unavailable"};
+  const voices=window.speechSynthesis.getVoices();
+  const fa=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("fa"));
+  return {
+    available:true,
+    voice:fa?fa.name:"browser-default",
+    lang:fa?fa.lang:"fa-IR"
+  };
+}
+
+function speakNumber(number,rate){
+  return new Promise((resolve,reject)=>{
+    if(!("speechSynthesis" in window))
+      return reject(new Error("مرورگر از گفتار پشتیبانی نمی‌کند."));
+
+    const utterance=new SpeechSynthesisUtterance(digitWords[number]);
+    utterance.lang="fa-IR";
+    utterance.rate=rate;
+    utterance.pitch=1;
+    utterance.volume=1;
+    utterance.onend=()=>resolve();
+    utterance.onerror=()=>reject(new Error("خطا در پخش گفتار."));
+    window.speechSynthesis.speak(utterance);
+  });
+}
+
+function wait(ms){
+  return new Promise(resolve=>setTimeout(resolve,ms));
+}
+
+function createDigitSequence(length){
+  // تولید تصادفی مستقل؛ تکرار ارقام مجاز است.
+  return Array.from({length},()=>Math.floor(Math.random()*10));
+}
+
+async function presentDigitSequence(){
+  const s=digitState;
+  if(!s)return;
+
+  s.presenting=true;
+  document.getElementById("digitResponseArea").classList.add("hidden");
+  document.getElementById("digitStimulus").textContent="به ارقام گوش کنید...";
+  document.getElementById("digitFeedback").textContent="لطفاً تا پایان ارائه ارقام صبر کنید.";
+
+  try{
+    for(let i=0;i<s.sequence.length;i++){
+      if(!digitState||digitState!==s)return;
+      await speakNumber(s.sequence[i],s.rate);
+      if(i<s.sequence.length-1)await wait(s.interval);
+    }
+    if(!digitState||digitState!==s)return;
+
+    s.presenting=false;
+    s.presentedAt=performance.now();
+    document.getElementById("digitStimulus").textContent="اکنون پاسخ دهید";
+    document.getElementById("digitResponseArea").classList.remove("hidden");
+    document.getElementById("digitResponse").value="";
+    document.getElementById("digitResponse").focus();
+    document.getElementById("digitFeedback").textContent=
+      "پاسخ را به ترتیب خواسته‌شده وارد کنید.";
+  }catch(error){
+    if(!digitState)return;
+    document.getElementById("digitFeedback").textContent=
+      "خطا در پخش صدا: "+error.message+" آزمون را لغو و مرورگر را بررسی کنید.";
+    s.presenting=false;
+  }
+}
+
+function startDigitSpan(){
+  if(digitState)return alert("یک اجرای Digit Span در حال انجام است.");
+
+  const participantId=document.getElementById("digitParticipant").value;
+  const sessionId=document.getElementById("digitSession").value;
+  const mode=document.getElementById("digitMode").value;
+  const interval=Number(document.getElementById("digitInterval").value);
+  const rate=Number(document.getElementById("digitRate").value);
+  const maxLength=Number(document.getElementById("digitMaxLength").value);
+
+  if(!participantId||!sessionId)return alert("آزمودنی و جلسه را انتخاب کنید.");
+  if(!("speechSynthesis" in window))return alert("مرورگر از پخش گفتار پشتیبانی نمی‌کند.");
+  if(interval<300||interval>3000)return alert("فاصله بین ارقام باید بین ۳۰۰ تا ۳۰۰۰ میلی‌ثانیه باشد.");
+  if(rate<0.5||rate>1.5)return alert("سرعت گفتار باید بین ۰٫۵ تا ۱٫۵ باشد.");
+  if(maxLength<3||maxLength>12)return alert("حداکثر طول توالی باید بین ۳ تا ۱۲ باشد.");
+
+  const voice=digitVoiceInfo();
+  const modes=mode==="both"?["forward","backward"]:[mode];
+
+  digitState={
+    participantId,sessionId,requestedMode:mode,modes,modeIndex:0,
+    currentMode:modes[0],length:2,trial:0,correctByLength:0,
+    maxLength,interval,rate,voice,
+    trials:[],modeResults:{},
+    sequence:[],presenting:false,presentedAt:0,
+    startedAt:new Date().toISOString()
+  };
+
+  document.getElementById("digitStartButton").disabled=true;
+  document.getElementById("digitResult").classList.add("hidden");
+  document.getElementById("digitTaskArea").classList.remove("hidden");
+
+  document.getElementById("digitInstruction").textContent=
+    "بخش "+modeName(digitState.currentMode)+
+    " آغاز می‌شود. هر طول توالی حداکثر دو کوشش دارد.";
+
+  startDigitMode();
+}
+
+function modeName(mode){
+  return mode==="forward"?"مستقیم (Forward)":"معکوس (Backward)";
+}
+
+function startDigitMode(){
+  const s=digitState;
+  if(!s)return;
+  s.length=2;
+  s.trial=0;
+  s.correctByLength=0;
+  s.modeResults[s.currentMode]={
+    correct:0,total:0,maxSpan:0,stoppedAt:null
+  };
+  nextDigitTrial();
+}
+
+function nextDigitTrial(){
+  const s=digitState;
+  if(!s)return;
+
+  // در هر طول دو کوشش اجرا می‌شود.
+  if(s.trial>=2){
+    if(s.correctByLength===0){
+      s.modeResults[s.currentMode].stoppedAt=s.length;
+      advanceDigitMode();
+      return;
+    }
+    s.length++;
+    s.trial=0;
+    s.correctByLength=0;
+  }
+
+  if(s.length>s.maxLength){
+    advanceDigitMode();
     return;
   }
 
-  trialActive=true;
+  s.trial++;
+  s.sequence=createDigitSequence(s.length);
+  s.presentedAt=0;
 
-  const stimulus=trialList[trialIndex];
+  document.getElementById("digitModeLabel").textContent=
+    s.currentMode==="forward"?"مستقیم":"معکوس";
+  document.getElementById("digitLengthLabel").textContent=faNumber(s.length);
+  document.getElementById("digitTrialLabel").textContent=faNumber(s.trial)+" از ۲";
 
-  document.getElementById("stimulus").textContent=stimulus;
+  const estimatedTotal=s.modes.length*(s.maxLength-1)*2;
+  const completed=s.trials.length;
+  document.getElementById("digitProgressBar").style.width=
+    Math.min(98,completed/estimatedTotal*100)+"%";
 
-  document.getElementById("trialInfo").textContent =
-    "محرک "+faNumber(trialIndex+1)+
-    " از "+faNumber(trialList.length);
-
-  document.getElementById("progressBar").style.width =
-    (trialIndex/trialList.length*100)+"%";
-
-  document.getElementById("responseButton").disabled=false;
-
-  trialStart=performance.now();
-
-  timer=setTimeout(()=>{
-
-    if(!trialActive)return;
-
-    if(stimulus==="3"){
-      testData.misses++;
-    }
-
-    trialActive=false;
-
-    document.getElementById("responseButton").disabled=true;
-
-    trialIndex++;
-
-    setTimeout(nextTrial,350);
-
-  },1000);
-
+  presentDigitSequence();
 }
 
+function submitDigitResponse(){
+  const s=digitState;
+  if(!s||s.presenting||!s.presentedAt)return;
 
-function respond(){
+  const raw=document.getElementById("digitResponse").value;
+  const response=normalizeDigits(raw);
+  if(!response)return alert("پاسخ را وارد کنید یا گزینه بدون پاسخ را بزنید.");
 
-  if(!trialActive)return;
-
-  const rt=performance.now()-trialStart;
-
-  const stimulus=trialList[trialIndex];
-
-  if(stimulus==="3"){
-
-    testData.hits++;
-
-    testData.reactionTimes.push(rt);
-
-  }else{
-
-    testData.falseAlarms++;
-
-  }
-
-  clearTimeout(timer);
-
-  trialActive=false;
-
-  document.getElementById("responseButton").disabled=true;
-
-  trialIndex++;
-
-  setTimeout(nextTrial,350);
+  recordDigitTrial(response,false);
 }
 
+function omitDigitResponse(){
+  const s=digitState;
+  if(!s||s.presenting||!s.presentedAt)return;
+  recordDigitTrial("",true);
+}
 
-function finishTest(){
+function recordDigitTrial(response,omitted){
+  const s=digitState;
+  if(!s)return;
 
-  const total=trialList.length;
+  const expected=s.sequence.slice();
+  if(s.currentMode==="backward")expected.reverse();
 
-  const accuracy=Math.round(
-    (
-      testData.hits +
-      (total-10-testData.falseAlarms)
-    ) / total * 100
-  );
+  const expectedString=expected.join("");
+  const correct=!omitted&&response===expectedString;
+  const responseAt=performance.now();
+  const latency=Math.round(responseAt-s.presentedAt);
 
-  const meanRT=testData.reactionTimes.length
-
-    ? Math.round(
-        testData.reactionTimes.reduce((a,b)=>a+b,0) /
-        testData.reactionTimes.length
-      )
-
-    : 0;
-
-
-  const result={
-
-    id:uid(),
-
-    participantId:testData.participantId,
-
-    sessionId:testData.sessionId,
-
-    date:new Date().toISOString(),
-
-    task:"توجه انتخابی نمونه",
-
-    total,
-
-    correct:testData.hits,
-
-    falseAlarms:testData.falseAlarms,
-
-    misses:testData.misses,
-
-    accuracy,
-
-    meanRT
-
+  const trialRecord={
+    participantId:s.participantId,
+    sessionId:s.sessionId,
+    mode:s.currentMode,
+    modeLabel:modeName(s.currentMode),
+    sequence:s.sequence.join(""),
+    expected:expectedString,
+    response:response,
+    length:s.length,
+    trial:s.trial,
+    correct,
+    omitted,
+    responseLatencyMs:latency,
+    intervalMs:s.interval,
+    speechRate:s.rate,
+    voiceName:s.voice.voice,
+    voiceLang:s.voice.lang,
+    presentedAt:new Date().toISOString(),
+    recordedAt:new Date().toISOString()
   };
 
+  s.trials.push(trialRecord);
+  const mr=s.modeResults[s.currentMode];
+  mr.total++;
+  if(correct){
+    mr.correct++;
+    s.correctByLength++;
+    if(s.length>mr.maxSpan)mr.maxSpan=s.length;
+  }
 
-  db.tests.push(result);
+  document.getElementById("digitResponseArea").classList.add("hidden");
+  document.getElementById("digitStimulus").textContent=
+    correct?"پاسخ ثبت شد":"کوشش ثبت شد";
 
-  save();
+  document.getElementById("digitFeedback").textContent=
+    omitted?"پاسخ ثبت‌نشده ذخیره شد.":
+    correct?"پاسخ صحیح ثبت شد.":"پاسخ نادرست ثبت شد.";
 
-
-  document.getElementById("stimulus").textContent="پایان آزمون";
-
-  document.getElementById("progressBar").style.width="100%";
-
-  document.getElementById("taskArea").style.display="none";
-
-  document.getElementById("startButton").disabled=false;
-
-
-  const box=document.getElementById("testResult");
-
-  box.classList.remove("hidden");
-
-  box.innerHTML=`
-
-    <h3>نتیجه آزمون</h3>
-
-    <div class="statgrid">
-
-      <div class="stat">
-        <strong>${faNumber(result.correct)}</strong>
-        پاسخ صحیح
-      </div>
-
-      <div class="stat">
-        <strong>${faNumber(result.falseAlarms)}</strong>
-        خطای ارتکاب
-      </div>
-
-      <div class="stat">
-        <strong>${faNumber(result.misses)}</strong>
-        خطای حذف
-      </div>
-
-      <div class="stat">
-        <strong>${faNumber(result.accuracy)}٪</strong>
-        دقت کلی
-      </div>
-
-      <div class="stat">
-        <strong>${faNumber(result.meanRT)}</strong>
-        میانگین زمان واکنش (ms)
-      </div>
-
-    </div>
-
-    <p class="notice">
-      این آزمون نمونه و آزمایشی است و نتایج آن تفسیر تشخیصی یا هنجاری ندارند.
-    </p>
-
-  `;
-
+  setTimeout(()=>{
+    if(!digitState)return;
+    nextDigitTrial();
+  },700);
 }
 
+function advanceDigitMode(){
+  const s=digitState;
+  if(!s)return;
+
+  s.modeIndex++;
+  if(s.modeIndex<s.modes.length){
+    s.currentMode=s.modes[s.modeIndex];
+    document.getElementById("digitInstruction").textContent=
+      "بخش "+modeName(s.currentMode)+" آغاز می‌شود.";
+    startDigitMode();
+  }else{
+    finishDigitSpan();
+  }
+}
+
+function finishDigitSpan(){
+  const s=digitState;
+  if(!s)return;
+
+  if("speechSynthesis" in window)window.speechSynthesis.cancel();
+
+  const results=s.modeResults;
+  const allCorrect=s.trials.filter(t=>t.correct).length;
+  const allTotal=s.trials.length;
+  const validLatencies=s.trials
+    .filter(t=>!t.omitted&&Number.isFinite(t.responseLatencyMs))
+    .map(t=>t.responseLatencyMs);
+
+  const meanLatency=validLatencies.length
+    ?Math.round(validLatencies.reduce((a,b)=>a+b,0)/validLatencies.length):0;
+
+  const forward=results.forward||{correct:0,total:0,maxSpan:0};
+  const backward=results.backward||{correct:0,total:0,maxSpan:0};
+
+  const accuracy=allTotal?Math.round(allCorrect/allTotal*100):0;
+
+  const result={
+    id:uid(),
+    participantId:s.participantId,
+    sessionId:s.sessionId,
+    date:new Date().toISOString(),
+    task:"Digit Span",
+    mode:s.requestedMode,
+    correct:allCorrect,
+    falseAlarms:allTotal-allCorrect,
+    misses:s.trials.filter(t=>t.omitted).length,
+    accuracy,
+    meanRT:meanLatency,
+    total:allTotal,
+    forwardCorrect:forward.correct,
+    forwardTotal:forward.total,
+    forwardMaxSpan:forward.maxSpan,
+    backwardCorrect:backward.correct,
+    backwardTotal:backward.total,
+    backwardMaxSpan:backward.maxSpan,
+    intervalMs:s.interval,
+    speechRate:s.rate,
+    maxLength:s.maxLength,
+    voiceName:s.voice.voice,
+    voiceLang:s.voice.lang,
+    startedAt:s.startedAt,
+    completedAt:new Date().toISOString(),
+    trials:s.trials
+  };
+
+  db.tests.push(result);
+  save();
+
+  document.getElementById("digitTaskArea").classList.add("hidden");
+  document.getElementById("digitStartButton").disabled=false;
+  document.getElementById("digitProgressBar").style.width="100%";
+
+  const box=document.getElementById("digitResult");
+  box.classList.remove("hidden");
+
+  let html=`
+    <h3>نتیجه آزمون Digit Span</h3>
+    <div class="statgrid">
+      <div class="stat"><strong>${faNumber(allCorrect)}</strong>کوشش صحیح</div>
+      <div class="stat"><strong>${faNumber(allTotal)}</strong>کل کوشش‌ها</div>
+      <div class="stat"><strong>${faNumber(accuracy)}٪</strong>درصد پاسخ صحیح</div>
+      <div class="stat"><strong>${faNumber(meanLatency)}</strong>میانگین فاصله پاسخ تا ثبت (ms)</div>
+    </div>`;
+
+  if(s.modes.includes("forward")){
+    html+=`
+      <h3>بخش مستقیم</h3>
+      <p>تعداد پاسخ صحیح: ${faNumber(forward.correct)} از ${faNumber(forward.total)}</p>
+      <p>بیشترین طول دارای پاسخ صحیح: ${faNumber(forward.maxSpan)}</p>`;
+  }
+  if(s.modes.includes("backward")){
+    html+=`
+      <h3>بخش معکوس</h3>
+      <p>تعداد پاسخ صحیح: ${faNumber(backward.correct)} از ${faNumber(backward.total)}</p>
+      <p>بیشترین طول دارای پاسخ صحیح: ${faNumber(backward.maxSpan)}</p>`;
+  }
+
+  html+=`
+    <p class="notice">
+      زمان ثبت‌شده، فاصله پایان ارائه توالی تا ثبت پاسخ است؛
+      این شاخص معادل زمان واکنش استاندارد از شروع محرک نیست.
+      این نسخه هنجاریابی نشده است.
+    </p>
+    <p class="small">جزئیات کوشش‌ها در خروجی CSV داده‌های کوشش‌ها و فایل JSON ذخیره شده‌اند.</p>`;
+
+  box.innerHTML=html;
+  digitState=null;
+}
+
+function cancelDigitSpan(){
+  if(!digitState)return;
+  if(!confirm("اجرای فعلی لغو شود؟ داده‌های این اجرای ناقص ذخیره نخواهند شد."))return;
+
+  if("speechSynthesis" in window)window.speechSynthesis.cancel();
+  digitState=null;
+  document.getElementById("digitTaskArea").classList.add("hidden");
+  document.getElementById("digitStartButton").disabled=false;
+  document.getElementById("digitStimulus").textContent="برای شروع آماده باشید";
+  document.getElementById("digitFeedback").textContent="اجرای آزمون لغو شد.";
+}
 
 // ========================================
 // 9. خروجی JSON و CSV
 // ========================================
 
 function exportJSON(){
-
-  downloadFile(
-    "neurocognitive-backup.json",
-    JSON.stringify(db,null,2),
-    "application/json"
-  );
-
+  const payload={
+    version:"0.4",
+    exportedAt:new Date().toISOString(),
+    database:db
+  };
+  downloadFile("neurocognitive-backup.json",
+    JSON.stringify(payload,null,2),"application/json");
 }
-
-
-function exportCSV(){
-
-  const rows=[
-
-    [
-      "participant_code",
-      "session_number",
-      "date",
-      "task",
-      "correct",
-      "false_alarms",
-      "misses",
-      "accuracy_percent",
-      "mean_reaction_time_ms"
-    ]
-
-  ];
-
-  db.tests.forEach(t=>{
-
-    const p=db.participants.find(
-      x=>x.id===t.participantId
-    );
-
-    const s=db.sessions.find(
-      x=>x.id===t.sessionId
-    );
-
-    rows.push([
-
-      p?.code || "",
-
-      s?.number || "",
-
-      t.date || "",
-
-      t.task || "",
-
-      t.correct ?? "",
-
-      t.falseAlarms ?? "",
-
-      t.misses ?? "",
-
-      t.accuracy ?? "",
-
-      t.meanRT ?? ""
-
-    ]);
-
-  });
-
-  const csv="\uFEFF"+rows.map(
-    r=>r.map(csvCell).join(",")
-  ).join("\n");
-
-  downloadFile(
-    "neurocognitive-results.csv",
-    csv,
-    "text/csv;charset=utf-8"
-  );
-
-}
-
 
 function csvCell(v){
-
-  return '"'+String(v ?? "").replace(/"/g,'""')+'"';
-
+  return '"'+String(v??"").replace(/"/g,'""')+'"';
+}
+function downloadCSV(name,rows){
+  const csv="\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\n");
+  downloadFile(name,csv,"text/csv;charset=utf-8");
 }
 
+function exportSummaryCSV(){
+  const rows=[[
+    "participant_code","session_number","date","task","mode",
+    "correct","false_alarms","misses","accuracy_percent","mean_latency_ms",
+    "forward_correct","forward_total","forward_max_span",
+    "backward_correct","backward_total","backward_max_span"
+  ]];
 
-function downloadFile(name,content,type){
-
-  const blob=new Blob([content],{type});
-
-  const url=URL.createObjectURL(blob);
-
-  const a=document.createElement("a");
-
-  a.href=url;
-
-  a.download=name;
-
-  document.body.appendChild(a);
-
-  a.click();
-
-  a.remove();
-
-  // کمی تأخیر برای فرصت شروع دانلود در مرورگر موبایل
-  setTimeout(()=>{
-    URL.revokeObjectURL(url);
-  },1500);
-
+  db.tests.forEach(t=>{
+    const p=db.participants.find(x=>x.id===t.participantId);
+    const s=db.sessions.find(x=>x.id===t.sessionId);
+    rows.push([
+      p?.code||"",s?.number||"",t.date||"",t.task||"",t.mode||"",
+      t.correct??"",t.falseAlarms??"",t.misses??"",t.accuracy??"",t.meanRT??"",
+      t.forwardCorrect??"",t.forwardTotal??"",t.forwardMaxSpan??"",
+      t.backwardCorrect??"",t.backwardTotal??"",t.backwardMaxSpan??""
+    ]);
+  });
+  downloadCSV("neurocognitive-summary.csv",rows);
 }
 
+function exportTrialCSV(){
+  const rows=[[
+    "participant_code","session_number","test_id","task","mode",
+    "sequence","expected","response","length","trial","correct","omitted",
+    "response_latency_ms","interval_ms","speech_rate","voice_name",
+    "voice_lang","presented_at","recorded_at"
+  ]];
+
+  db.tests.forEach(t=>{
+    if(!Array.isArray(t.trials))return;
+    const p=db.participants.find(x=>x.id===t.participantId);
+    const s=db.sessions.find(x=>x.id===t.sessionId);
+
+    t.trials.forEach(tr=>{
+      rows.push([
+        p?.code||"",s?.number||"",t.id,t.task||"",tr.mode||"",
+        tr.sequence||"",tr.expected||"",tr.response||"",tr.length??"",
+        tr.trial??"",tr.correct??"",tr.omitted??"",
+        tr.responseLatencyMs??"",tr.intervalMs??"",tr.speechRate??"",
+        tr.voiceName||"",tr.voiceLang||"",tr.presentedAt||"",tr.recordedAt||""
+      ]);
+    });
+  });
+
+  if(rows.length===1)return alert("هنوز داده کوشش قابل خروجی وجود ندارد.");
+  downloadCSV("neurocognitive-trials.csv",rows);
+}
 
 // ========================================
 // 10. اعتبارسنجی فایل پشتیبان
 // ========================================
 
-function validDatabase(data){
-
-  if(
-    !data ||
-    typeof data !== "object" ||
-    Array.isArray(data)
-  ){
-    return false;
-  }
-
-  if(
-    !Array.isArray(data.participants) ||
-    !Array.isArray(data.sessions) ||
-    !Array.isArray(data.tests)
-  ){
-    return false;
-  }
-
-  // بررسی ساختار آزمودنی‌ها
-  if(!data.participants.every(p=>
-    p && typeof p === "object" && !Array.isArray(p)
-  )){
-    return false;
-  }
-
-  // بررسی ساختار جلسات
-  if(!data.sessions.every(s=>
-    s && typeof s === "object" && !Array.isArray(s)
-  )){
-    return false;
-  }
-
-  // بررسی ساختار نتایج
-  if(!data.tests.every(t=>
-    t && typeof t === "object" && !Array.isArray(t)
-  )){
-    return false;
-  }
-
-  return true;
+function unwrapBackup(parsed){
+  if(parsed&&parsed.database)return parsed.database;
+  return parsed;
 }
 
+function validDatabase(data){
+  return !!data&&typeof data==="object"&&!Array.isArray(data)&&
+    Array.isArray(data.participants)&&
+    Array.isArray(data.sessions)&&
+    Array.isArray(data.tests)&&
+    data.participants.every(x=>x&&typeof x==="object"&&!Array.isArray(x))&&
+    data.sessions.every(x=>x&&typeof x==="object"&&!Array.isArray(x))&&
+    data.tests.every(x=>x&&typeof x==="object"&&!Array.isArray(x));
+}
 
-// بررسی شناسه‌های تکراری و ارتباط رکوردها
 function validateDatabaseRelations(data){
-
-  const participantIds = new Set();
-  const sessionIds = new Set();
-  const testIds = new Set();
+  const pids=new Set(),sids=new Set(),tids=new Set();
 
   for(const p of data.participants){
-
-    if(!p.id) {
-      return "یکی از آزمودنی‌ها شناسه ندارد.";
-    }
-
-    if(participantIds.has(String(p.id))){
-      return "شناسه تکراری در فهرست آزمودنی‌ها وجود دارد.";
-    }
-
-    participantIds.add(String(p.id));
+    if(!p.id)return "یکی از آزمودنی‌ها شناسه ندارد.";
+    if(pids.has(String(p.id)))return "شناسه آزمودنی تکراری است.";
+    pids.add(String(p.id));
   }
-
 
   for(const s of data.sessions){
-
-    if(!s.id){
-      return "یکی از جلسات شناسه ندارد.";
-    }
-
-    if(sessionIds.has(String(s.id))){
-      return "شناسه تکراری در فهرست جلسات وجود دارد.";
-    }
-
-    sessionIds.add(String(s.id));
-
-    if(!participantIds.has(String(s.participantId))){
-      return "یک جلسه به آزمودنی ناموجود متصل است.";
-    }
+    if(!s.id)return "یکی از جلسات شناسه ندارد.";
+    if(sids.has(String(s.id)))return "شناسه جلسه تکراری است.";
+    sids.add(String(s.id));
+    if(!pids.has(String(s.participantId)))return "جلسه به آزمودنی ناموجود متصل است.";
   }
-
 
   for(const t of data.tests){
-
-    if(!t.id){
-      return "یکی از نتایج آزمون شناسه ندارد.";
-    }
-
-    if(testIds.has(String(t.id))){
-      return "شناسه تکراری در نتایج آزمون وجود دارد.";
-    }
-
-    testIds.add(String(t.id));
-
-    if(!participantIds.has(String(t.participantId))){
-      return "یک نتیجه آزمون به آزمودنی ناموجود متصل است.";
-    }
-
-    if(!sessionIds.has(String(t.sessionId))){
-      return "یک نتیجه آزمون به جلسه ناموجود متصل است.";
-    }
-
-    const relatedSession=data.sessions.find(s=>
-      String(s.id)===String(t.sessionId)
-    );
-
-    if(
-      !relatedSession ||
-      String(relatedSession.participantId)!==String(t.participantId)
-    ){
-      return "ارتباط آزمودنی و جلسه در یکی از نتایج آزمون ناسازگار است.";
-    }
+    if(!t.id)return "یکی از نتایج آزمون شناسه ندارد.";
+    if(tids.has(String(t.id)))return "شناسه نتیجه آزمون تکراری است.";
+    tids.add(String(t.id));
+    if(!pids.has(String(t.participantId)))return "نتیجه به آزمودنی ناموجود متصل است.";
+    if(!sids.has(String(t.sessionId)))return "نتیجه به جلسه ناموجود متصل است.";
+    const session=data.sessions.find(s=>String(s.id)===String(t.sessionId));
+    if(!session||String(session.participantId)!==String(t.participantId))
+      return "ارتباط آزمودنی و جلسه در نتیجه آزمون ناسازگار است.";
+    if(t.trials!==undefined&&!Array.isArray(t.trials))
+      return "ساختار داده‌های کوشش در یکی از آزمون‌ها معتبر نیست.";
   }
-
   return null;
 }
 
-
 // ========================================
-// 11. پشتیبان خودکار پیش از بازیابی
+// 11. پشتیبان پیش از بازیابی
 // ========================================
 
 function createPreImportBackup(){
-
   const snapshot={
-
-    version:"0.3",
-
+    version:"0.4",
     createdAt:new Date().toISOString(),
-
     database:JSON.parse(JSON.stringify(db))
-
   };
-
   const content=JSON.stringify(snapshot,null,2);
+  localStorage.setItem(PREBACKUP_KEY,content);
 
-  // ابتدا ذخیره در حافظه مرورگر
-  try{
-
-    localStorage.setItem(
-      PREBACKUP_KEY,
-      content
-    );
-
-  }catch(e){
-
-    throw new Error(
-      "ذخیره نسخه پشتیبان در مرورگر ناموفق بود. بازیابی متوقف شد."
-    );
-
-  }
-
-
-  // سپس تلاش برای دانلود فایل
-  const stamp=new Date()
-    .toISOString()
-    .replace(/[:.]/g,"-");
-
-  try{
-
-    downloadFile(
-      "neurocognitive-before-import-"+stamp+".json",
-      content,
-      "application/json"
-    );
-
-  }catch(e){
-
-    // نسخه در حافظه مرورگر ذخیره شده است.
-    console.warn("دانلود خودکار پشتیبان انجام نشد.",e);
-
-  }
-
-  return true;
+  const stamp=new Date().toISOString().replace(/[:.]/g,"-");
+  downloadFile("neurocognitive-before-import-"+stamp+".json",
+    content,"application/json");
 }
 
-
 // ========================================
-// 12. گزارش عملیات
-// ========================================
-
-function makeImportReport(){
-
-  return {
-
-    participantsNew:0,
-
-    participantsMatched:0,
-
-    participantsCompleted:0,
-
-    sessionsNew:0,
-
-    sessionsDuplicate:0,
-
-    testsNew:0,
-
-    testsDuplicate:0,
-
-    skipped:0,
-
-    warnings:[]
-
-  };
-
-}
-
-
-function showImportReport(r,title){
-
-  const box=document.getElementById("importReport");
-
-  const content=document.getElementById("reportContent");
-
-  box.classList.remove("hidden");
-
-  content.innerHTML=`
-
-    <h3>${escapeHTML(title)}</h3>
-
-    <h4>آزمودنی‌ها</h4>
-
-    <p>
-      آزمودنی جدید:
-      ${faNumber(r.participantsNew)}
-    </p>
-
-    <p>
-      آزمودنی تطبیق‌یافته:
-      ${faNumber(r.participantsMatched)}
-    </p>
-
-    <p>
-      رکورد تکمیل‌شده:
-      ${faNumber(r.participantsCompleted)}
-    </p>
-
-
-    <h4>جلسات</h4>
-
-    <p>
-      جلسه جدید:
-      ${faNumber(r.sessionsNew)}
-    </p>
-
-    <p>
-      جلسه تکراری:
-      ${faNumber(r.sessionsDuplicate)}
-    </p>
-
-
-    <h4>نتایج آزمون</h4>
-
-    <p>
-      نتیجه جدید:
-      ${faNumber(r.testsNew)}
-    </p>
-
-    <p>
-      نتیجه تکراری:
-      ${faNumber(r.testsDuplicate)}
-    </p>
-
-
-    <h4>موارد واردنشده</h4>
-
-    <p>${faNumber(r.skipped)}</p>
-
-
-    ${
-      r.warnings.length
-
-      ? `
-
-        <hr>
-
-        <h4 style="color:#bd4d4d">هشدارها</h4>
-
-        <ul>
-          ${r.warnings.map(w=>
-            `<li>${escapeHTML(w)}</li>`
-          ).join("")}
-        </ul>
-
-      `
-
-      : `<p style="color:#26866e">هشداری ثبت نشد.</p>`
-    }
-
-  `;
-
-}
-
-
-// ========================================
-// 13. تکمیل فیلدهای خالی
-// ========================================
-
-function fillEmptyFields(current,incoming){
-
-  let changed=false;
-
-  Object.keys(incoming).forEach(key=>{
-
-    if(key==="id")return;
-
-    const oldValue=current[key];
-
-    const newValue=incoming[key];
-
-    const oldEmpty=
-      oldValue===undefined ||
-      oldValue===null ||
-      String(oldValue).trim()==="";
-
-    const newFilled=
-      newValue!==undefined &&
-      newValue!==null &&
-      String(newValue).trim()!=="";
-
-    if(oldEmpty && newFilled){
-
-      current[key]=newValue;
-
-      changed=true;
-    }
-
-  });
-
-  return changed;
-}
-
-
-// ========================================
-// 14. ادغام اطلاعات
+// 12. ادغام اطلاعات
 // ========================================
 
 function mergeDatabase(incoming){
+  const report={
+    participantsNew:0,participantsMatched:0,
+    sessionsNew:0,sessionsDuplicate:0,
+    testsNew:0,testsDuplicate:0,skipped:0,warnings:[]
+  };
 
-  const report=makeImportReport();
-
-  const participantMap=new Map();
-
-  const sessionMap=new Map();
-
-  const currentParticipantIds=new Set(
-    db.participants.map(p=>String(p.id))
-  );
-
-  const currentSessionIds=new Set(
-    db.sessions.map(s=>String(s.id))
-  );
-
-  const currentTestIds=new Set(
-    db.tests.map(t=>String(t.id))
-  );
-
-
-  // ------------------------------------
-  // مرحله اول: آزمودنی‌ها
-  // ------------------------------------
+  const pMap=new Map(),sMap=new Map();
 
   incoming.participants.forEach((source,index)=>{
+    const key=String(source.id||"missing_p_"+index);
+    if(pMap.has(key)){report.skipped++;return;}
 
-    if(!source || typeof source!=="object"){
-
-      report.skipped++;
-
-      report.warnings.push(
-        "یک رکورد آزمودنی نامعتبر بود."
+    let existing=db.participants.find(p=>String(p.id)===String(source.id));
+    if(!existing&&source.code){
+      existing=db.participants.find(p=>
+        String(p.code).trim().toLowerCase()===
+        String(source.code).trim().toLowerCase()
       );
-
-      return;
     }
-
-    const oldId=source.id;
-
-    const mapKey=oldId
-      ? String(oldId)
-      : "__missing_participant_"+index;
-
-
-    // شناسه تکراری در فایل ورودی
-    if(participantMap.has(mapKey)){
-
-      report.warnings.push(
-        "شناسه تکراری آزمودنی در فایل ورودی مشاهده شد."
-      );
-
-      return;
-    }
-
-
-    // جست‌وجوی آزمودنی با شناسه یکسان
-    let existing=oldId
-
-      ? db.participants.find(p=>
-          String(p.id)===String(oldId)
-        )
-
-      : null;
-
 
     if(existing){
-
-      participantMap.set(mapKey,existing.id);
-
+      pMap.set(key,existing.id);
       report.participantsMatched++;
-
-      if(fillEmptyFields(existing,source)){
-        report.participantsCompleted++;
-      }
-
+      ["age","gender","note"].forEach(field=>{
+        if((existing[field]===undefined||existing[field]==="")&&source[field])
+          existing[field]=source[field];
+      });
       return;
     }
 
-
-    // آزمودنی جدید
-    const newParticipant={
-
-      ...source,
-
-      id:oldId ? String(oldId) : uid()
-
-    };
-
-
-    // بررسی برخورد شناسه
-    if(currentParticipantIds.has(String(newParticipant.id))){
-
-      newParticipant.id=uid();
-
-      report.warnings.push(
-        "شناسه آزمودنی با شناسه موجود برخورد داشت؛ شناسه جدید ساخته شد."
-      );
-    }
-
-
-    // بررسی کد یکسان با شناسه متفاوت
-    const sameCode=db.participants.find(p=>
-
-      String(p.code || "").trim().toLowerCase() ===
-
-      String(newParticipant.code || "").trim().toLowerCase()
-
-    );
-
-    if(sameCode && newParticipant.code){
-
-      report.warnings.push(
-
-        "کد آزمودنی "+newParticipant.code+
-
-        " قبلاً با شناسه دیگری ثبت شده است؛ هر دو رکورد حفظ شدند."
-
-      );
-
-    }
-
-
-    db.participants.push(newParticipant);
-
-    currentParticipantIds.add(String(newParticipant.id));
-
-    participantMap.set(mapKey,newParticipant.id);
-
+    const item={...source,id:uid()};
+    db.participants.push(item);
+    pMap.set(key,item.id);
     report.participantsNew++;
-
   });
-
-
-  // ------------------------------------
-  // مرحله دوم: جلسات
-  // ------------------------------------
 
   incoming.sessions.forEach((source,index)=>{
-
-    if(!source || typeof source!=="object"){
-
-      report.skipped++;
-
-      report.warnings.push("یک رکورد جلسه نامعتبر بود.");
-
-      return;
-    }
-
-
-    const originalParticipantId=source.participantId;
-
-    const participantKey=originalParticipantId
-      ? String(originalParticipantId)
-      : "";
-
-    const mappedParticipantId=
-      participantMap.get(participantKey);
-
-
-    if(!mappedParticipantId){
-
-      report.skipped++;
-
-      report.warnings.push(
-        "یک جلسه به علت نامشخص بودن آزمودنی مرتبط وارد نشد."
-      );
-
-      return;
-    }
-
-
-    const oldSessionId=source.id;
-
-    const sessionKey=oldSessionId
-      ? String(oldSessionId)
-      : "__missing_session_"+index;
-
-
-    if(sessionMap.has(sessionKey)){
-
-      report.warnings.push(
-        "شناسه تکراری جلسه در فایل ورودی مشاهده شد."
-      );
-
-      return;
-    }
-
-
-    // بررسی جلسه موجود با شناسه یکسان
-    let existingSession=oldSessionId
-
-      ? db.sessions.find(s=>
-          String(s.id)===String(oldSessionId)
-        )
-
-      : null;
-
-
-    if(
-      existingSession &&
-      String(existingSession.participantId)===String(mappedParticipantId)
-    ){
-
-      sessionMap.set(sessionKey,existingSession.id);
-
-      report.sessionsDuplicate++;
-
-      return;
-    }
-
-
-    // ایجاد جلسه جدید
-    const newSession={
-
-      ...source,
-
-      id:oldSessionId ? String(oldSessionId) : uid(),
-
-      participantId:mappedParticipantId
-
-    };
-
-
-    if(currentSessionIds.has(String(newSession.id))){
-
-      newSession.id=uid();
-
-      report.warnings.push(
-        "شناسه جلسه با جلسه دیگری برخورد داشت؛ شناسه جدید ساخته شد."
-      );
-
-    }
-
-
-    db.sessions.push(newSession);
-
-    currentSessionIds.add(String(newSession.id));
-
-    sessionMap.set(sessionKey,newSession.id);
-
-    report.sessionsNew++;
-
-  });
-
-
-  // ------------------------------------
-  // مرحله سوم: نتایج آزمون
-  // ------------------------------------
-
-  incoming.tests.forEach(source=>{
-
-    if(!source || typeof source!=="object"){
-
-      report.skipped++;
-
-      report.warnings.push(
-        "یک نتیجه آزمون نامعتبر بود."
-      );
-
-      return;
-    }
-
-
-    const oldTestId=source.id;
-
-
-    // جلوگیری از ورود نتیجه تکراری
-    if(
-      oldTestId &&
-      currentTestIds.has(String(oldTestId))
-    ){
-
-      report.testsDuplicate++;
-
-      return;
-    }
-
-
-    const participantKey=source.participantId
-
-      ? String(source.participantId)
-
-      : "";
-
-
-    const mappedParticipantId=
-      participantMap.get(participantKey);
-
-
-    const sessionKey=source.sessionId
-
-      ? String(source.sessionId)
-
-      : "";
-
-
-    const mappedSessionId=
-      sessionMap.get(sessionKey);
-
-
-    if(!mappedParticipantId || !mappedSessionId){
-
-      report.skipped++;
-
-      report.warnings.push(
-        "یک نتیجه آزمون به علت نامشخص بودن آزمودنی یا جلسه مرتبط وارد نشد."
-      );
-
-      return;
-    }
-
-
-    // بررسی ارتباط صحیح آزمودنی و جلسه
-    const relatedSession=db.sessions.find(s=>
-
-      String(s.id)===String(mappedSessionId)
-
+    const key=String(source.id||"missing_s_"+index);
+    if(sMap.has(key)){report.skipped++;return;}
+
+    const mappedPid=pMap.get(String(source.participantId));
+    if(!mappedPid){report.skipped++;return;}
+
+    let existing=db.sessions.find(s=>
+      String(s.id)===String(source.id)&&
+      String(s.participantId)===String(mappedPid)
     );
 
-
-    if(
-      !relatedSession ||
-      String(relatedSession.participantId)!==
-      String(mappedParticipantId)
-    ){
-
-      report.skipped++;
-
-      report.warnings.push(
-        "یک نتیجه آزمون به علت ناسازگاری ارتباط آزمودنی و جلسه وارد نشد."
+    if(!existing){
+      existing=db.sessions.find(s=>
+        String(s.participantId)===String(mappedPid)&&
+        String(s.number)===String(source.number)&&
+        String(s.date)===String(source.date)
       );
+    }
 
+    if(existing){
+      sMap.set(key,existing.id);
+      report.sessionsDuplicate++;
+    }else{
+      const item={...source,id:uid(),participantId:mappedPid};
+      db.sessions.push(item);
+      sMap.set(key,item.id);
+      report.sessionsNew++;
+    }
+  });
+
+  incoming.tests.forEach(source=>{
+    if(db.tests.some(t=>String(t.id)===String(source.id))){
+      report.testsDuplicate++;
       return;
     }
 
+    const pid=pMap.get(String(source.participantId));
+    const sid=sMap.get(String(source.sessionId));
+    if(!pid||!sid){report.skipped++;return;}
 
-    const newTest={
+    const session=db.sessions.find(s=>s.id===sid);
+    if(!session||session.participantId!==pid){report.skipped++;return;}
 
-      ...source,
-
-      id:oldTestId ? String(oldTestId) : uid(),
-
-      participantId:mappedParticipantId,
-
-      sessionId:mappedSessionId
-
-    };
-
-
-    if(currentTestIds.has(String(newTest.id))){
-
-      newTest.id=uid();
-
-    }
-
-
-    db.tests.push(newTest);
-
-    currentTestIds.add(String(newTest.id));
-
+    db.tests.push({...source,id:uid(),participantId:pid,sessionId:sid});
     report.testsNew++;
-
   });
 
-
   return report;
-
 }
 
+function showImportReport(report,title){
+  document.getElementById("importReport").classList.remove("hidden");
+  document.getElementById("reportContent").innerHTML=`
+    <h3>${escapeHTML(title)}</h3>
+    <p>آزمودنی جدید: ${faNumber(report.participantsNew)}</p>
+    <p>آزمودنی تطبیق‌یافته: ${faNumber(report.participantsMatched)}</p>
+    <p>جلسه جدید: ${faNumber(report.sessionsNew)}</p>
+    <p>جلسه تکراری: ${faNumber(report.sessionsDuplicate)}</p>
+    <p>نتیجه جدید: ${faNumber(report.testsNew)}</p>
+    <p>نتیجه تکراری: ${faNumber(report.testsDuplicate)}</p>
+    <p>موارد واردنشده: ${faNumber(report.skipped)}</p>
+    ${report.warnings.length?
+      "<h4>هشدارها</h4><ul>"+report.warnings.map(x=>"<li>"+escapeHTML(x)+"</li>").join("")+"</ul>":
+      "<p>هشداری ثبت نشد.</p>"}`;
+}
 
 // ========================================
-// 15. بازیابی کامل یا ادغام
+// 13. بازیابی JSON
 // ========================================
 
 function importJSON(mode){
-
   const file=document.getElementById("importFile").files[0];
-
-  if(!file){
-
-    alert("ابتدا فایل JSON را انتخاب کنید.");
-
-    return;
-  }
-
-
-  if(mode!=="replace" && mode!=="merge"){
-
-    alert("نوع عملیات مشخص نیست.");
-
-    return;
-  }
-
+  if(!file)return alert("ابتدا فایل JSON را انتخاب کنید.");
+  if(mode!=="replace"&&mode!=="merge")return;
 
   const question=mode==="replace"
-
-    ? "اطلاعات فعلی با اطلاعات فایل جایگزین می‌شود. ادامه می‌دهید؟"
-
-    : "اطلاعات فایل با اطلاعات فعلی ادغام می‌شود. ادامه می‌دهید؟";
-
-
+    ?"اطلاعات فعلی با اطلاعات فایل جایگزین می‌شود. ادامه می‌دهید؟"
+    :"اطلاعات فایل با اطلاعات فعلی ادغام می‌شود. ادامه می‌دهید؟";
   if(!confirm(question))return;
-
 
   const reader=new FileReader();
 
-
   reader.onload=()=>{
-
     let parsed;
-
-
-    // خواندن JSON
     try{
-
-      parsed=JSON.parse(reader.result);
-
+      parsed=unwrapBackup(JSON.parse(reader.result));
     }catch(e){
-
-      alert("فایل JSON معتبر نیست.");
-
-      return;
+      return alert("فایل JSON معتبر نیست.");
     }
 
-
-    // بررسی ساختار
-    if(!validDatabase(parsed)){
-
-      alert(
-        "ساختار فایل معتبر نیست. فایل باید شامل سه آرایه آزمودنی‌ها، جلسات و آزمون‌ها باشد."
-      );
-
-      return;
-    }
-
-
-    // جلوگیری از بازیابی فایل ناقص یا ناسازگار
+    if(!validDatabase(parsed))return alert("ساختار فایل پشتیبان معتبر نیست.");
     const relationError=validateDatabaseRelations(parsed);
+    if(relationError)return alert("خطا در ارتباط اطلاعات:\n"+relationError);
 
-    if(relationError){
-
-      alert(
-        "فایل از نظر ارتباط اطلاعات مشکل دارد:\n"+relationError+
-        "\n\nبرای جلوگیری از آسیب به اطلاعات، عملیات متوقف شد."
-      );
-
-      return;
-    }
-
-
-    // پشتیبان‌گیری قبل از تغییر
     try{
-
       createPreImportBackup();
-
     }catch(e){
-
-      alert(
-        "عملیات متوقف شد:\n"+e.message
-      );
-
-      return;
+      return alert("ساخت نسخه پشتیبان ناموفق بود؛ بازیابی متوقف شد.");
     }
 
-
-    const previousDB=JSON.parse(JSON.stringify(db));
-
-    let report;
-
+    const previous=JSON.parse(JSON.stringify(db));
 
     try{
-
+      let report;
 
       if(mode==="replace"){
-
-        // بازیابی کامل
         db={
-
-          participants:JSON.parse(
-            JSON.stringify(parsed.participants)
-          ),
-
-          sessions:JSON.parse(
-            JSON.stringify(parsed.sessions)
-          ),
-
-          tests:JSON.parse(
-            JSON.stringify(parsed.tests)
-          )
-
+          participants:JSON.parse(JSON.stringify(parsed.participants)),
+          sessions:JSON.parse(JSON.stringify(parsed.sessions)),
+          tests:JSON.parse(JSON.stringify(parsed.tests))
         };
-
-
-        report=makeImportReport();
-
-        report.participantsNew=db.participants.length;
-
-        report.sessionsNew=db.sessions.length;
-
-        report.testsNew=db.tests.length;
-
-
+        report={
+          participantsNew:db.participants.length,
+          participantsMatched:0,
+          sessionsNew:db.sessions.length,
+          sessionsDuplicate:0,
+          testsNew:db.tests.length,
+          testsDuplicate:0,
+          skipped:0,warnings:[]
+        };
       }else{
-
-        // ادغام با اطلاعات فعلی
         report=mergeDatabase(parsed);
-
       }
 
-
-      // ذخیره نهایی
       save();
-
-
-      showImportReport(
-
-        report,
-
-        mode==="replace"
-
-          ? "گزارش بازیابی کامل"
-
-          : "گزارش ادغام اطلاعات"
-
-      );
-
-
-      alert(
-
-        mode==="replace"
-
-          ? "بازیابی کامل انجام شد."
-
-          : "ادغام اطلاعات انجام شد."
-
-      );
-
-
+      showImportReport(report,mode==="replace"?"گزارش بازیابی کامل":"گزارش ادغام اطلاعات");
       document.getElementById("importFile").value="";
-
-
-    }catch(e){
-
-      // بازگردانی اطلاعات قبلی در صورت شکست
-      db=previousDB;
-
-      try{
-
-        localStorage.setItem(
-          DBKEY,
-          JSON.stringify(previousDB)
-        );
-
-      }catch(restoreError){
-
-        console.error(
-          "خطا در بازگردانی اطلاعات قبلی",
-          restoreError
-        );
-
-      }
-
-
+      alert(mode==="replace"?"بازیابی کامل انجام شد.":"ادغام اطلاعات انجام شد.");
+    }catch(error){
+      db=previous;
+      try{localStorage.setItem(DBKEY,JSON.stringify(previous));}catch(e){}
       renderAll();
-
-
-      alert(
-        "ذخیره اطلاعات جدید با خطا مواجه شد و وضعیت قبلی بازگردانده شد.\n"+
-        e.message
-      );
-
+      alert("ذخیره اطلاعات جدید ناموفق بود و وضعیت قبلی بازگردانده شد.");
     }
-
   };
 
-
-  reader.onerror=()=>{
-
-    alert("خواندن فایل با خطا مواجه شد.");
-
-  };
-
-
+  reader.onerror=()=>alert("خواندن فایل با خطا مواجه شد.");
   reader.readAsText(file);
-
 }
 
-
 // ========================================
-// 16. شروع برنامه
+// 14. شروع برنامه
 // ========================================
 
 document.getElementById("sessionDate").value=today();
-
 load();
 
 </script>
-
 </body>
 </html>
-<footer>
-  © 2026 M. Khoshroo | NeuroCognitive Research Edition
-</footer>
