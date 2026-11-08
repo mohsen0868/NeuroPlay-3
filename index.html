@@ -1,10 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroCognitive | نسخه ۰٫۲</title>
+<title>NeuroCognitive | نسخه ۰٫۳</title>
+<div class="developer-credit">Developed by M. Khoshroo</div>
+  
 <style>
 :root {
   --blue:#245b83;
@@ -117,23 +118,45 @@ th{background:#eef4f7}
 #progressBar{height:100%;width:0;background:var(--green)}
 footer{text-align:center;padding:20px;color:#71808a;font-size:11px}
 .hidden{display:none!important}
+
+#reportContent p{margin:5px 0}
+#reportContent h4{margin-bottom:5px;color:var(--blue)}
+#reportContent ul{padding-right:22px}
+#reportContent li{margin-bottom:5px}
+
+@media(max-width:600px){
+  header h1{font-size:22px}
+  .card{padding:13px}
+  button{font-size:12px}
+  #stimulus{min-height:140px;font-size:65px}
+}
 </style>
 </head>
+
 <body>
 
 <header>
   <h1>NeuroCognitive</h1>
   <p>سامانه مدیریت آزمودنی‌ها، جلسات و ارزیابی شناختی</p>
-  <small>نسخه ۰٫۲ | Research Edition</small>
+  <small>نسخه ۰٫۳ | Research Edition</small>
 </header>
 
 <main>
 
 <div class="card">
   <div class="statgrid">
-    <div class="stat"><strong id="countParticipants">۰</strong>آزمودنی</div>
-    <div class="stat"><strong id="countSessions">۰</strong>جلسه</div>
-    <div class="stat"><strong id="countTests">۰</strong>آزمون ثبت‌شده</div>
+    <div class="stat">
+      <strong id="countParticipants">۰</strong>
+      آزمودنی
+    </div>
+    <div class="stat">
+      <strong id="countSessions">۰</strong>
+      جلسه
+    </div>
+    <div class="stat">
+      <strong id="countTests">۰</strong>
+      آزمون ثبت‌شده
+    </div>
   </div>
 </div>
 
@@ -145,19 +168,24 @@ footer{text-align:center;padding:20px;color:#71808a;font-size:11px}
   <button data-tab="backup">پشتیبان‌گیری</button>
 </div>
 
+
 <!-- آزمودنی‌ها -->
 <section id="participants" class="panel active">
+
   <div class="card">
     <h2>ثبت آزمودنی جدید</h2>
+
     <div class="grid">
       <div>
         <label>کد آزمودنی</label>
         <input id="pCode" placeholder="مثلاً P001">
       </div>
+
       <div>
         <label>سن (سال)</label>
         <input id="pAge" type="number" min="1" max="100">
       </div>
+
       <div>
         <label>جنسیت</label>
         <select id="pGender">
@@ -169,142 +197,255 @@ footer{text-align:center;padding:20px;color:#71808a;font-size:11px}
           <option value="ثبت نشده">ثبت نشده</option>
         </select>
       </div>
+
       <div>
         <label>توضیحات (اختیاری)</label>
         <input id="pNote" placeholder="توضیح غیرهویتی">
       </div>
     </div>
+
     <button class="green" onclick="addParticipant()">ثبت آزمودنی</button>
     <div id="participantMessage" class="small"></div>
   </div>
 
   <div class="card">
     <h2>فهرست آزمودنی‌ها</h2>
+
     <div class="tablewrap">
       <table>
-        <thead><tr><th>کد</th><th>سن</th><th>جنسیت</th><th>عملیات</th></tr></thead>
+        <thead>
+          <tr>
+            <th>کد</th>
+            <th>سن</th>
+            <th>جنسیت</th>
+            <th>عملیات</th>
+          </tr>
+        </thead>
         <tbody id="participantsTable"></tbody>
       </table>
     </div>
   </div>
+
 </section>
+
 
 <!-- جلسات -->
 <section id="sessions" class="panel">
+
   <div class="card">
     <h2>ایجاد جلسه جدید</h2>
+
     <div class="grid">
       <div>
         <label>آزمودنی</label>
         <select id="sessionParticipant"></select>
       </div>
+
       <div>
         <label>شماره جلسه</label>
         <input id="sessionNumber" type="number" min="1" value="1">
       </div>
+
       <div>
         <label>تاریخ</label>
         <input id="sessionDate" type="date">
       </div>
+
       <div>
         <label>توضیحات</label>
         <input id="sessionNote" placeholder="توضیح جلسه">
       </div>
     </div>
+
     <button class="green" onclick="addSession()">ثبت جلسه</button>
     <p id="sessionMessage" class="small"></p>
   </div>
 
   <div class="card">
     <h2>فهرست جلسات</h2>
+
     <div class="tablewrap">
       <table>
-        <thead><tr><th>آزمودنی</th><th>جلسه</th><th>تاریخ</th><th>عملیات</th></tr></thead>
+        <thead>
+          <tr>
+            <th>آزمودنی</th>
+            <th>جلسه</th>
+            <th>تاریخ</th>
+            <th>عملیات</th>
+          </tr>
+        </thead>
         <tbody id="sessionsTable"></tbody>
       </table>
     </div>
   </div>
+
 </section>
+
 
 <!-- آزمون توجه -->
 <section id="attention" class="panel">
+
   <div class="card">
     <h2>آزمون نمونه توجه انتخابی</h2>
+
     <div class="notice">
       دستورالعمل: هرگاه عدد ۳ را دیدید، دکمه «پاسخ» را فشار دهید.
       در سایر موارد پاسخی ندهید.
     </div>
+
     <div class="grid">
       <div>
         <label>آزمودنی</label>
         <select id="testParticipant" onchange="updateTestSessions()"></select>
       </div>
+
       <div>
         <label>جلسه</label>
         <select id="testSession"></select>
       </div>
     </div>
+
     <button class="green" id="startButton" onclick="startTest()">شروع آزمون</button>
+
     <div id="taskArea">
-      <div class="progress"><div id="progressBar"></div></div>
+
+      <div class="progress">
+        <div id="progressBar"></div>
+      </div>
+
       <p id="trialInfo" class="small"></p>
+
       <div id="stimulus">آماده؟</div>
+
       <div style="text-align:center">
-        <button class="orange" style="font-size:20px;padding:15px 35px" id="responseButton" onclick="respond()" disabled>
+        <button
+          class="orange"
+          style="font-size:20px;padding:15px 35px"
+          id="responseButton"
+          onclick="respond()"
+          disabled>
           پاسخ
         </button>
       </div>
+
       <p id="taskMessage" class="small"></p>
+
     </div>
+
     <div id="testResult" class="hidden"></div>
   </div>
+
 </section>
+
 
 <!-- سوابق -->
 <section id="records" class="panel">
+
   <div class="card">
     <h2>سوابق آزمون‌ها</h2>
+
     <div class="tablewrap">
       <table>
         <thead>
           <tr>
-            <th>آزمودنی</th><th>جلسه</th><th>تاریخ</th>
-            <th>درست</th><th>خطا</th><th>از دست‌رفته</th><th>دقت</th>
+            <th>آزمودنی</th>
+            <th>جلسه</th>
+            <th>تاریخ</th>
+            <th>درست</th>
+            <th>خطا</th>
+            <th>از دست‌رفته</th>
+            <th>دقت</th>
           </tr>
         </thead>
+
         <tbody id="recordsTable"></tbody>
       </table>
     </div>
   </div>
+
 </section>
 
-<!-- پشتیبان گیری -->
+
+<!-- پشتیبان‌گیری -->
 <section id="backup" class="panel">
+
   <div class="card">
-    <h2>پشتیبان‌گیری و بازیابی</h2>
-    <p class="small">برای نگهداری اطلاعات، فایل پشتیبان JSON را در محل امن ذخیره کنید.</p>
-    <button class="green" onclick="exportJSON()">دریافت پشتیبان JSON</button>
-    <button onclick="exportCSV()">خروجی نتایج CSV</button>
-    <hr>
-    <label>بازیابی اطلاعات از فایل JSON</label>
-    <input type="file" id="importFile" accept=".json,application/json">
-    <button class="orange" onclick="importJSON()">بازیابی اطلاعات</button>
-    <p class="notice">
-      اطلاعات این نسخه در مرورگر فعلی ذخیره می‌شود؛ پاک‌کردن داده‌های مرورگر
-      ممکن است اطلاعات را حذف کند. فایل پشتیبان را مرتب دریافت کنید.
+
+    <h2>پشتیبان‌گیری و بازیابی اطلاعات</h2>
+
+    <p class="small">
+      برای نگهداری اطلاعات، فایل پشتیبان JSON را در محل امن ذخیره کنید.
     </p>
+
+    <button class="green" onclick="exportJSON()">
+      دریافت پشتیبان JSON
+    </button>
+
+    <button onclick="exportCSV()">
+      خروجی نتایج CSV
+    </button>
+
+    <hr>
+
+    <h3>بازیابی اطلاعات از فایل پشتیبان</h3>
+
+    <label>انتخاب فایل JSON</label>
+    <input
+      type="file"
+      id="importFile"
+      accept=".json,application/json"
+    >
+
+    <div class="notice">
+      پیش از هر عملیات بازیابی، از اطلاعات فعلی نسخه پشتیبان تهیه می‌شود.
+      نسخه پشتیبان در حافظه مرورگر ذخیره شده و دانلود آن نیز آغاز می‌شود.
+    </div>
+
+    <button class="orange" onclick="importJSON('replace')">
+      بازیابی کامل (جایگزینی اطلاعات فعلی)
+    </button>
+
+    <button class="green" onclick="importJSON('merge')">
+      ادغام با اطلاعات فعلی
+    </button>
+
+    <div
+      id="importReport"
+      class="hidden"
+      style="margin-top:18px;padding:14px;background:#eef5f8;border-radius:10px">
+
+      <div id="reportContent"></div>
+
+    </div>
+
+    <hr>
+
+    <p class="notice">
+      اطلاعات این نسخه در مرورگر فعلی ذخیره می‌شود.
+      برای انتقال اطلاعات به دستگاه دیگر باید فایل پشتیبان را
+      دریافت و در دستگاه مقصد بازیابی کنید.
+    </p>
+
   </div>
+
 </section>
 
 </main>
 
 <footer>
-NeuroCognitive Research Edition — ابزار نمونه پژوهشی، نه آزمون تشخیصی استاندارد
+  NeuroCognitive Research Edition — ابزار نمونه پژوهشی، نه آزمون تشخیصی استاندارد
 </footer>
 
+
 <script>
+
+// ========================================
+// 1. تنظیمات و پایگاه داده
+// ========================================
+
 const DBKEY = "neurocognitive_v02";
 const OLDKEY = "neurocognitive_results_v1";
+const PREBACKUP_KEY = "neurocognitive_preimport_backup";
 
 let db = {
   participants: [],
@@ -319,8 +460,14 @@ let trialActive = false;
 let testData = null;
 let timer = null;
 
+
+// ========================================
+// 2. توابع عمومی
+// ========================================
+
 function uid(){
-  return "id_" + Date.now() + "_" + Math.random().toString(36).slice(2,8);
+  return "id_" + Date.now() + "_" +
+    Math.random().toString(36).slice(2,8);
 }
 
 function today(){
@@ -331,43 +478,101 @@ function faNumber(n){
   return Number(n || 0).toLocaleString("fa-IR");
 }
 
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[c]);
+}
+
 function save(){
   localStorage.setItem(DBKEY, JSON.stringify(db));
   renderAll();
 }
 
+
+// ========================================
+// 3. بارگذاری اطلاعات
+// ========================================
+
 function load(){
+
   try{
+
     const saved = localStorage.getItem(DBKEY);
+
     if(saved){
+
       const parsed = JSON.parse(saved);
+
       db = {
-        participants: parsed.participants || [],
-        sessions: parsed.sessions || [],
-        tests: parsed.tests || []
+        participants: Array.isArray(parsed.participants)
+          ? parsed.participants : [],
+
+        sessions: Array.isArray(parsed.sessions)
+          ? parsed.sessions : [],
+
+        tests: Array.isArray(parsed.tests)
+          ? parsed.tests : []
       };
     }
+
   }catch(e){
+
     alert("خطا در خواندن اطلاعات ذخیره‌شده.");
+
   }
 
-  // تلاش برای انتقال نتایج نسخه قبلی
+
+  // انتقال نتایج نسخه قبلی
+
   if(!db.tests.length && localStorage.getItem(OLDKEY)){
+
     try{
+
       const old = JSON.parse(localStorage.getItem(OLDKEY));
+
       if(Array.isArray(old)){
+
         old.forEach(item=>{
-          const code = String(item.code || item.participantCode || "LEGACY");
+
+          const code = String(
+            item.code || item.participantCode || "LEGACY"
+          );
+
           let p = db.participants.find(x=>x.code===code);
+
           if(!p){
-            p = {id:uid(),code,age:"",gender:"ثبت نشده",note:"انتقال از نسخه قبلی"};
+
+            p = {
+              id:uid(),
+              code,
+              age:"",
+              gender:"ثبت نشده",
+              note:"انتقال از نسخه قبلی"
+            };
+
             db.participants.push(p);
           }
+
           let s = db.sessions.find(x=>x.participantId===p.id);
+
           if(!s){
-            s = {id:uid(),participantId:p.id,number:1,date:today(),note:"جلسه منتقل‌شده"};
+
+            s = {
+              id:uid(),
+              participantId:p.id,
+              number:1,
+              date:today(),
+              note:"جلسه منتقل‌شده"
+            };
+
             db.sessions.push(s);
           }
+
           db.tests.push({
             id:uid(),
             participantId:p.id,
@@ -381,347 +586,1650 @@ function load(){
             meanRT:Number(item.meanRT ?? item.averageRT ?? 0),
             migrated:true
           });
+
         });
+
         localStorage.setItem(DBKEY,JSON.stringify(db));
       }
+
     }catch(e){}
+
   }
+
   renderAll();
 }
 
+
+// ========================================
+// 4. مدیریت تب‌ها
+// ========================================
+
 function showTab(id){
-  document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
-  document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));
+
+  document.querySelectorAll(".panel")
+    .forEach(x=>x.classList.remove("active"));
+
+  document.querySelectorAll(".tabs button")
+    .forEach(x=>x.classList.remove("active"));
+
   document.getElementById(id).classList.add("active");
-  document.querySelector('[data-tab="'+id+'"]').classList.add("active");
+
+  document.querySelector(
+    '[data-tab="'+id+'"]'
+  ).classList.add("active");
 }
 
 document.querySelectorAll(".tabs button").forEach(btn=>{
-  btn.addEventListener("click",()=>showTab(btn.dataset.tab));
+
+  btn.addEventListener("click",()=>{
+    showTab(btn.dataset.tab);
+  });
+
 });
 
+
+// ========================================
+// 5. مدیریت آزمودنی‌ها
+// ========================================
+
 function addParticipant(){
+
   const code = document.getElementById("pCode").value.trim();
   const age = document.getElementById("pAge").value;
-  const gender = document.getElementById("pGender").value || "ثبت نشده";
+
+  const gender =
+    document.getElementById("pGender").value || "ثبت نشده";
+
   const note = document.getElementById("pNote").value.trim();
 
   if(!code){
     alert("کد آزمودنی را وارد کنید.");
     return;
   }
-  if(db.participants.some(p=>p.code.toLowerCase()===code.toLowerCase())){
+
+  if(db.participants.some(p=>
+    String(p.code).toLowerCase()===code.toLowerCase()
+  )){
     alert("این کد قبلاً ثبت شده است.");
     return;
   }
 
-  db.participants.push({id:uid(),code,age,gender,note});
+  db.participants.push({
+    id:uid(),
+    code,
+    age,
+    gender,
+    note
+  });
+
   document.getElementById("pCode").value="";
   document.getElementById("pAge").value="";
   document.getElementById("pGender").value="";
   document.getElementById("pNote").value="";
-  document.getElementById("participantMessage").textContent="آزمودنی ثبت شد.";
+
+  document.getElementById("participantMessage").textContent =
+    "آزمودنی ثبت شد.";
+
   save();
 }
+
 
 function editParticipant(id){
+
   const p = db.participants.find(x=>x.id===id);
+
   if(!p)return;
+
   const code = prompt("کد آزمودنی:",p.code);
+
   if(code===null)return;
-  if(!code.trim())return alert("کد نمی‌تواند خالی باشد.");
-  const duplicate = db.participants.find(x=>x.id!==id && x.code.toLowerCase()===code.trim().toLowerCase());
-  if(duplicate)return alert("این کد برای آزمودنی دیگری ثبت شده است.");
+
+  if(!code.trim()){
+    return alert("کد نمی‌تواند خالی باشد.");
+  }
+
+  const duplicate = db.participants.find(x=>
+    x.id!==id &&
+    String(x.code).toLowerCase()===code.trim().toLowerCase()
+  );
+
+  if(duplicate){
+    return alert("این کد برای آزمودنی دیگری ثبت شده است.");
+  }
+
   const age = prompt("سن:",p.age);
+
   if(age===null)return;
+
   p.code=code.trim();
   p.age=age;
+
   save();
 }
+
 
 function deleteParticipant(id){
+
   const p=db.participants.find(x=>x.id===id);
+
   if(!p)return;
-  if(!confirm("آزمودنی و جلسات او حذف شوند؟ نتایج آزمون‌های مرتبط نیز حذف می‌شوند."))return;
-  const sessionIds=db.sessions.filter(s=>s.participantId===id).map(s=>s.id);
+
+  if(!confirm(
+    "آزمودنی و جلسات او حذف شوند؟ نتایج آزمون‌های مرتبط نیز حذف می‌شوند."
+  ))return;
+
   db.tests=db.tests.filter(t=>t.participantId!==id);
+
   db.sessions=db.sessions.filter(s=>s.participantId!==id);
+
   db.participants=db.participants.filter(x=>x.id!==id);
+
   save();
 }
+
+
+// ========================================
+// 6. مدیریت جلسات
+// ========================================
 
 function addSession(){
-  const participantId=document.getElementById("sessionParticipant").value;
-  const number=document.getElementById("sessionNumber").value;
-  const date=document.getElementById("sessionDate").value || today();
-  const note=document.getElementById("sessionNote").value.trim();
 
-  if(!participantId)return alert("ابتدا یک آزمودنی ثبت کنید.");
-  db.sessions.push({id:uid(),participantId,number,date,note});
-  document.getElementById("sessionMessage").textContent="جلسه ثبت شد.";
+  const participantId =
+    document.getElementById("sessionParticipant").value;
+
+  const number =
+    document.getElementById("sessionNumber").value;
+
+  const date =
+    document.getElementById("sessionDate").value || today();
+
+  const note =
+    document.getElementById("sessionNote").value.trim();
+
+  if(!participantId){
+    return alert("ابتدا یک آزمودنی ثبت کنید.");
+  }
+
+  db.sessions.push({
+    id:uid(),
+    participantId,
+    number,
+    date,
+    note
+  });
+
+  document.getElementById("sessionMessage").textContent =
+    "جلسه ثبت شد.";
+
   save();
 }
+
 
 function deleteSession(id){
+
   if(db.tests.some(t=>t.sessionId===id)){
-    return alert("این جلسه دارای نتیجه آزمون است و برای حفظ سوابق حذف نمی‌شود.");
+    return alert(
+      "این جلسه دارای نتیجه آزمون است و برای حفظ سوابق حذف نمی‌شود."
+    );
   }
+
   if(!confirm("جلسه حذف شود؟"))return;
+
   db.sessions=db.sessions.filter(s=>s.id!==id);
+
   save();
 }
 
-function renderAll(){
-  document.getElementById("countParticipants").textContent=faNumber(db.participants.length);
-  document.getElementById("countSessions").textContent=faNumber(db.sessions.length);
-  document.getElementById("countTests").textContent=faNumber(db.tests.length);
 
-  document.getElementById("participantsTable").innerHTML=
+// ========================================
+// 7. نمایش اطلاعات
+// ========================================
+
+function renderAll(){
+
+  document.getElementById("countParticipants").textContent =
+    faNumber(db.participants.length);
+
+  document.getElementById("countSessions").textContent =
+    faNumber(db.sessions.length);
+
+  document.getElementById("countTests").textContent =
+    faNumber(db.tests.length);
+
+
+  document.getElementById("participantsTable").innerHTML =
     db.participants.map(p=>`
+
       <tr>
         <td>${escapeHTML(p.code)}</td>
+
         <td>${escapeHTML(p.age || "-")}</td>
+
         <td>${escapeHTML(p.gender || "-")}</td>
+
         <td>
-          <button class="orange" onclick="editParticipant('${p.id}')">ویرایش</button>
-          <button class="red" onclick="deleteParticipant('${p.id}')">حذف</button>
+          <button class="orange"
+            onclick="editParticipant('${escapeHTML(p.id)}')">
+            ویرایش
+          </button>
+
+          <button class="red"
+            onclick="deleteParticipant('${escapeHTML(p.id)}')">
+            حذف
+          </button>
         </td>
-      </tr>`).join("") || '<tr><td colspan="4">هنوز آزمودنی ثبت نشده است.</td></tr>';
+      </tr>
 
-  const options='<option value="">انتخاب آزمودنی</option>'+
-    db.participants.map(p=>`<option value="${p.id}">${escapeHTML(p.code)}</option>`).join("");
+    `).join("") ||
+    '<tr><td colspan="4">هنوز آزمودنی ثبت نشده است.</td></tr>';
 
-  document.getElementById("sessionParticipant").innerHTML=options;
-  document.getElementById("testParticipant").innerHTML=options;
+
+  const options =
+    '<option value="">انتخاب آزمودنی</option>' +
+
+    db.participants.map(p=>`
+      <option value="${escapeHTML(p.id)}">
+        ${escapeHTML(p.code)}
+      </option>
+    `).join("");
+
+
+  document.getElementById("sessionParticipant").innerHTML = options;
+
+  document.getElementById("testParticipant").innerHTML = options;
+
   updateTestSessions();
 
-  document.getElementById("sessionsTable").innerHTML=
-    db.sessions.map(s=>{
-      const p=db.participants.find(x=>x.id===s.participantId);
-      return `<tr>
-        <td>${escapeHTML(p?.code || "نامشخص")}</td>
-        <td>${escapeHTML(s.number)}</td>
-        <td>${escapeHTML(s.date)}</td>
-        <td><button class="red" onclick="deleteSession('${s.id}')">حذف</button></td>
-      </tr>`;
-    }).join("") || '<tr><td colspan="4">هنوز جلسه‌ای ثبت نشده است.</td></tr>';
 
-  document.getElementById("recordsTable").innerHTML=
+  document.getElementById("sessionsTable").innerHTML =
+
+    db.sessions.map(s=>{
+
+      const p=db.participants.find(
+        x=>x.id===s.participantId
+      );
+
+      return `
+        <tr>
+          <td>${escapeHTML(p?.code || "نامشخص")}</td>
+
+          <td>${escapeHTML(s.number)}</td>
+
+          <td>${escapeHTML(s.date)}</td>
+
+          <td>
+            <button class="red"
+              onclick="deleteSession('${escapeHTML(s.id)}')">
+              حذف
+            </button>
+          </td>
+        </tr>
+      `;
+
+    }).join("") ||
+    '<tr><td colspan="4">هنوز جلسه‌ای ثبت نشده است.</td></tr>';
+
+
+  document.getElementById("recordsTable").innerHTML =
+
     db.tests.slice().reverse().map(t=>{
-      const p=db.participants.find(x=>x.id===t.participantId);
-      const s=db.sessions.find(x=>x.id===t.sessionId);
-      return `<tr>
-        <td>${escapeHTML(p?.code || "-")}</td>
-        <td>${escapeHTML(s?.number || "-")}</td>
-        <td>${escapeHTML(String(t.date || "").slice(0,10))}</td>
-        <td>${faNumber(t.correct)}</td>
-        <td>${faNumber(t.falseAlarms)}</td>
-        <td>${faNumber(t.misses)}</td>
-        <td>${faNumber(t.accuracy)}٪</td>
-      </tr>`;
-    }).join("") || '<tr><td colspan="7">هنوز نتیجه‌ای ثبت نشده است.</td></tr>';
+
+      const p=db.participants.find(
+        x=>x.id===t.participantId
+      );
+
+      const s=db.sessions.find(
+        x=>x.id===t.sessionId
+      );
+
+      return `
+        <tr>
+          <td>${escapeHTML(p?.code || "-")}</td>
+
+          <td>${escapeHTML(s?.number || "-")}</td>
+
+          <td>${escapeHTML(String(t.date || "").slice(0,10))}</td>
+
+          <td>${faNumber(t.correct)}</td>
+
+          <td>${faNumber(t.falseAlarms)}</td>
+
+          <td>${faNumber(t.misses)}</td>
+
+          <td>${faNumber(t.accuracy)}٪</td>
+        </tr>
+      `;
+
+    }).join("") ||
+    '<tr><td colspan="7">هنوز نتیجه‌ای ثبت نشده است.</td></tr>';
+
 }
+
 
 function updateTestSessions(){
+
   const pid=document.getElementById("testParticipant").value;
-  const sessions=db.sessions.filter(s=>s.participantId===pid);
-  document.getElementById("testSession").innerHTML=
-    '<option value="">انتخاب جلسه</option>'+
-    sessions.map(s=>`<option value="${s.id}">جلسه ${escapeHTML(s.number)} - ${escapeHTML(s.date)}</option>`).join("");
+
+  const sessions=db.sessions.filter(
+    s=>s.participantId===pid
+  );
+
+  document.getElementById("testSession").innerHTML =
+
+    '<option value="">انتخاب جلسه</option>' +
+
+    sessions.map(s=>`
+      <option value="${escapeHTML(s.id)}">
+        جلسه ${escapeHTML(s.number)} - ${escapeHTML(s.date)}
+      </option>
+    `).join("");
+
 }
 
+
+// ========================================
+// 8. آزمون توجه
+// ========================================
+
 function shuffle(arr){
+
   for(let i=arr.length-1;i>0;i--){
+
     const j=Math.floor(Math.random()*(i+1));
+
     [arr[i],arr[j]]=[arr[j],arr[i]];
   }
+
   return arr;
 }
 
+
 function startTest(){
-  const participantId=document.getElementById("testParticipant").value;
-  const sessionId=document.getElementById("testSession").value;
+
+  const participantId =
+    document.getElementById("testParticipant").value;
+
+  const sessionId =
+    document.getElementById("testSession").value;
+
   if(!participantId || !sessionId){
     return alert("آزمودنی و جلسه را انتخاب کنید.");
   }
 
   // ۱۰ هدف و ۳۰ محرک غیرهدف
+
   trialList=shuffle([
+
     ...Array(10).fill("3"),
-    ...Array.from({length:30},()=>String(Math.floor(Math.random()*9)+1).replace("3","7"))
+
+    ...Array.from(
+      {length:30},
+      ()=>String(Math.floor(Math.random()*9)+1).replace("3","7")
+    )
+
   ]);
 
-  // اطمینان از اینکه فقط عدد ۳ هدف باشد
-  trialList=shuffle(trialList);
-
   trialIndex=0;
-  testData={participantId,sessionId,hits:0,falseAlarms:0,misses:0,reactionTimes:[]};
+
+  testData={
+    participantId,
+    sessionId,
+    hits:0,
+    falseAlarms:0,
+    misses:0,
+    reactionTimes:[]
+  };
+
   document.getElementById("testResult").classList.add("hidden");
+
   document.getElementById("taskArea").style.display="block";
+
   document.getElementById("startButton").disabled=true;
+
   nextTrial();
 }
 
+
 function nextTrial(){
+
   if(trialIndex>=trialList.length){
     finishTest();
     return;
   }
+
   trialActive=true;
+
   const stimulus=trialList[trialIndex];
+
   document.getElementById("stimulus").textContent=stimulus;
-  document.getElementById("trialInfo").textContent=
-    "محرک "+faNumber(trialIndex+1)+" از "+faNumber(trialList.length);
-  document.getElementById("progressBar").style.width=
+
+  document.getElementById("trialInfo").textContent =
+    "محرک "+faNumber(trialIndex+1)+
+    " از "+faNumber(trialList.length);
+
+  document.getElementById("progressBar").style.width =
     (trialIndex/trialList.length*100)+"%";
+
   document.getElementById("responseButton").disabled=false;
+
   trialStart=performance.now();
 
   timer=setTimeout(()=>{
+
     if(!trialActive)return;
-    if(stimulus==="3")testData.misses++;
+
+    if(stimulus==="3"){
+      testData.misses++;
+    }
+
     trialActive=false;
+
     document.getElementById("responseButton").disabled=true;
+
     trialIndex++;
+
     setTimeout(nextTrial,350);
+
   },1000);
+
 }
 
+
 function respond(){
+
   if(!trialActive)return;
+
   const rt=performance.now()-trialStart;
+
   const stimulus=trialList[trialIndex];
+
   if(stimulus==="3"){
+
     testData.hits++;
+
     testData.reactionTimes.push(rt);
+
   }else{
+
     testData.falseAlarms++;
+
   }
+
   clearTimeout(timer);
+
   trialActive=false;
+
   document.getElementById("responseButton").disabled=true;
+
   trialIndex++;
+
   setTimeout(nextTrial,350);
 }
 
+
 function finishTest(){
+
   const total=trialList.length;
-  const accuracy=Math.round((testData.hits+(total-10-testData.falseAlarms))/total*100);
+
+  const accuracy=Math.round(
+    (
+      testData.hits +
+      (total-10-testData.falseAlarms)
+    ) / total * 100
+  );
+
   const meanRT=testData.reactionTimes.length
-    ? Math.round(testData.reactionTimes.reduce((a,b)=>a+b,0)/testData.reactionTimes.length)
+
+    ? Math.round(
+        testData.reactionTimes.reduce((a,b)=>a+b,0) /
+        testData.reactionTimes.length
+      )
+
     : 0;
 
+
   const result={
+
     id:uid(),
+
     participantId:testData.participantId,
+
     sessionId:testData.sessionId,
+
     date:new Date().toISOString(),
+
     task:"توجه انتخابی نمونه",
+
     total,
+
     correct:testData.hits,
+
     falseAlarms:testData.falseAlarms,
+
     misses:testData.misses,
+
     accuracy,
+
     meanRT
+
   };
+
 
   db.tests.push(result);
+
   save();
 
+
   document.getElementById("stimulus").textContent="پایان آزمون";
+
   document.getElementById("progressBar").style.width="100%";
+
   document.getElementById("taskArea").style.display="none";
+
   document.getElementById("startButton").disabled=false;
 
+
   const box=document.getElementById("testResult");
+
   box.classList.remove("hidden");
+
   box.innerHTML=`
+
     <h3>نتیجه آزمون</h3>
+
     <div class="statgrid">
-      <div class="stat"><strong>${faNumber(result.correct)}</strong>پاسخ صحیح</div>
-      <div class="stat"><strong>${faNumber(result.falseAlarms)}</strong>خطای ارتکاب</div>
-      <div class="stat"><strong>${faNumber(result.misses)}</strong>خطای حذف</div>
-      <div class="stat"><strong>${faNumber(result.accuracy)}٪</strong>دقت کلی</div>
-      <div class="stat"><strong>${faNumber(result.meanRT)}</strong>میانگین زمان واکنش (ms)</div>
+
+      <div class="stat">
+        <strong>${faNumber(result.correct)}</strong>
+        پاسخ صحیح
+      </div>
+
+      <div class="stat">
+        <strong>${faNumber(result.falseAlarms)}</strong>
+        خطای ارتکاب
+      </div>
+
+      <div class="stat">
+        <strong>${faNumber(result.misses)}</strong>
+        خطای حذف
+      </div>
+
+      <div class="stat">
+        <strong>${faNumber(result.accuracy)}٪</strong>
+        دقت کلی
+      </div>
+
+      <div class="stat">
+        <strong>${faNumber(result.meanRT)}</strong>
+        میانگین زمان واکنش (ms)
+      </div>
+
     </div>
-    <p class="notice">این آزمون نمونه و آزمایشی است و نتایج آن تفسیر تشخیصی یا هنجاری ندارند.</p>`;
+
+    <p class="notice">
+      این آزمون نمونه و آزمایشی است و نتایج آن تفسیر تشخیصی یا هنجاری ندارند.
+    </p>
+
+  `;
+
 }
+
+
+// ========================================
+// 9. خروجی JSON و CSV
+// ========================================
 
 function exportJSON(){
-  downloadFile("neurocognitive-backup.json",JSON.stringify(db,null,2),"application/json");
+
+  downloadFile(
+    "neurocognitive-backup.json",
+    JSON.stringify(db,null,2),
+    "application/json"
+  );
+
 }
+
 
 function exportCSV(){
+
   const rows=[
-    ["participant_code","session_number","date","task","correct","false_alarms","misses","accuracy_percent","mean_reaction_time_ms"]
+
+    [
+      "participant_code",
+      "session_number",
+      "date",
+      "task",
+      "correct",
+      "false_alarms",
+      "misses",
+      "accuracy_percent",
+      "mean_reaction_time_ms"
+    ]
+
   ];
+
   db.tests.forEach(t=>{
-    const p=db.participants.find(x=>x.id===t.participantId);
-    const s=db.sessions.find(x=>x.id===t.sessionId);
+
+    const p=db.participants.find(
+      x=>x.id===t.participantId
+    );
+
+    const s=db.sessions.find(
+      x=>x.id===t.sessionId
+    );
+
     rows.push([
+
       p?.code || "",
+
       s?.number || "",
+
       t.date || "",
+
       t.task || "",
+
       t.correct ?? "",
+
       t.falseAlarms ?? "",
+
       t.misses ?? "",
+
       t.accuracy ?? "",
+
       t.meanRT ?? ""
+
     ]);
+
   });
-  const csv="\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\n");
-  downloadFile("neurocognitive-results.csv",csv,"text/csv;charset=utf-8");
+
+  const csv="\uFEFF"+rows.map(
+    r=>r.map(csvCell).join(",")
+  ).join("\n");
+
+  downloadFile(
+    "neurocognitive-results.csv",
+    csv,
+    "text/csv;charset=utf-8"
+  );
+
 }
+
 
 function csvCell(v){
+
   return '"'+String(v ?? "").replace(/"/g,'""')+'"';
+
 }
+
 
 function downloadFile(name,content,type){
+
   const blob=new Blob([content],{type});
+
   const url=URL.createObjectURL(blob);
+
   const a=document.createElement("a");
+
   a.href=url;
+
   a.download=name;
+
+  document.body.appendChild(a);
+
   a.click();
-  URL.revokeObjectURL(url);
+
+  a.remove();
+
+  // کمی تأخیر برای فرصت شروع دانلود در مرورگر موبایل
+  setTimeout(()=>{
+    URL.revokeObjectURL(url);
+  },1500);
+
 }
 
-function importJSON(){
+
+// ========================================
+// 10. اعتبارسنجی فایل پشتیبان
+// ========================================
+
+function validDatabase(data){
+
+  if(
+    !data ||
+    typeof data !== "object" ||
+    Array.isArray(data)
+  ){
+    return false;
+  }
+
+  if(
+    !Array.isArray(data.participants) ||
+    !Array.isArray(data.sessions) ||
+    !Array.isArray(data.tests)
+  ){
+    return false;
+  }
+
+  // بررسی ساختار آزمودنی‌ها
+  if(!data.participants.every(p=>
+    p && typeof p === "object" && !Array.isArray(p)
+  )){
+    return false;
+  }
+
+  // بررسی ساختار جلسات
+  if(!data.sessions.every(s=>
+    s && typeof s === "object" && !Array.isArray(s)
+  )){
+    return false;
+  }
+
+  // بررسی ساختار نتایج
+  if(!data.tests.every(t=>
+    t && typeof t === "object" && !Array.isArray(t)
+  )){
+    return false;
+  }
+
+  return true;
+}
+
+
+// بررسی شناسه‌های تکراری و ارتباط رکوردها
+function validateDatabaseRelations(data){
+
+  const participantIds = new Set();
+  const sessionIds = new Set();
+  const testIds = new Set();
+
+  for(const p of data.participants){
+
+    if(!p.id) {
+      return "یکی از آزمودنی‌ها شناسه ندارد.";
+    }
+
+    if(participantIds.has(String(p.id))){
+      return "شناسه تکراری در فهرست آزمودنی‌ها وجود دارد.";
+    }
+
+    participantIds.add(String(p.id));
+  }
+
+
+  for(const s of data.sessions){
+
+    if(!s.id){
+      return "یکی از جلسات شناسه ندارد.";
+    }
+
+    if(sessionIds.has(String(s.id))){
+      return "شناسه تکراری در فهرست جلسات وجود دارد.";
+    }
+
+    sessionIds.add(String(s.id));
+
+    if(!participantIds.has(String(s.participantId))){
+      return "یک جلسه به آزمودنی ناموجود متصل است.";
+    }
+  }
+
+
+  for(const t of data.tests){
+
+    if(!t.id){
+      return "یکی از نتایج آزمون شناسه ندارد.";
+    }
+
+    if(testIds.has(String(t.id))){
+      return "شناسه تکراری در نتایج آزمون وجود دارد.";
+    }
+
+    testIds.add(String(t.id));
+
+    if(!participantIds.has(String(t.participantId))){
+      return "یک نتیجه آزمون به آزمودنی ناموجود متصل است.";
+    }
+
+    if(!sessionIds.has(String(t.sessionId))){
+      return "یک نتیجه آزمون به جلسه ناموجود متصل است.";
+    }
+
+    const relatedSession=data.sessions.find(s=>
+      String(s.id)===String(t.sessionId)
+    );
+
+    if(
+      !relatedSession ||
+      String(relatedSession.participantId)!==String(t.participantId)
+    ){
+      return "ارتباط آزمودنی و جلسه در یکی از نتایج آزمون ناسازگار است.";
+    }
+  }
+
+  return null;
+}
+
+
+// ========================================
+// 11. پشتیبان خودکار پیش از بازیابی
+// ========================================
+
+function createPreImportBackup(){
+
+  const snapshot={
+
+    version:"0.3",
+
+    createdAt:new Date().toISOString(),
+
+    database:JSON.parse(JSON.stringify(db))
+
+  };
+
+  const content=JSON.stringify(snapshot,null,2);
+
+  // ابتدا ذخیره در حافظه مرورگر
+  try{
+
+    localStorage.setItem(
+      PREBACKUP_KEY,
+      content
+    );
+
+  }catch(e){
+
+    throw new Error(
+      "ذخیره نسخه پشتیبان در مرورگر ناموفق بود. بازیابی متوقف شد."
+    );
+
+  }
+
+
+  // سپس تلاش برای دانلود فایل
+  const stamp=new Date()
+    .toISOString()
+    .replace(/[:.]/g,"-");
+
+  try{
+
+    downloadFile(
+      "neurocognitive-before-import-"+stamp+".json",
+      content,
+      "application/json"
+    );
+
+  }catch(e){
+
+    // نسخه در حافظه مرورگر ذخیره شده است.
+    console.warn("دانلود خودکار پشتیبان انجام نشد.",e);
+
+  }
+
+  return true;
+}
+
+
+// ========================================
+// 12. گزارش عملیات
+// ========================================
+
+function makeImportReport(){
+
+  return {
+
+    participantsNew:0,
+
+    participantsMatched:0,
+
+    participantsCompleted:0,
+
+    sessionsNew:0,
+
+    sessionsDuplicate:0,
+
+    testsNew:0,
+
+    testsDuplicate:0,
+
+    skipped:0,
+
+    warnings:[]
+
+  };
+
+}
+
+
+function showImportReport(r,title){
+
+  const box=document.getElementById("importReport");
+
+  const content=document.getElementById("reportContent");
+
+  box.classList.remove("hidden");
+
+  content.innerHTML=`
+
+    <h3>${escapeHTML(title)}</h3>
+
+    <h4>آزمودنی‌ها</h4>
+
+    <p>
+      آزمودنی جدید:
+      ${faNumber(r.participantsNew)}
+    </p>
+
+    <p>
+      آزمودنی تطبیق‌یافته:
+      ${faNumber(r.participantsMatched)}
+    </p>
+
+    <p>
+      رکورد تکمیل‌شده:
+      ${faNumber(r.participantsCompleted)}
+    </p>
+
+
+    <h4>جلسات</h4>
+
+    <p>
+      جلسه جدید:
+      ${faNumber(r.sessionsNew)}
+    </p>
+
+    <p>
+      جلسه تکراری:
+      ${faNumber(r.sessionsDuplicate)}
+    </p>
+
+
+    <h4>نتایج آزمون</h4>
+
+    <p>
+      نتیجه جدید:
+      ${faNumber(r.testsNew)}
+    </p>
+
+    <p>
+      نتیجه تکراری:
+      ${faNumber(r.testsDuplicate)}
+    </p>
+
+
+    <h4>موارد واردنشده</h4>
+
+    <p>${faNumber(r.skipped)}</p>
+
+
+    ${
+      r.warnings.length
+
+      ? `
+
+        <hr>
+
+        <h4 style="color:#bd4d4d">هشدارها</h4>
+
+        <ul>
+          ${r.warnings.map(w=>
+            `<li>${escapeHTML(w)}</li>`
+          ).join("")}
+        </ul>
+
+      `
+
+      : `<p style="color:#26866e">هشداری ثبت نشد.</p>`
+    }
+
+  `;
+
+}
+
+
+// ========================================
+// 13. تکمیل فیلدهای خالی
+// ========================================
+
+function fillEmptyFields(current,incoming){
+
+  let changed=false;
+
+  Object.keys(incoming).forEach(key=>{
+
+    if(key==="id")return;
+
+    const oldValue=current[key];
+
+    const newValue=incoming[key];
+
+    const oldEmpty=
+      oldValue===undefined ||
+      oldValue===null ||
+      String(oldValue).trim()==="";
+
+    const newFilled=
+      newValue!==undefined &&
+      newValue!==null &&
+      String(newValue).trim()!=="";
+
+    if(oldEmpty && newFilled){
+
+      current[key]=newValue;
+
+      changed=true;
+    }
+
+  });
+
+  return changed;
+}
+
+
+// ========================================
+// 14. ادغام اطلاعات
+// ========================================
+
+function mergeDatabase(incoming){
+
+  const report=makeImportReport();
+
+  const participantMap=new Map();
+
+  const sessionMap=new Map();
+
+  const currentParticipantIds=new Set(
+    db.participants.map(p=>String(p.id))
+  );
+
+  const currentSessionIds=new Set(
+    db.sessions.map(s=>String(s.id))
+  );
+
+  const currentTestIds=new Set(
+    db.tests.map(t=>String(t.id))
+  );
+
+
+  // ------------------------------------
+  // مرحله اول: آزمودنی‌ها
+  // ------------------------------------
+
+  incoming.participants.forEach((source,index)=>{
+
+    if(!source || typeof source!=="object"){
+
+      report.skipped++;
+
+      report.warnings.push(
+        "یک رکورد آزمودنی نامعتبر بود."
+      );
+
+      return;
+    }
+
+    const oldId=source.id;
+
+    const mapKey=oldId
+      ? String(oldId)
+      : "__missing_participant_"+index;
+
+
+    // شناسه تکراری در فایل ورودی
+    if(participantMap.has(mapKey)){
+
+      report.warnings.push(
+        "شناسه تکراری آزمودنی در فایل ورودی مشاهده شد."
+      );
+
+      return;
+    }
+
+
+    // جست‌وجوی آزمودنی با شناسه یکسان
+    let existing=oldId
+
+      ? db.participants.find(p=>
+          String(p.id)===String(oldId)
+        )
+
+      : null;
+
+
+    if(existing){
+
+      participantMap.set(mapKey,existing.id);
+
+      report.participantsMatched++;
+
+      if(fillEmptyFields(existing,source)){
+        report.participantsCompleted++;
+      }
+
+      return;
+    }
+
+
+    // آزمودنی جدید
+    const newParticipant={
+
+      ...source,
+
+      id:oldId ? String(oldId) : uid()
+
+    };
+
+
+    // بررسی برخورد شناسه
+    if(currentParticipantIds.has(String(newParticipant.id))){
+
+      newParticipant.id=uid();
+
+      report.warnings.push(
+        "شناسه آزمودنی با شناسه موجود برخورد داشت؛ شناسه جدید ساخته شد."
+      );
+    }
+
+
+    // بررسی کد یکسان با شناسه متفاوت
+    const sameCode=db.participants.find(p=>
+
+      String(p.code || "").trim().toLowerCase() ===
+
+      String(newParticipant.code || "").trim().toLowerCase()
+
+    );
+
+    if(sameCode && newParticipant.code){
+
+      report.warnings.push(
+
+        "کد آزمودنی "+newParticipant.code+
+
+        " قبلاً با شناسه دیگری ثبت شده است؛ هر دو رکورد حفظ شدند."
+
+      );
+
+    }
+
+
+    db.participants.push(newParticipant);
+
+    currentParticipantIds.add(String(newParticipant.id));
+
+    participantMap.set(mapKey,newParticipant.id);
+
+    report.participantsNew++;
+
+  });
+
+
+  // ------------------------------------
+  // مرحله دوم: جلسات
+  // ------------------------------------
+
+  incoming.sessions.forEach((source,index)=>{
+
+    if(!source || typeof source!=="object"){
+
+      report.skipped++;
+
+      report.warnings.push("یک رکورد جلسه نامعتبر بود.");
+
+      return;
+    }
+
+
+    const originalParticipantId=source.participantId;
+
+    const participantKey=originalParticipantId
+      ? String(originalParticipantId)
+      : "";
+
+    const mappedParticipantId=
+      participantMap.get(participantKey);
+
+
+    if(!mappedParticipantId){
+
+      report.skipped++;
+
+      report.warnings.push(
+        "یک جلسه به علت نامشخص بودن آزمودنی مرتبط وارد نشد."
+      );
+
+      return;
+    }
+
+
+    const oldSessionId=source.id;
+
+    const sessionKey=oldSessionId
+      ? String(oldSessionId)
+      : "__missing_session_"+index;
+
+
+    if(sessionMap.has(sessionKey)){
+
+      report.warnings.push(
+        "شناسه تکراری جلسه در فایل ورودی مشاهده شد."
+      );
+
+      return;
+    }
+
+
+    // بررسی جلسه موجود با شناسه یکسان
+    let existingSession=oldSessionId
+
+      ? db.sessions.find(s=>
+          String(s.id)===String(oldSessionId)
+        )
+
+      : null;
+
+
+    if(
+      existingSession &&
+      String(existingSession.participantId)===String(mappedParticipantId)
+    ){
+
+      sessionMap.set(sessionKey,existingSession.id);
+
+      report.sessionsDuplicate++;
+
+      return;
+    }
+
+
+    // ایجاد جلسه جدید
+    const newSession={
+
+      ...source,
+
+      id:oldSessionId ? String(oldSessionId) : uid(),
+
+      participantId:mappedParticipantId
+
+    };
+
+
+    if(currentSessionIds.has(String(newSession.id))){
+
+      newSession.id=uid();
+
+      report.warnings.push(
+        "شناسه جلسه با جلسه دیگری برخورد داشت؛ شناسه جدید ساخته شد."
+      );
+
+    }
+
+
+    db.sessions.push(newSession);
+
+    currentSessionIds.add(String(newSession.id));
+
+    sessionMap.set(sessionKey,newSession.id);
+
+    report.sessionsNew++;
+
+  });
+
+
+  // ------------------------------------
+  // مرحله سوم: نتایج آزمون
+  // ------------------------------------
+
+  incoming.tests.forEach(source=>{
+
+    if(!source || typeof source!=="object"){
+
+      report.skipped++;
+
+      report.warnings.push(
+        "یک نتیجه آزمون نامعتبر بود."
+      );
+
+      return;
+    }
+
+
+    const oldTestId=source.id;
+
+
+    // جلوگیری از ورود نتیجه تکراری
+    if(
+      oldTestId &&
+      currentTestIds.has(String(oldTestId))
+    ){
+
+      report.testsDuplicate++;
+
+      return;
+    }
+
+
+    const participantKey=source.participantId
+
+      ? String(source.participantId)
+
+      : "";
+
+
+    const mappedParticipantId=
+      participantMap.get(participantKey);
+
+
+    const sessionKey=source.sessionId
+
+      ? String(source.sessionId)
+
+      : "";
+
+
+    const mappedSessionId=
+      sessionMap.get(sessionKey);
+
+
+    if(!mappedParticipantId || !mappedSessionId){
+
+      report.skipped++;
+
+      report.warnings.push(
+        "یک نتیجه آزمون به علت نامشخص بودن آزمودنی یا جلسه مرتبط وارد نشد."
+      );
+
+      return;
+    }
+
+
+    // بررسی ارتباط صحیح آزمودنی و جلسه
+    const relatedSession=db.sessions.find(s=>
+
+      String(s.id)===String(mappedSessionId)
+
+    );
+
+
+    if(
+      !relatedSession ||
+      String(relatedSession.participantId)!==
+      String(mappedParticipantId)
+    ){
+
+      report.skipped++;
+
+      report.warnings.push(
+        "یک نتیجه آزمون به علت ناسازگاری ارتباط آزمودنی و جلسه وارد نشد."
+      );
+
+      return;
+    }
+
+
+    const newTest={
+
+      ...source,
+
+      id:oldTestId ? String(oldTestId) : uid(),
+
+      participantId:mappedParticipantId,
+
+      sessionId:mappedSessionId
+
+    };
+
+
+    if(currentTestIds.has(String(newTest.id))){
+
+      newTest.id=uid();
+
+    }
+
+
+    db.tests.push(newTest);
+
+    currentTestIds.add(String(newTest.id));
+
+    report.testsNew++;
+
+  });
+
+
+  return report;
+
+}
+
+
+// ========================================
+// 15. بازیابی کامل یا ادغام
+// ========================================
+
+function importJSON(mode){
+
   const file=document.getElementById("importFile").files[0];
-  if(!file)return alert("ابتدا فایل JSON را انتخاب کنید.");
-  if(!confirm("اطلاعات فعلی با محتوای فایل جایگزین می‌شود. ادامه می‌دهید؟"))return;
+
+  if(!file){
+
+    alert("ابتدا فایل JSON را انتخاب کنید.");
+
+    return;
+  }
+
+
+  if(mode!=="replace" && mode!=="merge"){
+
+    alert("نوع عملیات مشخص نیست.");
+
+    return;
+  }
+
+
+  const question=mode==="replace"
+
+    ? "اطلاعات فعلی با اطلاعات فایل جایگزین می‌شود. ادامه می‌دهید؟"
+
+    : "اطلاعات فایل با اطلاعات فعلی ادغام می‌شود. ادامه می‌دهید؟";
+
+
+  if(!confirm(question))return;
+
 
   const reader=new FileReader();
+
+
   reader.onload=()=>{
+
+    let parsed;
+
+
+    // خواندن JSON
     try{
-      const parsed=JSON.parse(reader.result);
-      if(Array.isArray(parsed)){
-        return alert("این فایل متعلق به قالب قدیمی است. برای جلوگیری از ورود ناقص، آن را به‌عنوان پشتیبان کامل بازیابی نکنید.");
-      }
-      if(!parsed || !Array.isArray(parsed.participants) ||
-         !Array.isArray(parsed.sessions) || !Array.isArray(parsed.tests)){
-        return alert("ساختار فایل معتبر نیست.");
-      }
-      db=parsed;
-      save();
-      alert("اطلاعات بازیابی شد.");
+
+      parsed=JSON.parse(reader.result);
+
     }catch(e){
+
       alert("فایل JSON معتبر نیست.");
+
+      return;
     }
+
+
+    // بررسی ساختار
+    if(!validDatabase(parsed)){
+
+      alert(
+        "ساختار فایل معتبر نیست. فایل باید شامل سه آرایه آزمودنی‌ها، جلسات و آزمون‌ها باشد."
+      );
+
+      return;
+    }
+
+
+    // جلوگیری از بازیابی فایل ناقص یا ناسازگار
+    const relationError=validateDatabaseRelations(parsed);
+
+    if(relationError){
+
+      alert(
+        "فایل از نظر ارتباط اطلاعات مشکل دارد:\n"+relationError+
+        "\n\nبرای جلوگیری از آسیب به اطلاعات، عملیات متوقف شد."
+      );
+
+      return;
+    }
+
+
+    // پشتیبان‌گیری قبل از تغییر
+    try{
+
+      createPreImportBackup();
+
+    }catch(e){
+
+      alert(
+        "عملیات متوقف شد:\n"+e.message
+      );
+
+      return;
+    }
+
+
+    const previousDB=JSON.parse(JSON.stringify(db));
+
+    let report;
+
+
+    try{
+
+
+      if(mode==="replace"){
+
+        // بازیابی کامل
+        db={
+
+          participants:JSON.parse(
+            JSON.stringify(parsed.participants)
+          ),
+
+          sessions:JSON.parse(
+            JSON.stringify(parsed.sessions)
+          ),
+
+          tests:JSON.parse(
+            JSON.stringify(parsed.tests)
+          )
+
+        };
+
+
+        report=makeImportReport();
+
+        report.participantsNew=db.participants.length;
+
+        report.sessionsNew=db.sessions.length;
+
+        report.testsNew=db.tests.length;
+
+
+      }else{
+
+        // ادغام با اطلاعات فعلی
+        report=mergeDatabase(parsed);
+
+      }
+
+
+      // ذخیره نهایی
+      save();
+
+
+      showImportReport(
+
+        report,
+
+        mode==="replace"
+
+          ? "گزارش بازیابی کامل"
+
+          : "گزارش ادغام اطلاعات"
+
+      );
+
+
+      alert(
+
+        mode==="replace"
+
+          ? "بازیابی کامل انجام شد."
+
+          : "ادغام اطلاعات انجام شد."
+
+      );
+
+
+      document.getElementById("importFile").value="";
+
+
+    }catch(e){
+
+      // بازگردانی اطلاعات قبلی در صورت شکست
+      db=previousDB;
+
+      try{
+
+        localStorage.setItem(
+          DBKEY,
+          JSON.stringify(previousDB)
+        );
+
+      }catch(restoreError){
+
+        console.error(
+          "خطا در بازگردانی اطلاعات قبلی",
+          restoreError
+        );
+
+      }
+
+
+      renderAll();
+
+
+      alert(
+        "ذخیره اطلاعات جدید با خطا مواجه شد و وضعیت قبلی بازگردانده شد.\n"+
+        e.message
+      );
+
+    }
+
   };
+
+
+  reader.onerror=()=>{
+
+    alert("خواندن فایل با خطا مواجه شد.");
+
+  };
+
+
   reader.readAsText(file);
+
 }
 
-function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[c]);
-}
+
+// ========================================
+// 16. شروع برنامه
+// ========================================
 
 document.getElementById("sessionDate").value=today();
+
 load();
+
 </script>
+
 </body>
 </html>
+<footer>
+  © 2026 M. Khoshroo | NeuroCognitive Research Edition
+</footer>
