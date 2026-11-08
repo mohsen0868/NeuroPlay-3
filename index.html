@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroCognitive | نسخه ۰٫۴</title>
+<title>NeuroCognitive | نسخه ۰٫۵</title>
 
 <style>
 :root{
@@ -57,6 +57,10 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .small{font-size:12px;color:#667783}
 .notice{
   background:#fff7e9;border-right:4px solid var(--orange);
+  padding:10px;border-radius:7px;font-size:13px;margin:12px 0;
+}
+.success{
+  background:#eaf6f0;border-right:4px solid var(--green);
   padding:10px;border-radius:7px;font-size:13px;margin:12px 0;
 }
 .tabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:15px}
@@ -112,7 +116,7 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 <header>
   <h1>NeuroCognitive</h1>
   <p>سامانه مدیریت آزمودنی‌ها، جلسات و ارزیابی شناختی</p>
-  <small>نسخه ۰٫۴ | Research Edition</small>
+  <small>نسخه ۰٫۵ | Research Edition</small>
   <div class="developer-credit">Developed by M. Khoshroo</div>
 </header>
 
@@ -135,7 +139,6 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
   <button data-tab="backup">پشتیبان‌گیری</button>
 </div>
 
-<!-- آزمودنی‌ها -->
 <section id="participants" class="panel active">
   <div class="card">
     <h2>ثبت آزمودنی جدید</h2>
@@ -179,7 +182,6 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
   </div>
 </section>
 
-<!-- جلسات -->
 <section id="sessions" class="panel">
   <div class="card">
     <h2>ایجاد جلسه جدید</h2>
@@ -216,7 +218,6 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
   </div>
 </section>
 
-<!-- آزمون توجه -->
 <section id="attention" class="panel">
   <div class="card">
     <h2>آزمون نمونه توجه انتخابی</h2>
@@ -250,7 +251,6 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
   </div>
 </section>
 
-<!-- Digit Span -->
 <section id="digitspan" class="panel">
   <div class="card">
     <h2>آزمون فراخنای ارقام (Digit Span)</h2>
@@ -262,9 +262,9 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
     </div>
 
     <div class="notice">
-      این پیاده‌سازی از صدای گفتاری مرورگر استفاده می‌کند. نوع صدا و کیفیت
-      تلفظ ممکن است با دستگاه و مرورگر تغییر کند؛ بنابراین فعلاً برای
-      اجرای آزمایشی و پایلوت مناسب است، نه اجرای استاندارد نهایی پژوهش.
+      این نسخه از گفتار تولیدشده توسط مرورگر استفاده می‌کند.
+      برای پژوهش اصلی، استفاده از فایل‌های صوتی ثابت و یکسان توصیه می‌شود.
+      این ابزار نسخه آزمایشی است و هنجاریابی نشده است.
     </div>
 
     <div class="grid">
@@ -298,12 +298,25 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
       </div>
     </div>
 
+    <div class="notice">
+      پیش از اجرای آزمون، صدای گوشی را بررسی کنید.
+      اگر صدای فارسی وجود نداشته باشد، مرورگر ممکن است از صدای پیش‌فرض استفاده کند.
+    </div>
+
+    <button class="orange" id="voiceTestButton" onclick="testDigitVoice()">
+      آزمایش صدا
+    </button>
+    <span id="voiceStatus" class="small">وضعیت صدا بررسی نشده است.</span>
+
+    <hr>
+
     <button class="green" id="digitStartButton" onclick="startDigitSpan()">شروع Digit Span</button>
 
     <div id="digitTaskArea" class="hidden">
       <hr>
       <div class="progress"><div id="digitProgressBar"></div></div>
       <p id="digitInstruction" class="small"></p>
+
       <div class="statgrid">
         <div class="stat"><strong id="digitModeLabel">-</strong>بخش آزمون</div>
         <div class="stat"><strong id="digitLengthLabel">-</strong>طول توالی</div>
@@ -317,8 +330,8 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
         <input id="digitResponse" inputmode="numeric"
           placeholder="مثلاً ۲ ۵ ۸">
         <div class="task-actions">
-          <button class="green" onclick="submitDigitResponse()">ثبت پاسخ</button>
-          <button class="orange" onclick="omitDigitResponse()">بدون پاسخ</button>
+          <button class="green" id="digitSubmitButton" onclick="submitDigitResponse()">ثبت پاسخ</button>
+          <button class="orange" id="digitOmitButton" onclick="omitDigitResponse()">بدون پاسخ</button>
         </div>
       </div>
 
@@ -332,7 +345,6 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
   </div>
 </section>
 
-<!-- سوابق -->
 <section id="records" class="panel">
   <div class="card">
     <h2>سوابق آزمون‌ها</h2>
@@ -351,13 +363,10 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
   </div>
 </section>
 
-<!-- پشتیبان‌گیری -->
 <section id="backup" class="panel">
   <div class="card">
     <h2>پشتیبان‌گیری و بازیابی اطلاعات</h2>
-    <p class="small">
-      برای نگهداری اطلاعات، فایل پشتیبان JSON را در محل امن ذخیره کنید.
-    </p>
+    <p class="small">برای نگهداری اطلاعات، فایل پشتیبان JSON را در محل امن ذخیره کنید.</p>
     <button class="green" onclick="exportJSON()">دریافت پشتیبان JSON</button>
     <button onclick="exportSummaryCSV()">خروجی خلاصه نتایج CSV</button>
     <button onclick="exportTrialCSV()">خروجی داده‌های کوشش‌ها CSV</button>
@@ -369,15 +378,10 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 
     <div class="notice">
       پیش از بازیابی، برنامه تلاش می‌کند از اطلاعات فعلی نسخه پشتیبان تهیه کند.
-      با این حال، بهتر است قبل از بازیابی، خودتان نیز فایل JSON دریافت کنید.
     </div>
 
-    <button class="orange" onclick="importJSON('replace')">
-      بازیابی کامل (جایگزینی)
-    </button>
-    <button class="green" onclick="importJSON('merge')">
-      ادغام با اطلاعات فعلی
-    </button>
+    <button class="orange" onclick="importJSON('replace')">بازیابی کامل (جایگزینی)</button>
+    <button class="green" onclick="importJSON('merge')">ادغام با اطلاعات فعلی</button>
 
     <div id="importReport" class="hidden"
       style="margin-top:18px;padding:14px;background:#eef5f8;border-radius:10px">
@@ -401,44 +405,46 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 </footer>
 
 <script>
-// ========================================
-// 1. پایگاه داده و تنظیمات
-// ========================================
-
 const DBKEY = "neurocognitive_v02";
 const OLDKEY = "neurocognitive_results_v1";
 const PREBACKUP_KEY = "neurocognitive_preimport_backup";
 
 let db = {participants:[],sessions:[],tests:[]};
-
 let attentionState = null;
 let digitState = null;
 let attentionTimer = null;
+let digitTimer = null;
 
 function uid(){
   return "id_" + Date.now() + "_" + Math.random().toString(36).slice(2,8);
 }
 function today(){
-  const d = new Date();
-  const offset = d.getTimezoneOffset();
+  const d=new Date();
+  const offset=d.getTimezoneOffset();
   return new Date(d.getTime()-offset*60000).toISOString().slice(0,10);
 }
 function faNumber(n){
-  return Number(n || 0).toLocaleString("fa-IR");
+  return Number(n||0).toLocaleString("fa-IR");
 }
 function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g,c=>({
+  return String(value??"").replace(/[&<>"']/g,c=>({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[c]);
 }
 function save(){
-  localStorage.setItem(DBKEY,JSON.stringify(db));
-  renderAll();
+  try{
+    localStorage.setItem(DBKEY,JSON.stringify(db));
+    renderAll();
+    return true;
+  }catch(e){
+    alert("ذخیره اطلاعات با خطا مواجه شد. فضای ذخیره‌سازی مرورگر را بررسی کنید.");
+    return false;
+  }
 }
 function downloadFile(name,content,type){
-  const blob = new Blob([content],{type});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const blob=new Blob([content],{type});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
   a.href=url;
   a.download=name;
   document.body.appendChild(a);
@@ -447,10 +453,7 @@ function downloadFile(name,content,type){
   setTimeout(()=>URL.revokeObjectURL(url),2000);
 }
 
-// ========================================
-// 2. بارگذاری و مهاجرت اطلاعات قبلی
-// ========================================
-
+// بارگذاری و مهاجرت
 function load(){
   try{
     const saved=localStorage.getItem(DBKEY);
@@ -466,7 +469,7 @@ function load(){
     alert("خطا در خواندن اطلاعات ذخیره‌شده.");
   }
 
-  if(!db.tests.length && localStorage.getItem(OLDKEY)){
+  if(!db.tests.length&&localStorage.getItem(OLDKEY)){
     try{
       const old=JSON.parse(localStorage.getItem(OLDKEY));
       if(Array.isArray(old)){
@@ -501,10 +504,7 @@ function load(){
   renderAll();
 }
 
-// ========================================
-// 3. تب‌ها
-// ========================================
-
+// تب‌ها
 function showTab(id){
   document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
   document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));
@@ -516,10 +516,7 @@ document.querySelectorAll(".tabs button").forEach(btn=>{
   btn.addEventListener("click",()=>showTab(btn.dataset.tab));
 });
 
-// ========================================
-// 4. آزمودنی‌ها
-// ========================================
-
+// آزمودنی‌ها
 function addParticipant(){
   const code=document.getElementById("pCode").value.trim();
   const age=document.getElementById("pAge").value;
@@ -535,7 +532,6 @@ function addParticipant(){
   document.getElementById("participantMessage").textContent="آزمودنی ثبت شد.";
   save();
 }
-
 function editParticipant(id){
   const p=db.participants.find(x=>x.id===id);
   if(!p)return;
@@ -549,7 +545,6 @@ function editParticipant(id){
   p.code=code.trim();p.age=age;
   save();
 }
-
 function deleteParticipant(id){
   if(!confirm("آزمودنی و تمام جلسات و نتایج مرتبط حذف شوند؟"))return;
   db.tests=db.tests.filter(t=>t.participantId!==id);
@@ -558,10 +553,7 @@ function deleteParticipant(id){
   save();
 }
 
-// ========================================
-// 5. جلسات
-// ========================================
-
+// جلسات
 function addSession(){
   const participantId=document.getElementById("sessionParticipant").value;
   const number=document.getElementById("sessionNumber").value;
@@ -573,9 +565,10 @@ function addSession(){
 
   db.sessions.push({id:uid(),participantId,number,date,note});
   document.getElementById("sessionMessage").textContent="جلسه ثبت شد.";
+  document.getElementById("sessionNumber").value="1";
+  document.getElementById("sessionNote").value="";
   save();
 }
-
 function deleteSession(id){
   if(db.tests.some(t=>t.sessionId===id))
     return alert("این جلسه دارای نتیجه آزمون است و حذف نمی‌شود.");
@@ -584,17 +577,13 @@ function deleteSession(id){
   save();
 }
 
-// ========================================
-// 6. نمایش داده‌ها
-// ========================================
-
+// نمایش
 function participantOptions(){
   return '<option value="">انتخاب آزمودنی</option>'+
     db.participants.map(p=>
       `<option value="${escapeHTML(p.id)}">${escapeHTML(p.code)}</option>`
     ).join("");
 }
-
 function renderAll(){
   document.getElementById("countParticipants").textContent=faNumber(db.participants.length);
   document.getElementById("countSessions").textContent=faNumber(db.sessions.length);
@@ -658,7 +647,6 @@ function renderAll(){
       </tr>`;
     }).join("")||'<tr><td colspan="8">هنوز نتیجه‌ای ثبت نشده است.</td></tr>';
 }
-
 function updateTestSessions(){
   const pid=document.getElementById("testParticipant").value;
   const select=document.getElementById("testSession");
@@ -668,7 +656,6 @@ function updateTestSessions(){
     sessions.map(s=>`<option value="${escapeHTML(s.id)}">جلسه ${escapeHTML(s.number)} - ${escapeHTML(s.date)}</option>`).join("");
   if(sessions.some(s=>s.id===previous))select.value=previous;
 }
-
 function updateDigitSessions(){
   const pid=document.getElementById("digitParticipant").value;
   const select=document.getElementById("digitSession");
@@ -679,10 +666,7 @@ function updateDigitSessions(){
   if(sessions.some(s=>s.id===previous))select.value=previous;
 }
 
-// ========================================
-// 7. آزمون توجه انتخابی
-// ========================================
-
+// آزمون توجه
 function shuffle(arr){
   for(let i=arr.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));
@@ -690,7 +674,6 @@ function shuffle(arr){
   }
   return arr;
 }
-
 function startAttentionTest(){
   const participantId=document.getElementById("testParticipant").value;
   const sessionId=document.getElementById("testSession").value;
@@ -703,8 +686,7 @@ function startAttentionTest(){
   ];
 
   attentionState={
-    participantId,sessionId,
-    trials:shuffle(trials),
+    participantId,sessionId,trials:shuffle(trials),
     index:0,hits:0,falseAlarms:0,misses:0,
     correctRejections:0,reactionTimes:[],
     trialStart:0,active:false
@@ -715,7 +697,6 @@ function startAttentionTest(){
   document.getElementById("startButton").disabled=true;
   nextAttentionTrial();
 }
-
 function nextAttentionTrial(){
   const s=attentionState;
   if(!s)return;
@@ -738,10 +719,9 @@ function nextAttentionTrial(){
     s.active=false;
     document.getElementById("responseButton").disabled=true;
     s.index++;
-    setTimeout(nextAttentionTrial,350);
+    attentionTimer=setTimeout(nextAttentionTrial,350);
   },1000);
 }
-
 function respondAttention(){
   const s=attentionState;
   if(!s||!s.active)return;
@@ -759,12 +739,12 @@ function respondAttention(){
   s.active=false;
   document.getElementById("responseButton").disabled=true;
   s.index++;
-  setTimeout(nextAttentionTrial,350);
+  attentionTimer=setTimeout(nextAttentionTrial,350);
 }
-
 function finishAttentionTest(){
   const s=attentionState;
   if(!s)return;
+  clearTimeout(attentionTimer);
 
   const total=s.trials.length;
   const accuracy=Math.round((s.hits+s.correctRejections)/total*100);
@@ -803,7 +783,7 @@ function finishAttentionTest(){
 }
 
 // ========================================
-// 8. Digit Span
+// Digit Span - موتور صوتی
 // ========================================
 
 const digitWords=["صفر","یک","دو","سه","چهار","پنج","شش","هفت","هشت","نه"];
@@ -821,75 +801,191 @@ function normalizeDigits(value){
     .replace(/[^0-9]/g,"");
 }
 
+function getSpeechVoices(){
+  if(!("speechSynthesis" in window))return [];
+  return window.speechSynthesis.getVoices()||[];
+}
+
+function findPersianVoice(){
+  const voices=getSpeechVoices();
+  return voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("fa"))||null;
+}
+
 function digitVoiceInfo(){
-  if(!("speechSynthesis" in window))return {available:false,voice:"unavailable"};
-  const voices=window.speechSynthesis.getVoices();
-  const fa=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("fa"));
+  if(!("speechSynthesis" in window)){
+    return {available:false,voice:"unavailable",lang:""};
+  }
+  const voice=findPersianVoice();
   return {
     available:true,
-    voice:fa?fa.name:"browser-default",
-    lang:fa?fa.lang:"fa-IR"
+    voice:voice?voice.name:"browser-default",
+    lang:voice?voice.lang:"fa-IR"
   };
 }
 
-function speakNumber(number,rate){
-  return new Promise((resolve,reject)=>{
-    if(!("speechSynthesis" in window))
-      return reject(new Error("مرورگر از گفتار پشتیبانی نمی‌کند."));
+function updateVoiceStatus(){
+  const status=document.getElementById("voiceStatus");
+  if(!status)return;
 
-    const utterance=new SpeechSynthesisUtterance(digitWords[number]);
-    utterance.lang="fa-IR";
-    utterance.rate=rate;
-    utterance.pitch=1;
-    utterance.volume=1;
-    utterance.onend=()=>resolve();
-    utterance.onerror=()=>reject(new Error("خطا در پخش گفتار."));
-    window.speechSynthesis.speak(utterance);
-  });
+  if(!("speechSynthesis" in window)){
+    status.textContent="این مرورگر از گفتار پشتیبانی نمی‌کند.";
+    return;
+  }
+
+  const voices=getSpeechVoices();
+  const fa=findPersianVoice();
+
+  if(fa){
+    status.textContent="صدای فارسی شناسایی شد: "+fa.name;
+  }else if(voices.length){
+    status.textContent="صدای فارسی پیدا نشد؛ صدای پیش‌فرض مرورگر استفاده می‌شود.";
+  }else{
+    status.textContent="فهرست صداها هنوز بارگذاری نشده است.";
+  }
 }
 
 function wait(ms){
   return new Promise(resolve=>setTimeout(resolve,ms));
 }
 
+function speakNumber(number,rate){
+  return new Promise((resolve,reject)=>{
+    if(!("speechSynthesis" in window)){
+      reject(new Error("مرورگر از گفتار پشتیبانی نمی‌کند."));
+      return;
+    }
+
+    const synth=window.speechSynthesis;
+    const utterance=new SpeechSynthesisUtterance(digitWords[number]);
+    const voice=findPersianVoice();
+
+    utterance.lang=voice?voice.lang:"fa-IR";
+    utterance.rate=rate;
+    utterance.pitch=1;
+    utterance.volume=1;
+
+    if(voice)utterance.voice=voice;
+
+    let completed=false;
+    const timeout=setTimeout(()=>{
+      if(completed)return;
+      completed=true;
+      try{synth.cancel();}catch(e){}
+      reject(new Error("پخش صدا بیش از حد طول کشید. موتور گفتار گوشی را بررسی کنید."));
+    },8000);
+
+    utterance.onend=()=>{
+      if(completed)return;
+      completed=true;
+      clearTimeout(timeout);
+      resolve();
+    };
+
+    utterance.onerror=(event)=>{
+      if(completed)return;
+      completed=true;
+      clearTimeout(timeout);
+      reject(new Error("خطا در پخش گفتار: "+(event.error||"نامشخص")));
+    };
+
+    try{
+      synth.resume();
+      synth.speak(utterance);
+    }catch(e){
+      clearTimeout(timeout);
+      reject(e);
+    }
+  });
+}
+
+async function testDigitVoice(){
+  if(!("speechSynthesis" in window)){
+    alert("مرورگر شما از قابلیت پخش گفتار پشتیبانی نمی‌کند.");
+    return;
+  }
+
+  const button=document.getElementById("voiceTestButton");
+  button.disabled=true;
+  document.getElementById("voiceStatus").textContent="در حال آزمایش صدا...";
+
+  try{
+    window.speechSynthesis.cancel();
+    await wait(150);
+    await speakNumber(1,0.85);
+    await wait(400);
+    await speakNumber(2,0.85);
+    await wait(400);
+    await speakNumber(3,0.85);
+
+    document.getElementById("voiceStatus").textContent=
+      "آزمایش موفق بود؛ صدا قابل پخش است.";
+  }catch(error){
+    document.getElementById("voiceStatus").textContent=error.message;
+    alert(error.message+"\n\nتنظیمات تبدیل متن به گفتار گوشی را بررسی کنید.");
+  }finally{
+    button.disabled=false;
+  }
+}
+
 function createDigitSequence(length){
-  // تولید تصادفی مستقل؛ تکرار ارقام مجاز است.
   return Array.from({length},()=>Math.floor(Math.random()*10));
 }
 
+// پخش توالی
 async function presentDigitSequence(){
   const s=digitState;
   if(!s)return;
 
   s.presenting=true;
+  s.presentedAt=0;
   document.getElementById("digitResponseArea").classList.add("hidden");
+  document.getElementById("digitSubmitButton").disabled=true;
+  document.getElementById("digitOmitButton").disabled=true;
   document.getElementById("digitStimulus").textContent="به ارقام گوش کنید...";
-  document.getElementById("digitFeedback").textContent="لطفاً تا پایان ارائه ارقام صبر کنید.";
+  document.getElementById("digitFeedback").textContent=
+    "لطفاً تا پایان ارائه ارقام صبر کنید.";
 
   try{
     for(let i=0;i<s.sequence.length;i++){
       if(!digitState||digitState!==s)return;
+
       await speakNumber(s.sequence[i],s.rate);
-      if(i<s.sequence.length-1)await wait(s.interval);
+
+      if(!digitState||digitState!==s)return;
+
+      if(i<s.sequence.length-1){
+        await wait(s.interval);
+      }
     }
+
     if(!digitState||digitState!==s)return;
 
     s.presenting=false;
     s.presentedAt=performance.now();
+    s.presentedAtISO=new Date().toISOString();
+
     document.getElementById("digitStimulus").textContent="اکنون پاسخ دهید";
     document.getElementById("digitResponseArea").classList.remove("hidden");
     document.getElementById("digitResponse").value="";
+    document.getElementById("digitSubmitButton").disabled=false;
+    document.getElementById("digitOmitButton").disabled=false;
     document.getElementById("digitResponse").focus();
+
     document.getElementById("digitFeedback").textContent=
-      "پاسخ را به ترتیب خواسته‌شده وارد کنید.";
+      s.currentMode==="forward"
+      ?"ارقام را به همان ترتیب تکرار کنید."
+      :"ارقام را به ترتیب معکوس تکرار کنید.";
+
   }catch(error){
     if(!digitState)return;
-    document.getElementById("digitFeedback").textContent=
-      "خطا در پخش صدا: "+error.message+" آزمون را لغو و مرورگر را بررسی کنید.";
     s.presenting=false;
+    document.getElementById("digitFeedback").textContent=error.message;
+    document.getElementById("digitResponseArea").classList.add("hidden");
+    document.getElementById("digitCancelButton").disabled=false;
   }
 }
 
+// شروع آزمون
 function startDigitSpan(){
   if(digitState)return alert("یک اجرای Digit Span در حال انجام است.");
 
@@ -906,21 +1002,25 @@ function startDigitSpan(){
   if(rate<0.5||rate>1.5)return alert("سرعت گفتار باید بین ۰٫۵ تا ۱٫۵ باشد.");
   if(maxLength<3||maxLength>12)return alert("حداکثر طول توالی باید بین ۳ تا ۱۲ باشد.");
 
-  const voice=digitVoiceInfo();
+  window.speechSynthesis.cancel();
+
   const modes=mode==="both"?["forward","backward"]:[mode];
 
   digitState={
     participantId,sessionId,requestedMode:mode,modes,modeIndex:0,
-    currentMode:modes[0],length:2,trial:0,correctByLength:0,
-    maxLength,interval,rate,voice,
+    currentMode:modes[0],
+    length:2,trial:0,correctByLength:0,
+    maxLength,interval,rate,
+    voice:digitVoiceInfo(),
     trials:[],modeResults:{},
     sequence:[],presenting:false,presentedAt:0,
     startedAt:new Date().toISOString()
   };
 
   document.getElementById("digitStartButton").disabled=true;
-  document.getElementById("digitResult").classList.add("hidden");
   document.getElementById("digitTaskArea").classList.remove("hidden");
+  document.getElementById("digitResult").classList.add("hidden");
+  document.getElementById("digitCancelButton").disabled=false;
 
   document.getElementById("digitInstruction").textContent=
     "بخش "+modeName(digitState.currentMode)+
@@ -936,12 +1036,15 @@ function modeName(mode){
 function startDigitMode(){
   const s=digitState;
   if(!s)return;
+
   s.length=2;
   s.trial=0;
   s.correctByLength=0;
+
   s.modeResults[s.currentMode]={
     correct:0,total:0,maxSpan:0,stoppedAt:null
   };
+
   nextDigitTrial();
 }
 
@@ -949,7 +1052,6 @@ function nextDigitTrial(){
   const s=digitState;
   if(!s)return;
 
-  // در هر طول دو کوشش اجرا می‌شود.
   if(s.trial>=2){
     if(s.correctByLength===0){
       s.modeResults[s.currentMode].stoppedAt=s.length;
@@ -989,6 +1091,7 @@ function submitDigitResponse(){
 
   const raw=document.getElementById("digitResponse").value;
   const response=normalizeDigits(raw);
+
   if(!response)return alert("پاسخ را وارد کنید یا گزینه بدون پاسخ را بزنید.");
 
   recordDigitTrial(response,false);
@@ -1011,31 +1114,33 @@ function recordDigitTrial(response,omitted){
   const correct=!omitted&&response===expectedString;
   const responseAt=performance.now();
   const latency=Math.round(responseAt-s.presentedAt);
+  const recordedAt=new Date().toISOString();
 
   const trialRecord={
     participantId:s.participantId,
     sessionId:s.sessionId,
     mode:s.currentMode,
-    modeLabel:modeName(s.currentMode),
     sequence:s.sequence.join(""),
     expected:expectedString,
-    response:response,
+    response,
     length:s.length,
     trial:s.trial,
     correct,
     omitted,
-    responseLatencyMs:latency,
+    responseLatencyAfterSequenceMs:latency,
     intervalMs:s.interval,
     speechRate:s.rate,
     voiceName:s.voice.voice,
     voiceLang:s.voice.lang,
-    presentedAt:new Date().toISOString(),
-    recordedAt:new Date().toISOString()
+    presentedAt:s.presentedAtISO,
+    recordedAt
   };
 
   s.trials.push(trialRecord);
+
   const mr=s.modeResults[s.currentMode];
   mr.total++;
+
   if(correct){
     mr.correct++;
     s.correctByLength++;
@@ -1050,7 +1155,7 @@ function recordDigitTrial(response,omitted){
     omitted?"پاسخ ثبت‌نشده ذخیره شد.":
     correct?"پاسخ صحیح ثبت شد.":"پاسخ نادرست ثبت شد.";
 
-  setTimeout(()=>{
+  digitTimer=setTimeout(()=>{
     if(!digitState)return;
     nextDigitTrial();
   },700);
@@ -1061,6 +1166,7 @@ function advanceDigitMode(){
   if(!s)return;
 
   s.modeIndex++;
+
   if(s.modeIndex<s.modes.length){
     s.currentMode=s.modes[s.modeIndex];
     document.getElementById("digitInstruction").textContent=
@@ -1075,21 +1181,22 @@ function finishDigitSpan(){
   const s=digitState;
   if(!s)return;
 
-  if("speechSynthesis" in window)window.speechSynthesis.cancel();
+  clearTimeout(digitTimer);
+  window.speechSynthesis.cancel();
 
   const results=s.modeResults;
   const allCorrect=s.trials.filter(t=>t.correct).length;
   const allTotal=s.trials.length;
+
   const validLatencies=s.trials
-    .filter(t=>!t.omitted&&Number.isFinite(t.responseLatencyMs))
-    .map(t=>t.responseLatencyMs);
+    .filter(t=>!t.omitted&&Number.isFinite(t.responseLatencyAfterSequenceMs))
+    .map(t=>t.responseLatencyAfterSequenceMs);
 
   const meanLatency=validLatencies.length
     ?Math.round(validLatencies.reduce((a,b)=>a+b,0)/validLatencies.length):0;
 
   const forward=results.forward||{correct:0,total:0,maxSpan:0};
   const backward=results.backward||{correct:0,total:0,maxSpan:0};
-
   const accuracy=allTotal?Math.round(allCorrect/allTotal*100):0;
 
   const result={
@@ -1122,7 +1229,7 @@ function finishDigitSpan(){
   };
 
   db.tests.push(result);
-  save();
+  const saved=save();
 
   document.getElementById("digitTaskArea").classList.add("hidden");
   document.getElementById("digitStartButton").disabled=false;
@@ -1137,7 +1244,7 @@ function finishDigitSpan(){
       <div class="stat"><strong>${faNumber(allCorrect)}</strong>کوشش صحیح</div>
       <div class="stat"><strong>${faNumber(allTotal)}</strong>کل کوشش‌ها</div>
       <div class="stat"><strong>${faNumber(accuracy)}٪</strong>درصد پاسخ صحیح</div>
-      <div class="stat"><strong>${faNumber(meanLatency)}</strong>میانگین فاصله پاسخ تا ثبت (ms)</div>
+      <div class="stat"><strong>${faNumber(meanLatency)}</strong>میانگین زمان پاسخ پس از پایان توالی (ms)</div>
     </div>`;
 
   if(s.modes.includes("forward")){
@@ -1146,6 +1253,7 @@ function finishDigitSpan(){
       <p>تعداد پاسخ صحیح: ${faNumber(forward.correct)} از ${faNumber(forward.total)}</p>
       <p>بیشترین طول دارای پاسخ صحیح: ${faNumber(forward.maxSpan)}</p>`;
   }
+
   if(s.modes.includes("backward")){
     html+=`
       <h3>بخش معکوس</h3>
@@ -1159,7 +1267,9 @@ function finishDigitSpan(){
       این شاخص معادل زمان واکنش استاندارد از شروع محرک نیست.
       این نسخه هنجاریابی نشده است.
     </p>
-    <p class="small">جزئیات کوشش‌ها در خروجی CSV داده‌های کوشش‌ها و فایل JSON ذخیره شده‌اند.</p>`;
+    <p class="small">جزئیات کوشش‌ها در خروجی CSV داده‌های کوشش‌ها و فایل JSON ذخیره شده‌اند.</p>
+    ${saved?"<p class='success'>نتایج با موفقیت ذخیره شدند.</p>":
+      "<p class='notice'>ذخیره‌سازی با خطا مواجه شد؛ فوراً خروجی پشتیبان بگیرید.</p>"}`;
 
   box.innerHTML=html;
   digitState=null;
@@ -1167,9 +1277,12 @@ function finishDigitSpan(){
 
 function cancelDigitSpan(){
   if(!digitState)return;
+
   if(!confirm("اجرای فعلی لغو شود؟ داده‌های این اجرای ناقص ذخیره نخواهند شد."))return;
 
+  clearTimeout(digitTimer);
   if("speechSynthesis" in window)window.speechSynthesis.cancel();
+
   digitState=null;
   document.getElementById("digitTaskArea").classList.add("hidden");
   document.getElementById("digitStartButton").disabled=false;
@@ -1177,20 +1290,16 @@ function cancelDigitSpan(){
   document.getElementById("digitFeedback").textContent="اجرای آزمون لغو شد.";
 }
 
-// ========================================
-// 9. خروجی JSON و CSV
-// ========================================
-
+// خروجی JSON و CSV
 function exportJSON(){
   const payload={
-    version:"0.4",
+    version:"0.5",
     exportedAt:new Date().toISOString(),
     database:db
   };
   downloadFile("neurocognitive-backup.json",
     JSON.stringify(payload,null,2),"application/json");
 }
-
 function csvCell(v){
   return '"'+String(v??"").replace(/"/g,'""')+'"';
 }
@@ -1198,7 +1307,6 @@ function downloadCSV(name,rows){
   const csv="\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\n");
   downloadFile(name,csv,"text/csv;charset=utf-8");
 }
-
 function exportSummaryCSV(){
   const rows=[[
     "participant_code","session_number","date","task","mode",
@@ -1217,15 +1325,15 @@ function exportSummaryCSV(){
       t.backwardCorrect??"",t.backwardTotal??"",t.backwardMaxSpan??""
     ]);
   });
+
   downloadCSV("neurocognitive-summary.csv",rows);
 }
-
 function exportTrialCSV(){
   const rows=[[
     "participant_code","session_number","test_id","task","mode",
     "sequence","expected","response","length","trial","correct","omitted",
-    "response_latency_ms","interval_ms","speech_rate","voice_name",
-    "voice_lang","presented_at","recorded_at"
+    "response_latency_after_sequence_ms","interval_ms","speech_rate",
+    "voice_name","voice_lang","presented_at","recorded_at"
   ]];
 
   db.tests.forEach(t=>{
@@ -1238,7 +1346,8 @@ function exportTrialCSV(){
         p?.code||"",s?.number||"",t.id,t.task||"",tr.mode||"",
         tr.sequence||"",tr.expected||"",tr.response||"",tr.length??"",
         tr.trial??"",tr.correct??"",tr.omitted??"",
-        tr.responseLatencyMs??"",tr.intervalMs??"",tr.speechRate??"",
+        tr.responseLatencyAfterSequenceMs??tr.responseLatencyMs??"",
+        tr.intervalMs??"",tr.speechRate??"",
         tr.voiceName||"",tr.voiceLang||"",tr.presentedAt||"",tr.recordedAt||""
       ]);
     });
@@ -1248,15 +1357,11 @@ function exportTrialCSV(){
   downloadCSV("neurocognitive-trials.csv",rows);
 }
 
-// ========================================
-// 10. اعتبارسنجی فایل پشتیبان
-// ========================================
-
+// اعتبارسنجی
 function unwrapBackup(parsed){
   if(parsed&&parsed.database)return parsed.database;
   return parsed;
 }
-
 function validDatabase(data){
   return !!data&&typeof data==="object"&&!Array.isArray(data)&&
     Array.isArray(data.participants)&&
@@ -1266,7 +1371,6 @@ function validDatabase(data){
     data.sessions.every(x=>x&&typeof x==="object"&&!Array.isArray(x))&&
     data.tests.every(x=>x&&typeof x==="object"&&!Array.isArray(x));
 }
-
 function validateDatabaseRelations(data){
   const pids=new Set(),sids=new Set(),tids=new Set();
 
@@ -1289,22 +1393,21 @@ function validateDatabaseRelations(data){
     tids.add(String(t.id));
     if(!pids.has(String(t.participantId)))return "نتیجه به آزمودنی ناموجود متصل است.";
     if(!sids.has(String(t.sessionId)))return "نتیجه به جلسه ناموجود متصل است.";
+
     const session=data.sessions.find(s=>String(s.id)===String(t.sessionId));
     if(!session||String(session.participantId)!==String(t.participantId))
       return "ارتباط آزمودنی و جلسه در نتیجه آزمون ناسازگار است.";
+
     if(t.trials!==undefined&&!Array.isArray(t.trials))
       return "ساختار داده‌های کوشش در یکی از آزمون‌ها معتبر نیست.";
   }
   return null;
 }
 
-// ========================================
-// 11. پشتیبان پیش از بازیابی
-// ========================================
-
+// پشتیبان پیش از بازیابی
 function createPreImportBackup(){
   const snapshot={
-    version:"0.4",
+    version:"0.5",
     createdAt:new Date().toISOString(),
     database:JSON.parse(JSON.stringify(db))
   };
@@ -1316,10 +1419,7 @@ function createPreImportBackup(){
     content,"application/json");
 }
 
-// ========================================
-// 12. ادغام اطلاعات
-// ========================================
-
+// ادغام
 function mergeDatabase(incoming){
   const report={
     participantsNew:0,participantsMatched:0,
@@ -1396,6 +1496,7 @@ function mergeDatabase(incoming){
 
     const pid=pMap.get(String(source.participantId));
     const sid=sMap.get(String(source.sessionId));
+
     if(!pid||!sid){report.skipped++;return;}
 
     const session=db.sessions.find(s=>s.id===sid);
@@ -1424,10 +1525,7 @@ function showImportReport(report,title){
       "<p>هشداری ثبت نشد.</p>"}`;
 }
 
-// ========================================
-// 13. بازیابی JSON
-// ========================================
-
+// بازیابی
 function importJSON(mode){
   const file=document.getElementById("importFile").files[0];
   if(!file)return alert("ابتدا فایل JSON را انتخاب کنید.");
@@ -1436,6 +1534,7 @@ function importJSON(mode){
   const question=mode==="replace"
     ?"اطلاعات فعلی با اطلاعات فایل جایگزین می‌شود. ادامه می‌دهید؟"
     :"اطلاعات فایل با اطلاعات فعلی ادغام می‌شود. ادامه می‌دهید؟";
+
   if(!confirm(question))return;
 
   const reader=new FileReader();
@@ -1482,7 +1581,13 @@ function importJSON(mode){
         report=mergeDatabase(parsed);
       }
 
-      save();
+      if(!save()){
+        db=previous;
+        localStorage.setItem(DBKEY,JSON.stringify(previous));
+        renderAll();
+        return;
+      }
+
       showImportReport(report,mode==="replace"?"گزارش بازیابی کامل":"گزارش ادغام اطلاعات");
       document.getElementById("importFile").value="";
       alert(mode==="replace"?"بازیابی کامل انجام شد.":"ادغام اطلاعات انجام شد.");
@@ -1498,13 +1603,16 @@ function importJSON(mode){
   reader.readAsText(file);
 }
 
-// ========================================
-// 14. شروع برنامه
-// ========================================
-
+// راه‌اندازی
 document.getElementById("sessionDate").value=today();
-load();
 
+if("speechSynthesis" in window){
+  updateVoiceStatus();
+  window.speechSynthesis.onvoiceschanged=updateVoiceStatus;
+}
+
+load();
 </script>
+
 </body>
 </html>
