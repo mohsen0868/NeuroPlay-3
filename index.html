@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroCognitive | نسخه ۰٫۶</title>
+<title>NeuroCognitive | نسخه ۰٫۷</title>
 <style>
 :root{--blue:#245b83;--light:#eef5f8;--green:#26866e;--orange:#e69a43;--red:#bd4d4d;--text:#20313d}
 *{box-sizing:border-box}
@@ -57,11 +56,27 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 .corsi-block.selected{background:#26866e;border-color:#17614e}
 .corsi-block:disabled{opacity:1;cursor:default}
 .corsi-board-label{text-align:center;font-size:12px;color:#607783}
+
+/* Stroop */
+.stroop-stimulus-area{min-height:180px;display:flex;align-items:center;justify-content:center;background:#f1f5f7;border-radius:12px;margin:15px 0}
+#stroopStimulus{font-size:clamp(42px,10vw,72px);font-weight:900}
+#stroopFixation{font-size:44px;color:#9aa8b5}
+.stroop-color-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stroop-color-btn{min-height:62px;color:white;font-size:17px;font-weight:bold}
+.stroop-color-btn.red{background:#d93636}
+.stroop-color-btn.blue{background:#2674c9}
+.stroop-color-btn.green{background:#23945e}
+.stroop-color-btn.yellow{background:#e7b323;color:#263238}
+.stroop-status{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#667783}
+.stroop-progress{height:9px;background:#e5ebef;border-radius:10px;overflow:hidden;margin:12px 0}
+.stroop-progress div{height:100%;width:0;background:var(--green)}
+.stroop-metric{background:var(--light);padding:12px;border-radius:9px;margin:8px 0}
 @media(max-width:600px){
  header h1{font-size:22px}.card{padding:13px}button{font-size:12px}
  #stimulus{min-height:120px;font-size:60px}
  #corsiBoard{gap:7px;padding:9px}
  .corsi-block{font-size:19px}
+ .stroop-color-btn{min-height:58px;font-size:15px}
 }
 </style>
 </head>
@@ -69,8 +84,8 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 <header>
 <h1>NeuroCognitive</h1>
 <p>سامانه مدیریت آزمودنی‌ها، جلسات و ارزیابی شناختی</p>
-<small>نسخه ۰٫۶ | Research Edition</small>
-<div class="developer-credit">Developed by M. Khoshroo</div>
+<small>نسخه ۰٫۷ | Research Edition</small>
+<div class="developer-credit">Developed by M. Khoshroo | NeuroPlay</div>
 </header>
 
 <main>
@@ -88,6 +103,7 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 <button data-tab="attention">آزمون توجه</button>
 <button data-tab="digitspan">Digit Span</button>
 <button data-tab="corsi">Corsi Block</button>
+<button data-tab="stroop">آزمون استروپ</button>
 <button data-tab="records">سوابق</button>
 <button data-tab="backup">پشتیبان‌گیری</button>
 </div>
@@ -189,44 +205,24 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 </div>
 </section>
 
-<!-- CORSI BLOCK -->
 <section id="corsi" class="panel">
 <div class="card">
 <h2>آزمون حافظه دیداری ـ فضایی کورسی (Corsi Block)</h2>
-<div class="notice">
-در این آزمون، چند بلوک به‌ترتیب روشن می‌شوند. پس از پایان نمایش، همان بلوک‌ها را با همان ترتیب لمس کنید. در حالت معکوس، ترتیب را برعکس بازتولید کنید.
-</div>
-<div class="notice">
-این نسخه یک پیاده‌سازی پژوهشی آزمایشی است و معادل نسخه‌های تجاری یا هنجاریابی‌شده آزمون کورسی نیست. گروه سنی صرفاً برای ثبت اطلاعات و انتخاب تنظیمات اجراست؛ نمره هنجاری یا تشخیص بالینی تولید نمی‌شود.
-</div>
+<div class="notice">در این آزمون، چند بلوک به‌ترتیب روشن می‌شوند. پس از پایان نمایش، همان بلوک‌ها را با همان ترتیب لمس کنید. در حالت معکوس، ترتیب را برعکس بازتولید کنید.</div>
+<div class="notice">این نسخه یک پیاده‌سازی پژوهشی آزمایشی است و معادل نسخه‌های تجاری یا هنجاریابی‌شده آزمون کورسی نیست. نمره هنجاری یا تشخیص بالینی تولید نمی‌شود.</div>
 <div class="grid">
 <div><label>آزمودنی</label><select id="corsiParticipant" onchange="updateCorsiSessions()"></select></div>
 <div><label>جلسه</label><select id="corsiSession"></select></div>
-<div>
-<label>گروه سنی</label>
-<select id="corsiAgeGroup">
-<option value="child">کودک</option>
-<option value="adolescent">نوجوان</option>
-<option value="adult">بزرگسال</option>
-</select>
-</div>
-<div>
-<label>نوع اجرا</label>
-<select id="corsiMode">
-<option value="forward">مستقیم (Forward)</option>
-<option value="backward">معکوس (Backward؛ تکمیلی)</option>
-<option value="both">هر دو بخش</option>
-</select>
-</div>
+<div><label>گروه سنی</label><select id="corsiAgeGroup"><option value="child">کودک</option><option value="adolescent">نوجوان</option><option value="adult">بزرگسال</option></select></div>
+<div><label>نوع اجرا</label><select id="corsiMode"><option value="forward">مستقیم (Forward)</option><option value="backward">معکوس (Backward؛ تکمیلی)</option><option value="both">هر دو بخش</option></select></div>
 <div><label>فاصله نمایش هر بلوک (ms)</label><input id="corsiDisplay" type="number" min="300" max="3000" value="1000"></div>
 <div><label>فاصله بین بلوک‌ها (ms)</label><input id="corsiISI" type="number" min="200" max="3000" value="500"></div>
 <div><label>حداکثر طول توالی</label><input id="corsiMaxLength" type="number" min="3" max="9" value="9"></div>
 </div>
-<p class="small">شروع از طول ۲؛ دو کوشش در هر طول. برای هر بخش، پس از دو کوشش ناموفق در یک طول، اجرا متوقف می‌شود. آرایش بلوک‌ها در کل آزمون ثابت است.</p>
+<p class="small">شروع از طول ۲؛ دو کوشش در هر طول. پس از دو کوشش ناموفق در یک طول، اجرا متوقف می‌شود.</p>
 <button class="green" id="corsiStartButton" onclick="startCorsi()">شروع آزمون Corsi</button>
 <div id="corsiTaskArea" class="hidden">
-<hr>
-<div class="progress"><div id="corsiProgressBar"></div></div>
+<hr><div class="progress"><div id="corsiProgressBar"></div></div>
 <p id="corsiInstruction" class="small"></p>
 <div class="statgrid">
 <div class="stat"><strong id="corsiModeLabel">-</strong>بخش آزمون</div>
@@ -245,7 +241,7 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 <button class="corsi-block" data-block="7" disabled>۸</button>
 <button class="corsi-block" data-block="8" disabled>۹</button>
 </div>
-<p class="corsi-board-label">شماره‌ها فقط برای شناسایی بلوک‌ها در ثبت داده هستند؛ در اجرای پژوهشی می‌توان آن‌ها را از دید آزمودنی پنهان کرد.</p>
+<p class="corsi-board-label">شماره‌ها فقط برای شناسایی بلوک‌ها در ثبت داده هستند.</p>
 <div class="task-actions">
 <button class="orange" id="corsiBeginResponse" onclick="beginCorsiResponse()" disabled>شروع پاسخ‌دهی</button>
 <button class="gray" id="corsiCancelButton" onclick="cancelCorsi()">لغو آزمون</button>
@@ -253,6 +249,82 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 <p id="corsiFeedback" class="small"></p>
 </div>
 <div id="corsiResult" class="hidden"></div>
+</div>
+</section>
+
+<!-- STROOP -->
+<section id="stroop" class="panel">
+<div class="card">
+<h2>آزمون استروپ (Stroop Color–Word)</h2>
+<div class="notice">
+در هر مرحله دستورالعمل را بخوانید. با لمس دکمه رنگی یا کلیدهای ۱ تا ۴ پاسخ دهید.
+تا حد امکان سریع و دقیق عمل کنید.
+</div>
+<div class="notice">
+چهار مرحله، هر مرحله شامل ۴ کوشش تمرینی و ۲۴ کوشش اصلی است؛ در مجموع ۱۶ کوشش تمرینی و ۹۶ کوشش اصلی.
+</div>
+<div class="grid">
+<div><label>آزمودنی</label><select id="stroopParticipant" onchange="updateStroopSessions()"></select></div>
+<div><label>جلسه</label><select id="stroopSession"></select></div>
+</div>
+<button class="green" id="stroopStartButton" onclick="startStroop()">شروع آزمون استروپ</button>
+
+<div id="stroopInstructionArea" class="hidden">
+<hr>
+<h3 id="stroopInstructionTitle"></h3>
+<p id="stroopInstructionText"></p>
+<div class="notice" id="stroopInstructionExample"></div>
+<p class="small">ابتدا ۴ کوشش تمرینی انجام می‌دهید.</p>
+<button class="green" id="stroopPracticeButton" onclick="startStroopPractice()">شروع تمرین</button>
+</div>
+
+<div id="stroopTaskArea" class="hidden">
+<hr>
+<div class="stroop-status">
+<span id="stroopConditionLabel"></span>
+<span id="stroopTrialLabel"></span>
+</div>
+<div class="stroop-progress"><div id="stroopProgressBar"></div></div>
+<div class="stroop-stimulus-area">
+<div id="stroopFixation">+</div>
+<div id="stroopStimulus" class="hidden"></div>
+</div>
+<p class="small" style="text-align:center">رنگ مناسب را انتخاب کنید</p>
+<div class="stroop-color-grid">
+<button class="stroop-color-btn red" data-stroop-color="red" disabled>قرمز</button>
+<button class="stroop-color-btn blue" data-stroop-color="blue" disabled>آبی</button>
+<button class="stroop-color-btn green" data-stroop-color="green" disabled>سبز</button>
+<button class="stroop-color-btn yellow" data-stroop-color="yellow" disabled>زرد</button>
+</div>
+<p class="small" style="text-align:center">۱ قرمز | ۲ آبی | ۳ سبز | ۴ زرد</p>
+<button class="red" onclick="abortStroop()">توقف آزمون</button>
+</div>
+
+<div id="stroopBetweenArea" class="hidden">
+<hr>
+<h3 id="stroopBetweenTitle"></h3>
+<p id="stroopBetweenText"></p>
+<div class="notice" id="stroopBetweenNote"></div>
+<button class="green" id="stroopBetweenButton">ادامه</button>
+</div>
+
+<div id="stroopResult" class="hidden">
+<hr>
+<h3>نتیجه آزمون استروپ</h3>
+<p id="stroopResultInfo" class="small"></p>
+<div id="stroopSummary"></div>
+<h3>نتایج مراحل</h3>
+<div class="tablewrap">
+<table>
+<thead><tr><th>مرحله</th><th>تعداد</th><th>صحیح</th><th>خطا</th><th>بدون پاسخ</th><th>میانگین RT صحیح</th></tr></thead>
+<tbody id="stroopConditionResults"></tbody>
+</table>
+</div>
+<h3>شاخص‌های تداخل</h3>
+<div id="stroopInterference"></div>
+<p class="notice">این ابزار نسخه پژوهشی آزمایشی است و هنجاریابی نشده است. شاخص‌ها به‌تنهایی مبنای تشخیص بالینی نیستند.</p>
+<button class="green" onclick="resetStroop()">اجرای جدید</button>
+</div>
 </div>
 </section>
 
@@ -290,8 +362,8 @@ hr{border:0;border-top:1px solid #e6ecef;margin:20px 0}
 <script>
 const DBKEY="neurocognitive_v02",OLDKEY="neurocognitive_results_v1",PREBACKUP_KEY="neurocognitive_preimport_backup";
 let db={participants:[],sessions:[],tests:[]};
-let attentionState=null,digitState=null,corsiState=null;
-let attentionTimer=null,digitTimer=null,corsiTimer=null;
+let attentionState=null,digitState=null,corsiState=null,stroopState=null;
+let attentionTimer=null,digitTimer=null,corsiTimer=null,stroopTimer=null;
 
 function uid(){return "id_"+Date.now()+"_"+Math.random().toString(36).slice(2,8)}
 function today(){const d=new Date(),o=d.getTimezoneOffset();return new Date(d.getTime()-o*60000).toISOString().slice(0,10)}
@@ -351,7 +423,7 @@ function editParticipant(id){
  const age=prompt("سن:",p.age);if(age===null)return;p.code=code.trim();p.age=age;save();
 }
 function deleteParticipant(id){
- if(attentionState?.participantId===id||digitState?.participantId===id||corsiState?.participantId===id)return alert("ابتدا اجرای آزمون فعال را لغو کنید.");
+ if(attentionState?.participantId===id||digitState?.participantId===id||corsiState?.participantId===id||stroopState?.participantId===id)return alert("ابتدا اجرای آزمون فعال را لغو کنید.");
  if(!confirm("آزمودنی و تمام جلسات و نتایج مرتبط حذف شوند؟"))return;
  db.tests=db.tests.filter(t=>t.participantId!==id);db.sessions=db.sessions.filter(s=>s.participantId!==id);db.participants=db.participants.filter(p=>p.id!==id);save();
 }
@@ -365,7 +437,7 @@ function addSession(){
  document.getElementById("sessionNumber").value="1";document.getElementById("sessionNote").value="";save();
 }
 function deleteSession(id){
- if(attentionState?.sessionId===id||digitState?.sessionId===id||corsiState?.sessionId===id)return alert("این جلسه در حال استفاده در یک آزمون فعال است.");
+ if(attentionState?.sessionId===id||digitState?.sessionId===id||corsiState?.sessionId===id||stroopState?.sessionId===id)return alert("این جلسه در حال استفاده در یک آزمون فعال است.");
  if(db.tests.some(t=>t.sessionId===id))return alert("این جلسه دارای نتیجه آزمون است و حذف نمی‌شود.");
  if(!confirm("جلسه حذف شود؟"))return;db.sessions=db.sessions.filter(s=>s.id!==id);save();
 }
@@ -375,11 +447,11 @@ function renderAll(){
  document.getElementById("countSessions").textContent=faNumber(db.sessions.length);
  document.getElementById("countTests").textContent=faNumber(db.tests.length);
  document.getElementById("participantsTable").innerHTML=db.participants.map(p=>`<tr><td>${escapeHTML(p.code)}</td><td>${escapeHTML(p.age||"-")}</td><td>${escapeHTML(p.gender||"-")}</td><td><button class="orange" onclick="editParticipant('${escapeHTML(p.id)}')">ویرایش</button><button class="red" onclick="deleteParticipant('${escapeHTML(p.id)}')">حذف</button></td></tr>`).join("")||'<tr><td colspan="4">هنوز آزمودنی ثبت نشده است.</td></tr>';
- const selects=[["sessionParticipant"],["testParticipant"],["digitParticipant"],["corsiParticipant"]];
- selects.forEach(([id])=>{const el=document.getElementById(id),old=el.value;el.innerHTML=participantOptions();if(db.participants.some(p=>p.id===old))el.value=old});
- updateTestSessions();updateDigitSessions();updateCorsiSessions();
+ const selects=["sessionParticipant","testParticipant","digitParticipant","corsiParticipant","stroopParticipant"];
+ selects.forEach(id=>{const el=document.getElementById(id),old=el.value;el.innerHTML=participantOptions();if(db.participants.some(p=>p.id===old))el.value=old});
+ updateTestSessions();updateDigitSessions();updateCorsiSessions();updateStroopSessions();
  document.getElementById("sessionsTable").innerHTML=db.sessions.map(s=>{const p=db.participants.find(x=>x.id===s.participantId);return `<tr><td>${escapeHTML(p?.code||"نامشخص")}</td><td>${escapeHTML(s.number)}</td><td>${escapeHTML(s.date)}</td><td><button class="red" onclick="deleteSession('${escapeHTML(s.id)}')">حذف</button></td></tr>`}).join("")||'<tr><td colspan="4">هنوز جلسه‌ای ثبت نشده است.</td></tr>';
- document.getElementById("recordsTable").innerHTML=db.tests.slice().reverse().map(t=>{const p=db.participants.find(x=>x.id===t.participantId),s=db.sessions.find(x=>x.id===t.sessionId);return `<tr><td>${escapeHTML(p?.code||"-")}</td><td>${escapeHTML(s?.number||"-")}</td><td>${escapeHTML(String(t.date||"").slice(0,10))}</td><td>${escapeHTML(t.task||"-")}</td><td>${faNumber(t.correct)}</td><td>${faNumber(t.falseAlarms)}</td><td>${faNumber(t.misses)}</td><td>${faNumber(t.accuracy)}٪</td></tr>`}).join("")||'<tr><td colspan="8">هنوز نتیجه‌ای ثبت نشده است.</td></tr>';
+ document.getElementById("recordsTable").innerHTML=db.tests.slice().reverse().map(t=>{const p=db.participants.find(x=>x.id===t.participantId),s=db.sessions.find(x=>x.id===t.sessionId);return `<tr><td>${escapeHTML(p?.code||"-")}</td><td>${escapeHTML(s?.number||"-")}</td><td>${escapeHTML(String(t.date||"").slice(0,10))}</td><td>${escapeHTML(t.task||"-")}${t.status&&t.status!=="completed"?" ("+escapeHTML(t.status)+")":""}</td><td>${faNumber(t.correct)}</td><td>${faNumber(t.falseAlarms)}</td><td>${faNumber(t.misses)}</td><td>${faNumber(t.accuracy)}٪</td></tr>`}).join("")||'<tr><td colspan="8">هنوز نتیجه‌ای ثبت نشده است.</td></tr>';
 }
 function fillSessions(pid,selectId){
  const el=document.getElementById(selectId),old=el.value,sessions=db.sessions.filter(s=>s.participantId===pid);
@@ -389,14 +461,15 @@ function fillSessions(pid,selectId){
 function updateTestSessions(){fillSessions(document.getElementById("testParticipant").value,"testSession")}
 function updateDigitSessions(){fillSessions(document.getElementById("digitParticipant").value,"digitSession")}
 function updateCorsiSessions(){fillSessions(document.getElementById("corsiParticipant").value,"corsiSession")}
+function updateStroopSessions(){fillSessions(document.getElementById("stroopParticipant").value,"stroopSession")}
 
 // آزمون توجه
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
 function startAttentionTest(){
  const participantId=document.getElementById("testParticipant").value,sessionId=document.getElementById("testSession").value;
  if(!participantId||!sessionId)return alert("آزمودنی و جلسه را انتخاب کنید.");
- const nt=["1","2","4","5","6","7","8","9"],trials=[...Array(10).fill("3"),...Array.from({length:30},()=>nt[Math.floor(Math.random()*nt.length)])];
- attentionState={participantId,sessionId,trials:shuffle(trials),index:0,hits:0,falseAlarms:0,misses:0,correctRejections:0,reactionTimes:[],active:false};
+ attentionState={participantId,sessionId,trials:shuffle([...Array(10).fill("3"),...Array.from({length:30},()=>String(Math.floor(Math.random()*9)+1).replace("3","4"))]),index:0,hits:0,falseAlarms:0,misses:0,correctRejections:0,reactionTimes:[],active:false};
+ attentionState.trials=attentionState.trials.map((v)=>v==="3"?"3":v);
  document.getElementById("testResult").classList.add("hidden");document.getElementById("taskArea").classList.remove("hidden");document.getElementById("startButton").disabled=true;nextAttentionTrial();
 }
 function nextAttentionTrial(){
@@ -502,180 +575,286 @@ function finishDigitSpan(){
 }
 function cancelDigitSpan(){if(!digitState)return;if(!confirm("اجرای فعلی لغو شود؟ داده‌های ناقص ذخیره نمی‌شوند."))return;clearTimeout(digitTimer);if("speechSynthesis"in window)speechSynthesis.cancel();digitState=null;digitTaskArea.classList.add("hidden");digitStartButton.disabled=false;digitStimulus.textContent="برای شروع آماده باشید";digitFeedback.textContent="اجرا لغو شد."}
 
-// ========================================
 // CORSI BLOCK
-// ========================================
-const corsiPositions=[
- [12,12],[50,9],[84,16],
- [20,48],[55,43],[88,54],
- [10,82],[48,88],[82,83]
-];
-// آرایش نمایشی ثابت؛ شماره بلوک‌ها برای ثبت داده استفاده می‌شود.
 function corsiAgeLabel(v){return v==="child"?"کودک":v==="adolescent"?"نوجوان":"بزرگسال"}
-function setCorsiBoardEnabled(enabled){
- document.querySelectorAll(".corsi-block").forEach(b=>b.disabled=!enabled);
-}
-function clearCorsiFlash(){
- document.querySelectorAll(".corsi-block").forEach(b=>b.classList.remove("flash","selected"));
-}
-function corsiFlash(index,duration){
- const block=document.querySelector('.corsi-block[data-block="'+index+'"]');if(!block)return;
- block.classList.add("flash");return wait(duration).then(()=>block.classList.remove("flash"));
-}
-function createCorsiSequence(length){
- // نمونه‌گیری تصادفی از ۹ بلوک؛ تکرار بلوک در یک توالی مجاز نیست.
- const pool=shuffle([0,1,2,3,4,5,6,7,8]);return pool.slice(0,length);
-}
+function setCorsiBoardEnabled(enabled){document.querySelectorAll(".corsi-block").forEach(b=>b.disabled=!enabled)}
+function clearCorsiFlash(){document.querySelectorAll(".corsi-block").forEach(b=>b.classList.remove("flash","selected"))}
+function createCorsiSequence(length){return shuffle([0,1,2,3,4,5,6,7,8]).slice(0,length)}
 function startCorsi(){
  if(corsiState)return alert("یک اجرای کورسی در حال انجام است.");
- const participantId=corsiParticipant.value,sessionId=corsiSession.value,ageGroup=corsiAgeGroup.value,mode=corsiMode.value;
- const display=Number(corsiDisplay.value),isi=Number(corsiISI.value),maxLength=Number(corsiMaxLength.value);
+ const participantId=corsiParticipant.value,sessionId=corsiSession.value,ageGroup=corsiAgeGroup.value,mode=corsiMode.value,display=Number(corsiDisplay.value),isi=Number(corsiISI.value),maxLength=Number(corsiMaxLength.value);
  if(!participantId||!sessionId)return alert("آزمودنی و جلسه را انتخاب کنید.");
  if(display<300||display>3000||isi<200||isi>3000||maxLength<3||maxLength>9)return alert("تنظیمات نمایش یا طول توالی معتبر نیست.");
- corsiState={participantId,sessionId,ageGroup,requestedMode:mode,modes:mode==="both"?["forward","backward"]:[mode],modeIndex:0,currentMode:mode==="both"?"forward":mode,length:2,trial:0,correctByLength:0,maxLength,display,isi,trials:[],modeResults:{},sequence:[],response:[],phase:"",startedAt:new Date().toISOString(),sequenceStart:null,sequenceEnd:null,responseStart:null};
- corsiStartButton.disabled=true;corsiTaskArea.classList.remove("hidden");corsiResult.classList.add("hidden");corsiCancelButton.disabled=false;
- startCorsiMode();
+ corsiState={participantId,sessionId,ageGroup,requestedMode:mode,modes:mode==="both"?["forward","backward"]:[mode],modeIndex:0,currentMode:mode==="both"?"forward":mode,length:2,trial:0,correctByLength:0,maxLength,display,isi,trials:[],modeResults:{},sequence:[],response:[],phase:"",startedAt:new Date().toISOString()};
+ corsiStartButton.disabled=true;corsiTaskArea.classList.remove("hidden");corsiResult.classList.add("hidden");startCorsiMode();
 }
-function startCorsiMode(){
- const s=corsiState;if(!s)return;s.length=2;s.trial=0;s.correctByLength=0;s.modeResults[s.currentMode]={correct:0,total:0,maxSpan:0,stoppedAt:null};nextCorsiTrial();
-}
+function startCorsiMode(){const s=corsiState;if(!s)return;s.length=2;s.trial=0;s.correctByLength=0;s.modeResults[s.currentMode]={correct:0,total:0,maxSpan:0,stoppedAt:null};nextCorsiTrial()}
 function nextCorsiTrial(){
- const s=corsiState;if(!s)return;
- clearTimeout(corsiTimer);clearCorsiFlash();setCorsiBoardEnabled(false);corsiBeginResponse.disabled=true;
- if(s.trial>=2){
-  if(s.correctByLength===0){s.modeResults[s.currentMode].stoppedAt=s.length;advanceCorsiMode();return}
-  s.length++;s.trial=0;s.correctByLength=0;
- }
+ const s=corsiState;if(!s)return;clearTimeout(corsiTimer);clearCorsiFlash();setCorsiBoardEnabled(false);corsiBeginResponse.disabled=true;
+ if(s.trial>=2){if(s.correctByLength===0){s.modeResults[s.currentMode].stoppedAt=s.length;advanceCorsiMode();return}s.length++;s.trial=0;s.correctByLength=0}
  if(s.length>s.maxLength){advanceCorsiMode();return}
  s.trial++;s.sequence=createCorsiSequence(s.length);s.response=[];s.phase="ready";s.sequenceStart=null;s.sequenceEnd=null;s.responseStart=null;
- corsiModeLabel.textContent=s.currentMode==="forward"?"مستقیم":"معکوس";
- corsiLengthLabel.textContent=faNumber(s.length);corsiTrialLabel.textContent=faNumber(s.trial)+" از ۲";
- const estimate=s.modes.length*(s.maxLength-1)*2;
- corsiProgressBar.style.width=Math.min(98,s.trials.length/estimate*100)+"%";
+ corsiModeLabel.textContent=s.currentMode==="forward"?"مستقیم":"معکوس";corsiLengthLabel.textContent=faNumber(s.length);corsiTrialLabel.textContent=faNumber(s.trial)+" از ۲";
+ const estimate=s.modes.length*(s.maxLength-1)*2;corsiProgressBar.style.width=Math.min(98,s.trials.length/estimate*100)+"%";
  corsiInstruction.textContent="بخش "+(s.currentMode==="forward"?"مستقیم":"معکوس")+" | طول توالی "+faNumber(s.length);
- corsiMessage.textContent="برای نمایش توالی آماده شوید.";
- corsiFeedback.textContent="";
- corsiBeginResponse.disabled=true;
- // مکث کوتاه بین کوشش‌ها؛ سپس نمایش خودکار توالی
+ corsiMessage.textContent="برای نمایش توالی آماده شوید.";corsiFeedback.textContent="";
  corsiTimer=setTimeout(presentCorsiSequence,700);
 }
 async function presentCorsiSequence(){
- const s=corsiState;if(!s)return;s.phase="presentation";s.sequenceStart=new Date().toISOString();
- corsiMessage.textContent="به ترتیب بلوک‌های روشن‌شونده توجه کنید.";
- setCorsiBoardEnabled(false);clearCorsiFlash();
+ const s=corsiState;if(!s)return;s.phase="presentation";s.sequenceStart=new Date().toISOString();corsiMessage.textContent="به ترتیب بلوک‌های روشن‌شونده توجه کنید.";setCorsiBoardEnabled(false);clearCorsiFlash();
  for(let i=0;i<s.sequence.length;i++){
-  if(corsiState!==s)return;
-  const idx=s.sequence[i],block=document.querySelector('.corsi-block[data-block="'+idx+'"]');
-  block.classList.add("flash");
-  await wait(s.display);
-  if(corsiState!==s)return;
-  block.classList.remove("flash");
-  if(i<s.sequence.length-1)await wait(s.isi);
+  if(corsiState!==s)return;const idx=s.sequence[i],block=document.querySelector('.corsi-block[data-block="'+idx+'"]');block.classList.add("flash");
+  await wait(s.display);if(corsiState!==s)return;block.classList.remove("flash");if(i<s.sequence.length-1)await wait(s.isi);
  }
- if(corsiState!==s)return;
- s.sequenceEnd=new Date().toISOString();s.phase="awaitingStart";
- corsiMessage.textContent="نمایش توالی تمام شد. برای آغاز پاسخ‌دهی دکمه زیر را بزنید.";
- corsiBeginResponse.disabled=false;
+ if(corsiState!==s)return;s.sequenceEnd=new Date().toISOString();s.phase="awaitingStart";corsiMessage.textContent="نمایش توالی تمام شد. برای آغاز پاسخ‌دهی دکمه زیر را بزنید.";corsiBeginResponse.disabled=false;
 }
 function beginCorsiResponse(){
- const s=corsiState;if(!s||s.phase!=="awaitingStart")return;
- s.phase="response";s.responseStart=new Date().toISOString();s.responseStartPerf=performance.now();
- corsiBeginResponse.disabled=true;setCorsiBoardEnabled(true);
+ const s=corsiState;if(!s||s.phase!=="awaitingStart")return;s.phase="response";s.responseStart=new Date().toISOString();s.responseStartPerf=performance.now();corsiBeginResponse.disabled=true;setCorsiBoardEnabled(true);
  corsiMessage.textContent=s.currentMode==="forward"?"بلوک‌ها را به همان ترتیب لمس کنید.":"بلوک‌ها را به ترتیب معکوس لمس کنید.";
 }
 function corsiBlockClick(index){
- const s=corsiState;if(!s||s.phase!=="response")return;
- const block=document.querySelector('.corsi-block[data-block="'+index+'"]');
- if(!block||block.disabled)return;
- block.disabled=true;block.classList.add("selected");
- s.response.push({block:index,at:performance.now()});
- if(s.response.length>=s.sequence.length)finishCorsiTrial();
+ const s=corsiState;if(!s||s.phase!=="response")return;const block=document.querySelector('.corsi-block[data-block="'+index+'"]');if(!block||block.disabled)return;
+ block.disabled=true;block.classList.add("selected");s.response.push({block:index,at:performance.now()});if(s.response.length>=s.sequence.length)finishCorsiTrial();
 }
 document.querySelectorAll(".corsi-block").forEach(b=>b.addEventListener("click",()=>corsiBlockClick(Number(b.dataset.block))));
 function finishCorsiTrial(){
  const s=corsiState;if(!s)return;s.phase="scoring";setCorsiBoardEnabled(false);
- const expected=s.currentMode==="backward"?s.sequence.slice().reverse():s.sequence.slice();
- const response=s.response.map(x=>x.block),correct=response.length===expected.length&&response.every((v,i)=>v===expected[i]);
- let firstErrorIndex=-1;
- for(let i=0;i<Math.min(response.length,expected.length);i++){if(response[i]!==expected[i]){firstErrorIndex=i;break}}
+ const expected=s.currentMode==="backward"?s.sequence.slice().reverse():s.sequence.slice(),response=s.response.map(x=>x.block),correct=response.length===expected.length&&response.every((v,i)=>v===expected[i]);
+ let firstErrorIndex=-1;for(let i=0;i<Math.min(response.length,expected.length);i++){if(response[i]!==expected[i]){firstErrorIndex=i;break}}
  const responseDuration=s.response.length?Math.round(s.response[s.response.length-1].at-s.responseStartPerf):0;
- const trial={
-  participantId:s.participantId,sessionId:s.sessionId,mode:s.currentMode,ageGroup:s.ageGroup,
-  sequence:s.sequence.slice(),expected,response,responseLength:response.length,length:s.length,trial:s.trial,
-  correct,firstErrorIndex,omitted:false,displayMs:s.display,isiMs:s.isi,
-  sequenceStartedAt:s.sequenceStart,sequenceEndedAt:s.sequenceEnd,
-  responseStartedAt:s.responseStart,responseDurationMs:responseDuration,
-  responseTimestamps:s.response.map(x=>Math.round(x.at-s.responseStartPerf)),
-  recordedAt:new Date().toISOString()
- };
- s.trials.push(trial);
- const mr=s.modeResults[s.currentMode];mr.total++;
- if(correct){mr.correct++;s.correctByLength++;mr.maxSpan=Math.max(mr.maxSpan,s.length)}
- corsiMessage.textContent=correct?"پاسخ صحیح ثبت شد.":"پاسخ ثبت شد؛ این کوشش نادرست بود.";
- corsiFeedback.textContent=firstErrorIndex>=0?"نخستین اختلاف در جایگاه "+faNumber(firstErrorIndex+1)+" رخ داد.":"";
+ s.trials.push({participantId:s.participantId,sessionId:s.sessionId,mode:s.currentMode,ageGroup:s.ageGroup,sequence:s.sequence.slice(),expected,response,responseLength:response.length,length:s.length,trial:s.trial,correct,firstErrorIndex,omitted:false,displayMs:s.display,isiMs:s.isi,sequenceStartedAt:s.sequenceStart,sequenceEndedAt:s.sequenceEnd,responseStartedAt:s.responseStart,responseDurationMs:responseDuration,responseTimestamps:s.response.map(x=>Math.round(x.at-s.responseStartPerf)),recordedAt:new Date().toISOString()});
+ const mr=s.modeResults[s.currentMode];mr.total++;if(correct){mr.correct++;s.correctByLength++;mr.maxSpan=Math.max(mr.maxSpan,s.length)}
+ corsiMessage.textContent=correct?"پاسخ صحیح ثبت شد.":"پاسخ ثبت شد؛ این کوشش نادرست بود.";corsiFeedback.textContent=firstErrorIndex>=0?"نخستین اختلاف در جایگاه "+faNumber(firstErrorIndex+1)+" رخ داد.":"";
  corsiTimer=setTimeout(()=>{if(corsiState)nextCorsiTrial()},900);
 }
-function advanceCorsiMode(){
- const s=corsiState;if(!s)return;s.modeIndex++;
- if(s.modeIndex<s.modes.length){s.currentMode=s.modes[s.modeIndex];startCorsiMode()}
- else finishCorsi();
-}
+function advanceCorsiMode(){const s=corsiState;if(!s)return;s.modeIndex++;if(s.modeIndex<s.modes.length){s.currentMode=s.modes[s.modeIndex];startCorsiMode()}else finishCorsi()}
 function finishCorsi(){
  const s=corsiState;if(!s)return;clearTimeout(corsiTimer);clearCorsiFlash();setCorsiBoardEnabled(false);
- const r=s.modeResults,correct=s.trials.filter(t=>t.correct).length,total=s.trials.length;
- const f=r.forward||{correct:0,total:0,maxSpan:0},b=r.backward||{correct:0,total:0,maxSpan:0};
- const validDurations=s.trials.filter(t=>Number.isFinite(t.responseDurationMs)).map(t=>t.responseDurationMs);
- const meanDuration=validDurations.length?Math.round(validDurations.reduce((a,b)=>a+b,0)/validDurations.length):0;
- const result={
-  id:uid(),participantId:s.participantId,sessionId:s.sessionId,date:new Date().toISOString(),
-  task:"Corsi Block",mode:s.requestedMode,ageGroup:s.ageGroup,ageGroupLabel:corsiAgeLabel(s.ageGroup),
-  correct,falseAlarms:total-correct,misses:0,accuracy:total?Math.round(correct/total*100):0,total,
-  forwardCorrect:f.correct,forwardTotal:f.total,forwardMaxSpan:f.maxSpan,
-  backwardCorrect:b.correct,backwardTotal:b.total,backwardMaxSpan:b.maxSpan,
-  displayMs:s.display,isiMs:s.isi,maxLength:s.maxLength,meanResponseDurationMs:meanDuration,
-  startedAt:s.startedAt,completedAt:new Date().toISOString(),trials:s.trials
- };
- db.tests.push(result);const saved=save();
- corsiTaskArea.classList.add("hidden");corsiStartButton.disabled=false;corsiProgressBar.style.width="100%";
- corsiResult.classList.remove("hidden");
- corsiResult.innerHTML=`<h3>نتیجه آزمون Corsi Block</h3>
- <div class="statgrid">
- <div class="stat"><strong>${faNumber(correct)}</strong>کوشش صحیح</div>
- <div class="stat"><strong>${faNumber(total)}</strong>کل کوشش‌ها</div>
- <div class="stat"><strong>${faNumber(result.accuracy)}٪</strong>درصد صحیح</div>
- <div class="stat"><strong>${faNumber(meanDuration)}</strong>میانگین مدت پاسخ‌دهی (ms)</div>
- </div>
- <h3>نتیجه بخش‌ها</h3>
- <p>دامنه مستقیم: ${faNumber(f.maxSpan)} | پاسخ صحیح: ${faNumber(f.correct)} از ${faNumber(f.total)}</p>
- <p>دامنه معکوس: ${faNumber(b.maxSpan)} | پاسخ صحیح: ${faNumber(b.correct)} از ${faNumber(b.total)}</p>
- <p>گروه سنی ثبت‌شده: ${corsiAgeLabel(s.ageGroup)}</p>
- <p class="notice">دامنه گزارش‌شده در این نسخه، بیشترین طولی است که دست‌کم یک کوشش صحیح در آن ثبت شده است؛ این تعریف با برخی شیوه‌های نمره‌گذاری آزمون‌های استاندارد ممکن است متفاوت باشد. تفسیر هنجاری انجام نمی‌شود.</p>
- <p class="small">توالی و پاسخ تک‌تک کوشش‌ها در خروجی JSON و CSV کوشش‌ها ثبت شده‌اند.</p>
- ${saved?"<p class='success'>نتایج ذخیره شدند.</p>":"<p class='notice'>ذخیره‌سازی ناموفق بود؛ فوراً پشتیبان بگیرید.</p>"}`;
+ const r=s.modeResults,correct=s.trials.filter(t=>t.correct).length,total=s.trials.length,f=r.forward||{correct:0,total:0,maxSpan:0},b=r.backward||{correct:0,total:0,maxSpan:0},valid=s.trials.map(t=>t.responseDurationMs),meanDuration=valid.length?Math.round(valid.reduce((a,b)=>a+b,0)/valid.length):0;
+ const result={id:uid(),participantId:s.participantId,sessionId:s.sessionId,date:new Date().toISOString(),task:"Corsi Block",mode:s.requestedMode,ageGroup:s.ageGroup,ageGroupLabel:corsiAgeLabel(s.ageGroup),correct,falseAlarms:total-correct,misses:0,accuracy:total?Math.round(correct/total*100):0,total,forwardCorrect:f.correct,forwardTotal:f.total,forwardMaxSpan:f.maxSpan,backwardCorrect:b.correct,backwardTotal:b.total,backwardMaxSpan:b.maxSpan,displayMs:s.display,isiMs:s.isi,maxLength:s.maxLength,meanResponseDurationMs:meanDuration,startedAt:s.startedAt,completedAt:new Date().toISOString(),trials:s.trials};
+ db.tests.push(result);const saved=save();corsiTaskArea.classList.add("hidden");corsiStartButton.disabled=false;corsiProgressBar.style.width="100%";corsiResult.classList.remove("hidden");
+ corsiResult.innerHTML=`<h3>نتیجه آزمون Corsi Block</h3><div class="statgrid"><div class="stat"><strong>${faNumber(correct)}</strong>کوشش صحیح</div><div class="stat"><strong>${faNumber(total)}</strong>کل کوشش‌ها</div><div class="stat"><strong>${faNumber(result.accuracy)}٪</strong>درصد صحیح</div><div class="stat"><strong>${faNumber(meanDuration)}</strong>میانگین مدت پاسخ‌دهی (ms)</div></div><h3>نتیجه بخش‌ها</h3><p>دامنه مستقیم: ${faNumber(f.maxSpan)} | پاسخ صحیح: ${faNumber(f.correct)} از ${faNumber(f.total)}</p><p>دامنه معکوس: ${faNumber(b.maxSpan)} | پاسخ صحیح: ${faNumber(b.correct)} از ${faNumber(b.total)}</p><p>گروه سنی ثبت‌شده: ${corsiAgeLabel(s.ageGroup)}</p><p class="notice">دامنه گزارش‌شده بیشترین طولی است که دست‌کم یک کوشش صحیح در آن ثبت شده است؛ تفسیر هنجاری انجام نمی‌شود.</p>${saved?"<p class='success'>نتایج ذخیره شدند.</p>":"<p class='notice'>ذخیره‌سازی ناموفق بود؛ فوراً پشتیبان بگیرید.</p>"}`;
  corsiState=null;
 }
 function cancelCorsi(){
  if(!corsiState)return;if(!confirm("اجرای فعلی لغو شود؟ داده‌های این اجرای ناقص ذخیره نمی‌شوند."))return;
- clearTimeout(corsiTimer);corsiState=null;clearCorsiFlash();setCorsiBoardEnabled(false);
- corsiTaskArea.classList.add("hidden");corsiStartButton.disabled=false;corsiFeedback.textContent="اجرای آزمون لغو شد.";
+ clearTimeout(corsiTimer);corsiState=null;clearCorsiFlash();setCorsiBoardEnabled(false);corsiTaskArea.classList.add("hidden");corsiStartButton.disabled=false;corsiFeedback.textContent="اجرای آزمون لغو شد.";
 }
 
+// STROOP
+const STROOP_COLORS=[
+ {id:"red",name:"قرمز",hex:"#d93636"},
+ {id:"blue",name:"آبی",hex:"#2674c9"},
+ {id:"green",name:"سبز",hex:"#23945e"},
+ {id:"yellow",name:"زرد",hex:"#e7b323"}
+];
+const STROOP_CONDITIONS=[
+ {id:"word",title:"مرحله اول: خواندن واژه",instruction:"فقط معنای واژه را بخوانید و رنگ نوشته را نادیده بگیرید.",example:"مثلاً اگر واژه قرمز را می‌بینید، دکمه قرمز را انتخاب کنید؛ حتی اگر نوشته آبی باشد."},
+ {id:"color",title:"مرحله دوم: نام‌گذاری رنگ",instruction:"رنگ محرک را مشخص کنید. به معنای واژه توجه نکنید.",example:"علامت‌های #### نمایش داده می‌شوند. رنگ علامت‌ها را انتخاب کنید."},
+ {id:"congruent",title:"مرحله سوم: وضعیت همخوان",instruction:"رنگ نوشته و معنای واژه یکسان هستند. رنگ نوشته را انتخاب کنید.",example:"واژه آبی با رنگ آبی نمایش داده می‌شود. دکمه آبی را انتخاب کنید."},
+ {id:"incongruent",title:"مرحله چهارم: وضعیت ناهمخوان",instruction:"رنگ نوشته و معنای واژه متفاوت هستند. فقط رنگ نوشته را انتخاب کنید.",example:"واژه قرمز با رنگ آبی نمایش داده می‌شود. دکمه آبی را انتخاب کنید."}
+];
+function stroopShuffle(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x}
+function stroopMean(a){return a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length):null}
+function stroopMedian(a){if(!a.length)return null;const x=[...a].sort((p,q)=>p-q),m=Math.floor(x.length/2);return x.length%2?x[m]:Math.round((x[m-1]+x[m])/2)}
+function makeStroopTrials(condition,count){
+ const ids=STROOP_COLORS.map(c=>c.id),out=[];
+ for(let i=0;i<count;i++){
+  let word=null,ink=null,target=null;
+  if(condition==="word"){word=ids[Math.floor(Math.random()*4)];ink=ids[Math.floor(Math.random()*4)];target=word}
+  if(condition==="color"){ink=ids[Math.floor(Math.random()*4)];target=ink}
+  if(condition==="congruent"){ink=ids[i%4];word=ink;target=ink}
+  if(condition==="incongruent"){ink=ids[i%4];word=stroopShuffle(ids.filter(x=>x!==ink))[0];target=ink}
+  out.push({condition,word,ink,target});
+ }
+ return stroopShuffle(out);
+}
+function setStroopButtons(enabled){document.querySelectorAll(".stroop-color-btn").forEach(b=>b.disabled=!enabled)}
+function startStroop(){
+ if(stroopState)return alert("یک اجرای استروپ در حال انجام است.");
+ const participantId=stroopParticipant.value,sessionId=stroopSession.value;
+ if(!participantId||!sessionId)return alert("آزمودنی و جلسه را انتخاب کنید.");
+ const p=db.participants.find(x=>x.id===participantId),s=db.sessions.find(x=>x.id===sessionId);
+ if(!p||!s||s.participantId!==p.id)return alert("ارتباط آزمودنی و جلسه معتبر نیست.");
+ stroopState={
+  id:uid(),participantId,sessionId,participantCode:p.code,
+  sessionNumber:s.number,startedAt:new Date().toISOString(),
+  device:{userAgent:navigator.userAgent,language:navigator.language,screenWidth:screen.width,screenHeight:screen.height,viewportWidth:innerWidth,viewportHeight:innerHeight,pixelRatio:devicePixelRatio},
+  protocol:{trialsPerCondition:24,practiceTrialsPerCondition:4,fixationMs:400,responseWindowMs:2500,interTrialIntervalMs:500},
+  conditionIndex:0,phase:"idle",list:[],trialIndex:0,currentTrial:null,active:false,
+  trials:[],conditions:[],status:"in_progress",saved:false
+ };
+ stroopStartButton.disabled=true;stroopResult.classList.add("hidden");stroopInstructionArea.classList.remove("hidden");stroopTaskArea.classList.add("hidden");stroopBetweenArea.classList.add("hidden");showTab("stroop");showStroopInstruction();
+}
+function showStroopInstruction(){
+ const c=STROOP_CONDITIONS[stroopState.conditionIndex];
+ stroopInstructionTitle.textContent=c.title;stroopInstructionText.textContent=c.instruction;stroopInstructionExample.textContent=c.example;
+ stroopInstructionArea.classList.remove("hidden");stroopTaskArea.classList.add("hidden");stroopBetweenArea.classList.add("hidden");
+}
+function startStroopPractice(){startStroopPhase("practice",4)}
+function startStroopMain(){startStroopPhase("main",24)}
+function startStroopPhase(phase,count){
+ if(!stroopState)return;
+ stroopState.phase=phase;stroopState.list=makeStroopTrials(STROOP_CONDITIONS[stroopState.conditionIndex].id,count);stroopState.trialIndex=0;stroopState.active=true;
+ stroopInstructionArea.classList.add("hidden");stroopBetweenArea.classList.add("hidden");stroopTaskArea.classList.remove("hidden");
+ stroopProgressBar.style.width="0%";stroopRunNext();
+}
+function stroopRunNext(){
+ const s=stroopState;if(!s||!s.active)return;
+ if(s.trialIndex>=s.list.length){
+  s.active=false;setStroopButtons(false);stroopTaskArea.classList.add("hidden");
+  if(s.phase==="practice")showStroopBetween("پایان تمرین","چهار کوشش تمرینی این مرحله به پایان رسید.","اکنون آزمون اصلی شامل ۲۴ کوشش آغاز می‌شود.",startStroopMain,"شروع آزمون اصلی");
+  else finishStroopCondition();
+  return;
+ }
+ const t=s.currentTrial=s.list[s.trialIndex];t.responded=false;
+ stroopStimulus.classList.add("hidden");stroopFixation.classList.remove("hidden");setStroopButtons(false);
+ stroopConditionLabel.textContent=STROOP_CONDITIONS[s.conditionIndex].title;
+ stroopTrialLabel.textContent=(s.phase==="practice"?"تمرین":"آزمون اصلی")+" | کوشش "+faNumber(s.trialIndex+1)+" از "+faNumber(s.list.length);
+ stroopProgressBar.style.width=(s.trialIndex/s.list.length*100)+"%";
+ stroopTimer=setTimeout(()=>{
+  if(!stroopState||!s.active)return;
+  stroopStimulus.textContent=t.condition==="color"?"####":STROOP_COLORS.find(c=>c.id===t.word).name;
+  stroopStimulus.style.color=STROOP_COLORS.find(c=>c.id===t.ink).hex;
+  stroopStimulus.classList.remove("hidden");stroopFixation.classList.add("hidden");setStroopButtons(true);
+  t.startTime=performance.now();
+  stroopTimer=setTimeout(()=>recordStroopResponse(null,"timeout"),2500);
+ },400);
+}
+function respondStroop(color){if(!stroopState||!stroopState.active||!stroopState.currentTrial||stroopState.currentTrial.responded||!stroopState.currentTrial.startTime)return;recordStroopResponse(color,"response")}
+function recordStroopResponse(color,source){
+ const s=stroopState,t=s?.currentTrial;if(!s||!s.active||!t||t.responded)return;
+ t.responded=true;clearTimeout(stroopTimer);
+ const rt=source==="response"?Math.round(performance.now()-t.startTime):null;
+ const record={condition:t.condition,word:t.word,ink:t.ink,target:t.target,response:color,correct:source==="response"&&color===t.target,noResponse:source==="timeout",responseSource:source,reactionTimeMs:rt,trialNumber:s.trialIndex+1,phase:s.phase};
+ if(s.phase==="main")s.trials.push(record);
+ stroopStimulus.classList.add("hidden");stroopFixation.classList.remove("hidden");setStroopButtons(false);
+ s.trialIndex++;stroopTimer=setTimeout(stroopRunNext,500);
+}
+function showStroopBetween(title,text,note,action,buttonText){
+ stroopBetweenTitle.textContent=title;stroopBetweenText.textContent=text;stroopBetweenNote.textContent=note;stroopBetweenButton.textContent=buttonText;
+ stroopBetweenButton.onclick=()=>{stroopBetweenButton.onclick=null;action()};
+ stroopInstructionArea.classList.add("hidden");stroopTaskArea.classList.add("hidden");stroopBetweenArea.classList.remove("hidden");
+}
+function calculateStroopStats(data){
+ const total=data.length,correct=data.filter(t=>t.correct).length,errors=data.filter(t=>!t.correct&&!t.noResponse).length,noResponse=data.filter(t=>t.noResponse).length;
+ const valid=data.filter(t=>t.correct&&t.reactionTimeMs!==null).map(t=>t.reactionTimeMs),all=data.filter(t=>t.reactionTimeMs!==null).map(t=>t.reactionTimeMs);
+ return{total,correct,errors,noResponse,accuracy:total?Number((correct/total*100).toFixed(2)):0,meanCorrectRT:stroopMean(valid),meanAllRT:stroopMean(all),medianCorrectRT:stroopMedian(valid)};
+}
+function finishStroopCondition(){
+ const s=stroopState;if(!s)return;const c=STROOP_CONDITIONS[s.conditionIndex],data=s.trials.filter(t=>t.condition===c.id);
+ s.conditions.push({id:c.id,title:c.title,...calculateStroopStats(data)});
+ if(s.conditionIndex<STROOP_CONDITIONS.length-1){
+  showStroopBetween("پایان "+c.title,"این مرحله به پایان رسید.","برای ورود به مرحله بعد آماده شوید.",()=>{s.conditionIndex++;showStroopInstruction()},"شروع مرحله بعد");
+ }else finishStroop();
+}
+function saveStroopResult(status){
+ const s=stroopState;if(!s||s.saved)return null;
+ const statsByCondition={};
+ STROOP_CONDITIONS.forEach(c=>{statsByCondition[c.id]=calculateStroopStats(s.trials.filter(t=>t.condition===c.id))});
+ const c=statsByCondition.congruent,i=statsByCondition.incongruent,w=statsByCondition.word,n=statsByCondition.color;
+ const indices={
+  stroopInterferenceMs:c.meanCorrectRT!==null&&i.meanCorrectRT!==null?i.meanCorrectRT-c.meanCorrectRT:null,
+  wordColorDifferenceMs:w.meanCorrectRT!==null&&n.meanCorrectRT!==null?w.meanCorrectRT-n.meanCorrectRT:null,
+  accuracyDifference:c.accuracy-i.accuracy
+ };
+ const correct=s.trials.filter(t=>t.correct).length,errors=s.trials.filter(t=>!t.correct&&!t.noResponse).length,misses=s.trials.filter(t=>t.noResponse).length,total=s.trials.length;
+ const result={
+  id:s.id,participantId:s.participantId,sessionId:s.sessionId,date:new Date().toISOString(),
+  task:"Stroop Color-Word",version:"1.1",status,
+  correct,falseAlarms:errors,misses,total,accuracy:total?Number((correct/total*100).toFixed(2)):0,
+  meanRT:stroopMean(s.trials.filter(t=>t.correct&&t.reactionTimeMs!==null).map(t=>t.reactionTimeMs)),
+  completedTrials:total,startedAt:s.startedAt,completedAt:new Date().toISOString(),
+  protocol:s.protocol,device:s.device,conditions:s.conditions,conditionStats:statsByCondition,
+  indices,stroopParticipantCode:s.participantCode,stroopSessionNumber:s.sessionNumber,
+  trials:s.trials
+ };
+ db.tests.push(result);const ok=save();s.saved=true;return{result,ok};
+}
+function finishStroop(){
+ const s=stroopState;if(!s)return;s.active=false;clearTimeout(stroopTimer);
+ const saved=saveStroopResult("completed");
+ stroopTaskArea.classList.add("hidden");stroopInstructionArea.classList.add("hidden");stroopBetweenArea.classList.add("hidden");
+ stroopProgressBar.style.width="100%";stroopStartButton.disabled=false;
+ showStroopResults(saved?.result,saved?.ok);
+}
+function showStroopResults(r,saved){
+ if(!r)return;stroopResult.classList.remove("hidden");
+ const p=db.participants.find(x=>x.id===r.participantId),s=db.sessions.find(x=>x.id===r.sessionId);
+ stroopResultInfo.textContent="آزمودنی: "+(p?.code||"-")+" | جلسه: "+(s?.number||"-")+" | تعداد کوشش: "+r.completedTrials;
+ stroopSummary.innerHTML=`<div class="statgrid"><div class="stat"><strong>${faNumber(r.accuracy)}٪</strong>دقت کلی</div><div class="stat"><strong>${faNumber(r.correct)}</strong>پاسخ صحیح</div><div class="stat"><strong>${faNumber(r.falseAlarms)}</strong>خطا</div><div class="stat"><strong>${faNumber(r.misses)}</strong>بدون پاسخ</div></div>${saved?"<p class='success'>نتایج در پایگاه داده مشترک ذخیره شدند.</p>":"<p class='notice'>ذخیره‌سازی ناموفق بود؛ فضای ذخیره‌سازی مرورگر را بررسی کنید.</p>"}`;
+ stroopConditionResults.innerHTML="";
+ STROOP_CONDITIONS.forEach(c=>{
+  const st=r.conditionStats[c.id],tr=document.createElement("tr");
+  [c.title,st.total,st.correct,st.errors,st.noResponse,st.meanCorrectRT===null?"—":st.meanCorrectRT].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td)});
+  stroopConditionResults.appendChild(tr);
+ });
+ const x=r.indices;
+ stroopInterference.innerHTML=`<div class="stroop-metric"><strong>اثر تداخل استروپ:</strong> ${x.stroopInterferenceMs===null?"قابل محاسبه نیست":x.stroopInterferenceMs+" میلی‌ثانیه"}</div><div class="stroop-metric"><strong>تفاوت زمان خواندن و نام‌گذاری رنگ:</strong> ${x.wordColorDifferenceMs===null?"قابل محاسبه نیست":x.wordColorDifferenceMs+" میلی‌ثانیه"}</div><div class="stroop-metric"><strong>تفاوت دقت همخوان و ناهمخوان:</strong> ${x.accuracyDifference.toFixed(2)} واحد درصد</div><p class="small">میانگین زمان واکنش بر اساس پاسخ‌های صحیح محاسبه شده است.</p>`;
+}
+function abortStroop(){
+ if(!stroopState)return;if(!confirm("آیا آزمون متوقف شود؟ داده‌های کوشش‌های تکمیل‌شده ذخیره خواهند شد."))return;
+ clearTimeout(stroopTimer);stroopState.active=false;setStroopButtons(false);
+ const saved=saveStroopResult("aborted");
+ stroopTaskArea.classList.add("hidden");stroopInstructionArea.classList.add("hidden");stroopBetweenArea.classList.add("hidden");stroopStartButton.disabled=false;
+ stroopResult.classList.remove("hidden");
+ stroopResult.innerHTML=`<h3>اجرای استروپ متوقف شد</h3><p>تعداد کوشش‌های اصلی ثبت‌شده: ${faNumber(saved?.result?.completedTrials||0)}</p><p class="notice">داده‌های کوشش‌های تکمیل‌شده در پایگاه داده ذخیره شده‌اند. وضعیت این اجرا «متوقف‌شده» ثبت شده است.</p>`;
+ stroopState=null;
+}
+function resetStroop(){
+ if(stroopState&&!stroopState.saved)return alert("ابتدا اجرای جاری را تکمیل یا متوقف کنید.");
+ stroopState=null;clearTimeout(stroopTimer);setStroopButtons(false);
+ stroopResult.classList.add("hidden");stroopInstructionArea.classList.add("hidden");stroopTaskArea.classList.add("hidden");stroopBetweenArea.classList.add("hidden");
+ stroopStartButton.disabled=false;stroopProgressBar.style.width="0%";
+}
+document.querySelectorAll(".stroop-color-btn").forEach(b=>b.addEventListener("click",()=>respondStroop(b.dataset.stroopColor)));
+document.addEventListener("keydown",e=>{
+ if(!stroopState||!stroopState.active)return;
+ if(e.target&&(e.target.tagName==="INPUT"||e.target.tagName==="SELECT"||e.target.tagName==="TEXTAREA"||e.target.isContentEditable))return;
+ const map={"1":"red","2":"blue","3":"green","4":"yellow"};
+ if(map[e.key]){e.preventDefault();respondStroop(map[e.key])}
+});
+document.addEventListener("visibilitychange",()=>{
+ if(document.hidden&&stroopState&&stroopState.active){
+  clearTimeout(stroopTimer);stroopState.active=false;setStroopButtons(false);
+  const saved=saveStroopResult("interrupted");
+  stroopTaskArea.classList.add("hidden");stroopInstructionArea.classList.add("hidden");stroopBetweenArea.classList.add("hidden");
+  stroopStartButton.disabled=false;
+  stroopResult.classList.remove("hidden");
+  stroopResult.innerHTML=`<h3>اجرای استروپ متوقف شد</h3><p>تعداد کوشش‌های اصلی ثبت‌شده: ${faNumber(saved?.result?.completedTrials||0)}</p><p class="notice">به دلیل خروج صفحه از حالت فعال، اجرای آزمون متوقف و داده‌های ثبت‌شده ذخیره شدند.</p>`;
+  stroopState=null;
+ }
+});
+
 // خروجی‌ها
-function exportJSON(){downloadFile("neurocognitive-backup.json",JSON.stringify({version:"0.6",exportedAt:new Date().toISOString(),database:db},null,2),"application/json")}
+function exportJSON(){downloadFile("neurocognitive-backup-v0.7.json",JSON.stringify({version:"0.7",exportedAt:new Date().toISOString(),database:db},null,2),"application/json")}
 function csvCell(v){return '"'+String(v??"").replace(/"/g,'""')+'"'}
 function downloadCSV(name,rows){downloadFile(name,"\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\n"),"text/csv;charset=utf-8")}
 function exportSummaryCSV(){
- const rows=[["participant_code","session_number","date","task","mode","correct","false_alarms","misses","accuracy_percent","mean_latency_ms","forward_correct","forward_total","forward_max_span","backward_correct","backward_total","backward_max_span","age_group","mean_response_duration_ms"]];
- db.tests.forEach(t=>{const p=db.participants.find(x=>x.id===t.participantId),s=db.sessions.find(x=>x.id===t.sessionId);rows.push([p?.code||"",s?.number||"",t.date||"",t.task||"",t.mode||"",t.correct??"",t.falseAlarms??"",t.misses??"",t.accuracy??"",t.meanRT??"",t.forwardCorrect??"",t.forwardTotal??"",t.forwardMaxSpan??"",t.backwardCorrect??"",t.backwardTotal??"",t.backwardMaxSpan??"",t.ageGroup||"",t.meanResponseDurationMs??""])});
- downloadCSV("neurocognitive-summary.csv",rows);
+ const rows=[["participant_code","session_number","date","task","status","mode","correct","false_alarms","misses","accuracy_percent","mean_latency_ms","forward_correct","forward_total","forward_max_span","backward_correct","backward_total","backward_max_span","age_group","mean_response_duration_ms","stroop_interference_ms","word_color_difference_ms","stroop_accuracy_difference"]];
+ db.tests.forEach(t=>{
+  const p=db.participants.find(x=>x.id===t.participantId),s=db.sessions.find(x=>x.id===t.sessionId);
+  rows.push([p?.code||"",s?.number||"",t.date||"",t.task||"",t.status||"completed",t.mode||"",t.correct??"",t.falseAlarms??"",t.misses??"",t.accuracy??"",t.meanRT??"",t.forwardCorrect??"",t.forwardTotal??"",t.forwardMaxSpan??"",t.backwardCorrect??"",t.backwardTotal??"",t.backwardMaxSpan??"",t.ageGroup||"",t.meanResponseDurationMs??"",t.indices?.stroopInterferenceMs??"",t.indices?.wordColorDifferenceMs??"",t.indices?.accuracyDifference??""]);
+ });
+ downloadCSV("neurocognitive-summary-v0.7.csv",rows);
 }
 function exportTrialCSV(){
- const rows=[["participant_code","session_number","test_id","task","mode","sequence","expected","response","length","trial","correct","omitted","response_latency_after_sequence_ms","interval_ms","speech_rate","voice_name","voice_lang","presented_at","recorded_at","age_group","display_ms","isi_ms","response_duration_ms","first_error_index","response_timestamps"]];
+ const rows=[["participant_code","session_number","test_id","task","condition","mode","word","ink","target","response","sequence","expected","length","trial","correct","no_response","omitted","response_source","reaction_time_ms","response_latency_after_sequence_ms","interval_ms","speech_rate","voice_name","voice_lang","presented_at","recorded_at","age_group","display_ms","isi_ms","response_duration_ms","first_error_index","response_timestamps"]];
  db.tests.forEach(t=>{
-  if(!Array.isArray(t.trials))return;const p=db.participants.find(x=>x.id===t.participantId),s=db.sessions.find(x=>x.id===t.sessionId);
-  t.trials.forEach(tr=>rows.push([p?.code||"",s?.number||"",t.id,t.task||"",tr.mode||"",Array.isArray(tr.sequence)?tr.sequence.map(x=>x+1).join("-"):tr.sequence||"",Array.isArray(tr.expected)?tr.expected.map(x=>x+1).join("-"):tr.expected||"",Array.isArray(tr.response)?tr.response.map(x=>x+1).join("-"):tr.response||"",tr.length??"",tr.trial??"",tr.correct??"",tr.omitted??"",tr.responseLatencyAfterSequenceMs??"",tr.intervalMs??"",tr.speechRate??"",tr.voiceName||"",tr.voiceLang||"",tr.presentedAt||"",tr.recordedAt||"",tr.ageGroup||"",tr.displayMs??"",tr.isiMs??"",tr.responseDurationMs??"",tr.firstErrorIndex??"",Array.isArray(tr.responseTimestamps)?tr.responseTimestamps.join("|"):""]));
+  if(!Array.isArray(t.trials))return;
+  const p=db.participants.find(x=>x.id===t.participantId),s=db.sessions.find(x=>x.id===t.sessionId);
+  t.trials.forEach(tr=>rows.push([
+   p?.code||"",s?.number||"",t.id,t.task||"",tr.condition||"",tr.mode||"",tr.word||"",tr.ink||"",tr.target||"",tr.response??"",
+   Array.isArray(tr.sequence)?tr.sequence.map(x=>typeof x==="number"?x+1:x).join("-"):tr.sequence||"",
+   Array.isArray(tr.expected)?tr.expected.map(x=>typeof x==="number"?x+1:x).join("-"):tr.expected||"",
+   tr.length??"",tr.trial??tr.trialNumber??"",tr.correct??"",tr.noResponse??"",tr.omitted??"",tr.responseSource||"",
+   tr.reactionTimeMs??"",tr.responseLatencyAfterSequenceMs??"",tr.intervalMs??"",tr.speechRate??"",tr.voiceName||"",tr.voiceLang||"",
+   tr.presentedAt||"",tr.recordedAt||"",tr.ageGroup||"",tr.displayMs??"",tr.isiMs??"",tr.responseDurationMs??"",tr.firstErrorIndex??"",
+   Array.isArray(tr.responseTimestamps)?tr.responseTimestamps.join("|"):""
+  ]));
  });
- if(rows.length===1)return alert("هنوز داده کوشش قابل خروجی وجود ندارد.");downloadCSV("neurocognitive-trials.csv",rows);
+ if(rows.length===1)return alert("هنوز داده کوشش قابل خروجی وجود ندارد.");
+ downloadCSV("neurocognitive-trials-v0.7.csv",rows);
 }
 
 // اعتبارسنجی و بازیابی
@@ -694,7 +873,7 @@ function validateDatabaseRelations(d){
  return null;
 }
 function createPreImportBackup(){
- const content=JSON.stringify({version:"0.6",createdAt:new Date().toISOString(),database:JSON.parse(JSON.stringify(db))},null,2);
+ const content=JSON.stringify({version:"0.7",createdAt:new Date().toISOString(),database:JSON.parse(JSON.stringify(db))},null,2);
  localStorage.setItem(PREBACKUP_KEY,content);downloadFile("neurocognitive-before-import.json",content,"application/json");
 }
 function mergeDatabase(incoming){
